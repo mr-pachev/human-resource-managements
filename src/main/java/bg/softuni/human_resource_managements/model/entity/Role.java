@@ -1,9 +1,7 @@
 package bg.softuni.human_resource_managements.model.entity;
 
 import bg.softuni.human_resource_managements.model.enums.RoleName;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
 import java.util.List;
@@ -12,6 +10,7 @@ import java.util.List;
 @Table(name = "roles")
 public class Role extends BaseEntity{
     @NotEmpty
+    @Enumerated(EnumType.STRING)
     private RoleName roleName;
     @NotEmpty
     @OneToMany(mappedBy = "role")

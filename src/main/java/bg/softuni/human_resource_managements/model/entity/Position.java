@@ -1,18 +1,20 @@
 package bg.softuni.human_resource_managements.model.entity;
 
+import bg.softuni.human_resource_managements.model.enums.PositionName;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "positions")
 public class Position extends BaseEntity{
     @NotBlank
-    @Size(min = 2, max = 20)
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private PositionName positionName;
     @NotBlank
     @Size(min = 3, max = 200)
     private String description;
@@ -24,12 +26,24 @@ public class Position extends BaseEntity{
     @OneToMany(mappedBy = "position")
     private List<Employee> employees;
 
-    public String getName() {
-        return name;
+    public Position() {
+        this.employees = new ArrayList<>();
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Position(PositionName positionName, String description, Department departmentPositions) {
+        this();
+
+        this.positionName = positionName;
+        this.description = description;
+        this.departmentPositions = departmentPositions;
+    }
+
+    public PositionName getPositionName() {
+        return positionName;
+    }
+
+    public void setPositionName(PositionName positionName) {
+        this.positionName = positionName;
     }
 
     public String getDescription() {
