@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class EmployeeController {
 
-    @GetMapping("/")
+    @GetMapping("/login")
     public String viewLogin(){
-        return "index";
+        return "login";
     }
 
-    @GetMapping("/registrationEmployee")
-    public String registrationEmployeeView(){
+    @GetMapping("/registration")
+    public String registrationView(){
 
-        return "registrationEmployee";
+        return "registration";
     }
 }

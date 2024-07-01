@@ -1,5 +1,39 @@
+
+.navbar {
+    position: fixed;
+    top: 0; 
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(57, 57, 57, 0.7); 
+    padding: 10px;
+    z-index: 1000; 
+}
+
+.navbar a {
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    text-align: center;
+}
+
+.navbar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.navbar .nav-left a {
+    margin-right: 10px;
+}
+
+.navbar .nav-right a {
+    margin-left: 10px;
+}
+
 body {
-    background-image: url(/images/background.png);
+    background-image: url('/images/background.png');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -8,6 +42,7 @@ body {
     height: 100vh;
     margin: 0;
     font-family: Arial, sans-serif;
+    padding-top: 60px;
 }
 
 .scroll-container {
@@ -37,3 +72,4 @@ body {
     border-radius: 5px;
     box-sizing: border-box;
 }
+
