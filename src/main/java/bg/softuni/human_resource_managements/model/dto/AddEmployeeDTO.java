@@ -1,28 +1,30 @@
-package bg.softuni.human_resource_managements.model.entity;
+package bg.softuni.human_resource_managements.model.dto;
 
-import jakarta.persistence.*;
+import bg.softuni.human_resource_managements.model.entity.*;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDate;
-import java.util.List;
 
-@Entity
-@Table(name = "employees")
-public class Employee extends BaseEntity{
+public class AddEmployeeDTO {
     @NotBlank
+    @Size(min = 3, max = 10)
     private String firstName;
     @NotBlank
+    @Size(min = 3, max = 10)
     private String middleName;
     @NotBlank
+    @Size(min = 3, max = 10)
     private String LastName;
     @NotEmpty
+    @Length(min = 10, max = 10)
     private int identificationNumber;
     @NotEmpty
+    @Length(min = 2, max = 2)
     private int age;
     @NotEmpty
     private LocalDate startDate;
@@ -48,17 +50,6 @@ public class Employee extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "education_id")
     private Education education;
-    @NotEmpty
-    @OneToMany(mappedBy = "employee")
-    private List<Task> tasks;
-    @NotEmpty
-    @ManyToMany
-    @JoinTable(
-            name = "employees_projects",
-            joinColumns = @JoinColumn(name = "employee_id"),
-            inverseJoinColumns = @JoinColumn(name = "project_id")
-    )
-    private List<Project> projects;
 
     public String getFirstName() {
         return firstName;
@@ -154,21 +145,5 @@ public class Employee extends BaseEntity{
 
     public void setEducation(Education education) {
         this.education = education;
-    }
-
-    public List<Task> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
-    }
-
-    public List<Project> getProjects() {
-        return projects;
-    }
-
-    public void setProjects(List<Project> projects) {
-        this.projects = projects;
     }
 }

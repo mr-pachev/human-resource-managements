@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="bg" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Employee</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+<body>
+    <div class="scroll-container">
+        <div class="form-container registration-container">
+        <h2 class="text-center">Add Employee</h2>
+        <form id="addEmployeeForm">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" class="form-control" id="firstName" name="firstName" required minlength="3" maxlength="10">
+            </div>
+            <div class="form-group">
+                <label for="middleName">Middle Name</label>
+                <input type="text" class="form-control" id="middleName" name="middleName" required minlength="3" maxlength="10">
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" class="form-control" id="lastName" name="lastName" required minlength="3" maxlength="10">
+            </div>
+            <div class="form-group">
+                <label for="identificationNumber">Identification Number</label>
+                <input type="text" class="form-control" id="identificationNumber" name="identificationNumber">
+            </div>
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="text" class="form-control" id="age" name="age" required minlength="2" maxlength="2">
+            </div>
+            <div class="form-group">
+                <label for="startDate">Start Date</label>
+                <input type="date" class="form-control" id="startDate" name="startDate" required>
+            </div>
+            <div class="form-group">
+                <label for="endDate">End Date</label>
+                <input type="date" class="form-control" id="endDate" name="endDate" required>
+            </div>
+            <div class="form-group">
+                <label for="position">Position</label>
+                <select class="form-control" id="position" name="position" required>
+                    <option value="">Select Position</option>
+                    <!-- Добавете опции за позициите -->
+                    <option value="1">Position 1</option>
+                    <option value="2">Position 2</option>
+                    <option value="3">Position 3</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="supervisor">Supervisor</label>
+                <select class="form-control" id="supervisor" name="supervisor" required>
+                    <option value="">Select Supervisor</option>
+                    <!-- Добавете опции за супервайзорите -->
+                    <option value="1">Supervisor 1</option>
+                    <option value="2">Supervisor 2</option>
+                    <option value="3">Supervisor 3</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="department">Department</label>
+                <select class="form-control" id="department" name="department" required>
+                    <option value="">Select Department</option>
+                    <!-- Добавете опции за департаментите -->
+                    <option value="1">Department 1</option>
+                    <option value="2">Department 2</option>
+                    <option value="3">Department 3</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="role">Role</label>
+                <select class="form-control" id="role" name="role" required>
+                    <option value="">Select Role</option>
+                    <!-- Добавете опции за ролите -->
+                    <option value="1">Role 1</option>
+                    <option value="2">Role 2</option>
+                    <option value="3">Role 3</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="education">Education</label>
+                <select class="form-control" id="education" name="education" required>
+                    <option value="">Select Education</option>
+                    <!-- Добавете опции за образованието -->
+                    <option value="1">Education 1</option>
+                    <option value="2">Education 2</option>
+                    <option value="3">Education 3</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Add Employee</button>
+        </form>
+        </div>
+    </div>
+</body>
+</html>
