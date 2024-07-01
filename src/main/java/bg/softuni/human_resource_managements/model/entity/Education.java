@@ -8,10 +8,10 @@ import java.util.List;
 @Entity
 @Table(name = "educations")
 public class Education extends BaseEntity{
-    @NotEmpty
+
     @Enumerated(EnumType.STRING)
     private EducationName educationName;
-    @NotEmpty
+
     @OneToMany(mappedBy = "education")
     private List<Employee> employees;
 

@@ -9,10 +9,9 @@ import java.util.List;
 @Entity
 @Table(name = "roles")
 public class Role extends BaseEntity{
-    @NotEmpty
+
     @Enumerated(EnumType.STRING)
     private RoleName roleName;
-    @NotEmpty
     @OneToMany(mappedBy = "role")
     private List<Employee> employees;
 

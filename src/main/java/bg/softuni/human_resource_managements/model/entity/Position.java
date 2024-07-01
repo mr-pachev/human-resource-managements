@@ -12,17 +12,13 @@ import java.util.List;
 @Entity
 @Table(name = "positions")
 public class Position extends BaseEntity{
-    @NotBlank
+
     @Enumerated(EnumType.STRING)
     private PositionName positionName;
     @NotBlank
-    @Size(min = 3, max = 200)
+    @Column(columnDefinition = "TEXT")
     private String description;
-    @NotEmpty
-    @ManyToOne
-    @JoinColumn(name = "department_id")
-    private Department departmentPositions;
-    @NotEmpty
+
     @OneToMany(mappedBy = "position")
     private List<Employee> employees;
 
@@ -30,12 +26,11 @@ public class Position extends BaseEntity{
         this.employees = new ArrayList<>();
     }
 
-    public Position(PositionName positionName, String description, Department departmentPositions) {
+    public Position(PositionName positionName, String description) {
         this();
 
         this.positionName = positionName;
         this.description = description;
-        this.departmentPositions = departmentPositions;
     }
 
     public PositionName getPositionName() {
@@ -52,14 +47,6 @@ public class Position extends BaseEntity{
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Department getDepartmentPositions() {
-        return departmentPositions;
-    }
-
-    public void setDepartmentPositions(Department departmentPositions) {
-        this.departmentPositions = departmentPositions;
     }
 
     public List<Employee> getEmployees() {

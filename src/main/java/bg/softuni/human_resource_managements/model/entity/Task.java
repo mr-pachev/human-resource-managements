@@ -12,16 +12,13 @@ import java.util.List;
 @Table(name = "tasks")
 public class Task extends BaseEntity{
     @NotBlank
-    @Size(min = 3, max = 80)
     private String name;
     @NotBlank
-    @Size(min = 5, max = 200)
     private String description;
     @NotEmpty
     private LocalDate startDate;
     @NotEmpty
     private LocalDate endDate;
-    @NotEmpty
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;

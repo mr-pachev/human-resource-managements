@@ -12,20 +12,17 @@ import java.util.List;
 @Table(name = "projects")
 public class Project extends BaseEntity{
     @NotBlank
-    @Size(min = 3, max = 20)
     private String name;
     @NotBlank
-    @Size(min = 3, max = 200)
+    @Column(columnDefinition = "TEXT")
     private String description;
     @NotEmpty
     private LocalDate startDate;
     @NotEmpty
     private LocalDate endData;
-    @NotEmpty
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department responsibleDepartment;
-    @NotEmpty
     @ManyToMany
     @JoinTable(
             name = "employees_projects",

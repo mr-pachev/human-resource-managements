@@ -28,30 +28,24 @@ public class Employee extends BaseEntity{
     private LocalDate startDate;
     @NotEmpty
     private LocalDate endDate;
-    @NotEmpty
     @ManyToOne
     @JoinColumn(name = "position_id")
     private Position position;
-    @NotEmpty
     @ManyToOne
     @JoinColumn(name = "supervisor_id")
     private Employee supervisor;
-    @NotEmpty
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
-    @NotEmpty
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
-    @NotEmpty
+
     @ManyToOne
     @JoinColumn(name = "education_id")
     private Education education;
-    @NotEmpty
     @OneToMany(mappedBy = "employee")
     private List<Task> tasks;
-    @NotEmpty
     @ManyToMany
     @JoinTable(
             name = "employees_projects",

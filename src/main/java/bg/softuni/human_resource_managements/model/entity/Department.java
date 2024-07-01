@@ -11,23 +11,17 @@ import java.util.List;
 @Table(name = "departments")
 public class Department extends BaseEntity{
     @NotBlank
-    @Size(min = 3, max = 30)
     private String name;
     @NotBlank
-    @Size(min = 5, max = 200)
     private String descriptions;
 
-    @NotEmpty
     @OneToOne
     @JoinColumn(name = "manager_id")
     private Employee manager;
-    @NotEmpty
-    @OneToMany(mappedBy = "departmentPositions")
-    private List<Position> position;
-    @NotEmpty
+
     @OneToMany(mappedBy = "department")
     private List<Employee> employees;
-    @NotEmpty
+
     @OneToMany(mappedBy = "responsibleDepartment")
     private List<Project>  projects;
 
@@ -53,14 +47,6 @@ public class Department extends BaseEntity{
 
     public void setManager(Employee manager) {
         this.manager = manager;
-    }
-
-    public List<Position> getPosition() {
-        return position;
-    }
-
-    public void setPosition(List<Position> position) {
-        this.position = position;
     }
 
     public List<Employee> getEmployees() {
