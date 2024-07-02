@@ -3,9 +3,7 @@ package bg.softuni.human_resource_managements.model.dto;
 import bg.softuni.human_resource_managements.model.entity.*;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDate;
@@ -19,34 +17,35 @@ public class AddEmployeeDTO {
     private String middleName;
     @NotBlank
     @Size(min = 3, max = 10)
-    private String LastName;
-    @NotEmpty
-    @Length(min = 10, max = 10)
+    private String lastName;
+    @Positive
     private int identificationNumber;
-    @NotEmpty
-    @Length(min = 2, max = 2)
+    @NotNull
+    @Min(18)
     private int age;
-    @NotEmpty
-    private LocalDate startDate;
-    @NotEmpty
-    private LocalDate endDate;
-    @NotEmpty
+    @NotBlank
+    private String startDate;
+    @NotBlank
+    private String endDate;
+
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "position_id")
     private Position position;
-    @NotEmpty
+
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "supervisor_id")
     private Employee supervisor;
-    @NotEmpty
+
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
-    @NotEmpty
+
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
-    @NotEmpty
+
     @ManyToOne
     @JoinColumn(name = "education_id")
     private Education education;
@@ -68,11 +67,11 @@ public class AddEmployeeDTO {
     }
 
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-        LastName = lastName;
+        this.lastName = lastName;
     }
 
     public int getIdentificationNumber() {
@@ -91,19 +90,19 @@ public class AddEmployeeDTO {
         this.age = age;
     }
 
-    public LocalDate getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDate getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 

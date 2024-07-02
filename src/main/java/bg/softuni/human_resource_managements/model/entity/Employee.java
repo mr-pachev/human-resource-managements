@@ -26,7 +26,7 @@ public class Employee extends BaseEntity{
     private int age;
     @NotEmpty
     private LocalDate startDate;
-    @NotEmpty
+
     private LocalDate endDate;
     @ManyToOne
     @JoinColumn(name = "position_id")
@@ -37,9 +37,6 @@ public class Employee extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
 
     @ManyToOne
     @JoinColumn(name = "education_id")
@@ -53,6 +50,8 @@ public class Employee extends BaseEntity{
             inverseJoinColumns = @JoinColumn(name = "project_id")
     )
     private List<Project> projects;
+    @OneToOne(mappedBy = "employee")
+    private User user;
 
     public String getFirstName() {
         return firstName;
@@ -134,14 +133,6 @@ public class Employee extends BaseEntity{
         this.department = department;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
     public Education getEducation() {
         return education;
     }
@@ -164,5 +155,13 @@ public class Employee extends BaseEntity{
 
     public void setProjects(List<Project> projects) {
         this.projects = projects;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

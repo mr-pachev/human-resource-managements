@@ -1,0 +1,13 @@
+package bg.softuni.human_resource_managements.model.enums;
+
+public enum DepartmentName {
+    EXECUTIVES,
+    FINANCE_DEPARTMENT,
+    HR_DEPARTMENT,
+    ADMINISTRATIVE_DEPARTMENT,
+    PROJECT_MANAGEMENT_DEPARTMENT,
+    MARKETING_DEPARTMENT,
+    IT_DEPARTMENT,
+    CUSTOMER_SUPPORT_DEPARTMENT,
+    MAINTENANCE_DEPARTMENT
+}

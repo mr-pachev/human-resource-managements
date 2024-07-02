@@ -13,7 +13,7 @@ public class Role extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private RoleName roleName;
     @OneToMany(mappedBy = "role")
-    private List<Employee> employees;
+    private List<User> users;
 
     public RoleName getRoleName() {
         return roleName;
@@ -23,11 +23,11 @@ public class Role extends BaseEntity{
         this.roleName = roleName;
     }
 
-    public List<Employee> getEmployees() {
-        return employees;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }
