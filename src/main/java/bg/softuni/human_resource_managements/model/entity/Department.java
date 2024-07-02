@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,6 +25,19 @@ public class Department extends BaseEntity{
 
     @OneToMany(mappedBy = "responsibleDepartment")
     private List<Project>  projects;
+
+    public Department() {
+        this.employees = new ArrayList<>();
+        this.projects = new ArrayList<>();
+    }
+
+    public Department(String name, String descriptions, Employee manager) {
+        this();
+
+        this.name = name;
+        this.descriptions = descriptions;
+        this.manager = manager;
+    }
 
     public String getName() {
         return name;
