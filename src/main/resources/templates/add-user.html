@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add User</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+<body>
+<div th:replace="~{fragments/navigation}"></div>
+    <div class="form-container add-user-container">
+        <h2 class="text-center">Add User</h2>
+        <form  id="addUserForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Insert username" required>
+            </div>
+            <div class="form-group">
+                <label for="identificationNumber">Identification Number:</label>
+                <input type="text" class="form-control" id="identificationNumber" name="identificationNumber" placeholder="Insert identification number" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password"  class="form-control" id="password" name="password" placeholder="Insert password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" required>
+            </div>
+            <div class="form-group">
+                <label for="role">Role:</label>
+                <select class="form-control"
+                        id="role"
+                        name="role">
+                    <option value="">Select Role</option>
+                    <option value="1">Admin</option>
+                    <option value="2">User</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
