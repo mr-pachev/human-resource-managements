@@ -4,6 +4,7 @@ import bg.softuni.human_resource_managements.model.enums.EducationName;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
+import java.util.ArrayList;
 import java.util.List;
 @Entity
 @Table(name = "educations")
@@ -14,6 +15,14 @@ public class Education extends BaseEntity{
 
     @OneToMany(mappedBy = "education")
     private List<Employee> employees;
+
+    public Education() {
+        this.employees = new ArrayList<>();
+    }
+
+    public Education(EducationName educationName) {
+        this.educationName = educationName;
+    }
 
     public EducationName getEducationName() {
         return educationName;

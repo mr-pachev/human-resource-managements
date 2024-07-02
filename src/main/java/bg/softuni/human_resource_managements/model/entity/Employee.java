@@ -31,9 +31,7 @@ public class Employee extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "position_id")
     private Position position;
-    @ManyToOne
-    @JoinColumn(name = "supervisor_id")
-    private Employee supervisor;
+
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
@@ -115,14 +113,6 @@ public class Employee extends BaseEntity{
 
     public void setPosition(Position position) {
         this.position = position;
-    }
-
-    public Employee getSupervisor() {
-        return supervisor;
-    }
-
-    public void setSupervisor(Employee supervisor) {
-        this.supervisor = supervisor;
     }
 
     public Department getDepartment() {

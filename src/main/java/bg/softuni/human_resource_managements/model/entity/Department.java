@@ -1,5 +1,6 @@
 package bg.softuni.human_resource_managements.model.entity;
 
+import bg.softuni.human_resource_managements.model.enums.DepartmentName;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -11,8 +12,8 @@ import java.util.List;
 @Entity
 @Table(name = "departments")
 public class Department extends BaseEntity{
-    @NotBlank
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private DepartmentName departmentName;
     @NotBlank
     private String descriptions;
 
@@ -31,20 +32,17 @@ public class Department extends BaseEntity{
         this.projects = new ArrayList<>();
     }
 
-    public Department(String name, String descriptions, Employee manager) {
-        this();
-
-        this.name = name;
+    public Department(DepartmentName departmentName, String descriptions) {
+        this.departmentName = departmentName;
         this.descriptions = descriptions;
-        this.manager = manager;
     }
 
-    public String getName() {
-        return name;
+    public DepartmentName getDepartmentName() {
+        return departmentName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDepartmentName(DepartmentName departmentName) {
+        this.departmentName = departmentName;
     }
 
     public String getDescriptions() {
