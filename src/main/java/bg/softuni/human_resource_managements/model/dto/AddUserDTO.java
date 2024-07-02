@@ -2,11 +2,12 @@ package bg.softuni.human_resource_managements.model.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class AddUserDTO {
     private long userId;
-    @NotEmpty
+    @NotNull
     private int identificationNumber;
     @NotBlank
     @Size(min = 3, max = 15)
