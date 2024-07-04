@@ -9,14 +9,13 @@
 </head>
 <body>
     <div th:replace="~{fragments/navigation}"></div>
-    <div class="scroll-container">
         <div class="form-container registration-container">
-        <h2 class="text-center">Add Employee</h2>
-        <form th:action="@{/registration}"
+            <h2 class="text-center">Add Employee</h2>
+            <form th:action="@{/registration}"
               th:object="${addEmployeeDTO}"
               th:method="POST"
               id="addEmployeeForm">
-            <div class="form-group">
+                <div class="form-group">
                 <label th:for="firstName">First Name</label>
                 <input type="text" class="form-control"
                        id="firstName"
@@ -27,7 +26,7 @@
                     First name must contain 3 to 10 letters.
                 </p>
             </div>
-            <div class="form-group">
+                <div class="form-group">
                 <label th:for="middleName">Middle Name</label>
                 <input type="text" class="form-control"
                        id="middleName"
@@ -38,7 +37,7 @@
                     Middle name must contain 3 to 10 letters.
                 </p>
             </div>
-            <div class="form-group">
+                <div class="form-group">
                 <label th:for="lastName">Last Name</label>
                 <input type="text" class="form-control"
                        id="lastName"
@@ -49,7 +48,7 @@
                     Last name must contain 3 to 10 letters.
                 </p>
             </div>
-            <div class="form-group">
+                <div class="form-group">
                 <label th:for="identificationNumber">Identification Number</label>
                 <input type="text" class="form-control"
                        id="identificationNumber"
@@ -60,7 +59,7 @@
                     Identification number must be 10 digits.
                 </p>
             </div>
-            <div class="form-group">
+                <div class="form-group">
                 <label th:for="age">Age</label>
                 <input type="text" class="form-control"
                        id="age"
@@ -68,7 +67,7 @@
                        th:field="*{age}"
                        th:errorclass="is-invalid">
             </div>
-            <div class="form-group">
+                <div class="form-group">
                 <label th:for="startDate">Start Date</label>
                 <input type="date" class="form-control"
                        id="startDate"
@@ -76,7 +75,7 @@
                        th:field="*{startDate}"
                        th:errorclass="is-invalid">
             </div>
-            <div class="form-group">
+                <div class="form-group">
                 <label th:for="endDate">End Date</label>
                 <input type="date" class="form-control"
                        id="endDate"
@@ -84,7 +83,7 @@
                        th:field="*{endDate}"
                        th:errorclass="is-invalid">
             </div>
-            <div class="form-group">
+                <div class="form-group">
                 <label th:for="position">Position</label>
                 <select class="form-control"
                         id="position"
@@ -100,7 +99,7 @@
                     Engine type is required.
                 </p>
             </div>
-            <div class="form-group">
+                <div class="form-group">
                 <label th:for="supervisor">Supervisor</label>
                 <select class="form-control"
                         id="supervisor"
@@ -116,7 +115,7 @@
                     Engine type is required.
                 </p>
             </div>
-            <div class="form-group">
+                <div class="form-group">
                 <label th:for="department">Department</label>
                 <select class="form-control"
                         id="department"
@@ -129,7 +128,7 @@
                     <option value="3">Department 3</option>
                 </select>
             </div>
-            <div class="form-group">
+                <div class="form-group">
                 <label th:for="education">Education</label>
                 <select class="form-control"
                         id="education"
@@ -145,10 +144,9 @@
                     Engine type is required.
                 </p>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Add Employee</button>
-        </form>
-    </div>
-</div>
+                <button type="submit" class="btn btn-primary btn-block">Add Employee</button>
+            </form>
+        </div>
     <footer th:replace="fragments/footer"></footer>
 </body>
 </html>
