@@ -18,37 +18,22 @@ public class AddEmployeeDTO {
     @NotBlank
     @Size(min = 3, max = 10)
     private String lastName;
-    @Positive
-    private int identificationNumber;
+    @Size(min = 10, max = 10)
+    private String identificationNumber;
     @NotNull
     @Min(18)
     private int age;
     @NotBlank
     private String startDate;
+
     @NotBlank
-    private String endDate;
+    private String position;
 
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "position_id")
-    private Position position;
+    @NotBlank
+    private String department;
 
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "supervisor_id")
-    private Employee supervisor;
-
-    @ManyToOne
-    @JoinColumn(name = "department_id")
-    private Department department;
-
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
-
-    @ManyToOne
-    @JoinColumn(name = "education_id")
-    private Education education;
+    @NotBlank
+    private String education;
 
     public String getFirstName() {
         return firstName;
@@ -74,11 +59,11 @@ public class AddEmployeeDTO {
         this.lastName = lastName;
     }
 
-    public int getIdentificationNumber() {
+    public String getIdentificationNumber() {
         return identificationNumber;
     }
 
-    public void setIdentificationNumber(int identificationNumber) {
+    public void setIdentificationNumber(String identificationNumber) {
         this.identificationNumber = identificationNumber;
     }
 
@@ -98,51 +83,27 @@ public class AddEmployeeDTO {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
-
-    public Position getPosition() {
+    public String getPosition() {
         return position;
     }
 
-    public void setPosition(Position position) {
+    public void setPosition(String position) {
         this.position = position;
     }
 
-    public Employee getSupervisor() {
-        return supervisor;
-    }
-
-    public void setSupervisor(Employee supervisor) {
-        this.supervisor = supervisor;
-    }
-
-    public Department getDepartment() {
+    public String getDepartment() {
         return department;
     }
 
-    public void setDepartment(Department department) {
+    public void setDepartment(String department) {
         this.department = department;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public Education getEducation() {
+    public String getEducation() {
         return education;
     }
 
-    public void setEducation(Education education) {
+    public void setEducation(String education) {
         this.education = education;
     }
 }

@@ -21,6 +21,7 @@ public class Employee extends BaseEntity{
     @NotBlank
     private String LastName;
     @NotBlank
+    @Column(unique = true)
     private String identificationNumber;
     @NotEmpty
     private int age;
@@ -48,8 +49,6 @@ public class Employee extends BaseEntity{
             inverseJoinColumns = @JoinColumn(name = "project_id")
     )
     private List<Project> projects;
-    @OneToOne(mappedBy = "employee")
-    private User user;
 
     public String getFirstName() {
         return firstName;
@@ -145,13 +144,5 @@ public class Employee extends BaseEntity{
 
     public void setProjects(List<Project> projects) {
         this.projects = projects;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

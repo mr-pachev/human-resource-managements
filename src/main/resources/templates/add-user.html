@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="/css/styles.css"/>
 </head>
 <body>
-<div th:replace="~{fragments/navigation}"></div>
-<div class="form-container add-user-container">
-    <h2 class="text-center">Add User</h2>
-    <form
+    <div th:replace="~{fragments/navigation}"></div>
+    <div class="form-container add-user-container">
+        <h2 class="text-center">Add User</h2>
+        <form
             th:action="@{/add-user}"
             th:method="POST"
             th:object="${addUserDTO}">
@@ -74,6 +74,7 @@
         </div>
         <button type="submit" class="btn btn-primary btn-block">Submit</button>
     </form>
-</div>
+    </div>
+    <footer th:replace="fragments/footer"></footer>
 </body>
 </html>
