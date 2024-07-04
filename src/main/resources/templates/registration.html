@@ -65,8 +65,9 @@
                     th:field="*{role}"
                     th:errorclass="is-invalid">
                 <option value=""> -- Select Role -- </option>
-                <option value="1">Admin</option>
-                <option value="2">User</option>
+                <option th:each="role: ${roles}"
+                        th:value="${role}"
+                        th:text="${role}">Role</option>
             </select>
             <p class="invalid-feedback errors alert alert-danger">
                 Select Role.

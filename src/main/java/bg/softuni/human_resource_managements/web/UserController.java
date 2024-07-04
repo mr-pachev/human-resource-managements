@@ -1,8 +1,11 @@
 package bg.softuni.human_resource_managements.web;
 
 import bg.softuni.human_resource_managements.model.dto.AddUserDTO;
+import bg.softuni.human_resource_managements.model.dto.LoginUserDTO;
+import bg.softuni.human_resource_managements.model.enums.RoleName;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,7 +20,8 @@ public class UserController {
     }
 
     @GetMapping("/registration")
-    public String viewAddUser(){
+    public String viewAddUser(Model model){
+        model.addAttribute("roles", RoleName.values());
         return "registration";
     }
 
@@ -33,6 +37,8 @@ public class UserController {
             return "redirect:/registration";
         }
 
+
+
         return "redirect:/login";
     }
 
@@ -40,4 +46,20 @@ public class UserController {
     public String viewLogin(){
         return "login";
     }
+
+    @PostMapping("/login")
+    public String loginUser(
+            @Valid LoginUserDTO loginUserDTO,
+            BindingResult bindingResult,
+            RedirectAttributes rAtt) {
+
+        if (bindingResult.hasErrors()) {
+            rAtt.addFlashAttribute("loginUserDTO", loginUserDTO);
+            rAtt.addFlashAttribute("org.springframework.validation.BindingResult.loginUserDTO", bindingResult);
+            return "redirect:/login";
+        }
+
+        return "redirect:/index";
+    }
+
 }
