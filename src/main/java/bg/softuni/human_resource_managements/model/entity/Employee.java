@@ -20,8 +20,8 @@ public class Employee extends BaseEntity{
     private String middleName;
     @NotBlank
     private String LastName;
-    @NotEmpty
-    private int identificationNumber;
+    @NotBlank
+    private String identificationNumber;
     @NotEmpty
     private int age;
     @NotEmpty
@@ -75,11 +75,11 @@ public class Employee extends BaseEntity{
         LastName = lastName;
     }
 
-    public int getIdentificationNumber() {
+    public String getIdentificationNumber() {
         return identificationNumber;
     }
 
-    public void setIdentificationNumber(int identificationNumber) {
+    public void setIdentificationNumber(String identificationNumber) {
         this.identificationNumber = identificationNumber;
     }
 

@@ -12,10 +12,14 @@ spring:
     hiddenmethod:
       filter:
         enabled: 'true'
+  sql:
+    init:
+       mode: always
+
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    username: ${db_user}
-    password: ${db_pass}
+    username: root
+    password: 1234
     url: jdbc:mysql://localhost:3306/hrm_db?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
 logging:
   level:
