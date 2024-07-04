@@ -20,7 +20,6 @@ public class AddEmployeeDTO {
     private String lastName;
     @Size(min = 10, max = 10)
     private String identificationNumber;
-    @NotNull
     @Min(18)
     private int age;
     @NotBlank

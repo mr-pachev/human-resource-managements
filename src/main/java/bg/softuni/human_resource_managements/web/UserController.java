@@ -16,12 +16,12 @@ public class UserController {
         return new AddUserDTO();
     }
 
-    @GetMapping("/add-user")
-    public String viewAddUser() {
-        return "add-user";
+    @GetMapping("/registration")
+    public String viewAddUser(){
+        return "registration";
     }
 
-    @PostMapping("/add-user")
+    @PostMapping("/registration")
     public String addUser(
             @Valid AddUserDTO addUserDTO,
             BindingResult bindingResult,
@@ -30,9 +30,14 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             rAtt.addFlashAttribute("addUserDTO", addUserDTO);
             rAtt.addFlashAttribute("org.springframework.validation.BindingResult.addUserDTO", bindingResult);
-            return "redirect:/add-user";
+            return "redirect:/registration";
         }
 
         return "redirect:/login";
+    }
+
+    @GetMapping("/login")
+    public String viewLogin(){
+        return "login";
     }
 }

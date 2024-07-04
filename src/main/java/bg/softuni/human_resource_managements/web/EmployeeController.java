@@ -27,20 +27,15 @@ public class EmployeeController {
         return new AddEmployeeDTO();
     }
 
-    @GetMapping("/login")
-    public String viewLogin() {
-        return "login";
-    }
-
-    @GetMapping("/registration")
+    @GetMapping("/add-employee")
     public String registrationView(Model model) {
         model.addAttribute("positions", PositionName.values());
         model.addAttribute("departments", DepartmentName.values());
         model.addAttribute("educations", EducationName.values());
-        return "registration";
+        return "add-employee";
     }
 
-    @PostMapping("/registration")//линк на страницата
+    @PostMapping("/add-employee")
     public String addEmployee(
             @Valid AddEmployeeDTO addEmployeeDTO,
             BindingResult bindingResult,
@@ -50,7 +45,7 @@ public class EmployeeController {
             rAtt.addFlashAttribute("addEmployeeDTO", addEmployeeDTO);
             rAtt.addFlashAttribute("org.springframework.validation.BindingResult.addEmployeeDTO", bindingResult);
             rAtt.addFlashAttribute("isExist", true);
-            return "redirect:/registration";
+            return "redirect:/add-employee";
         }
 
         return "redirect:/login";
