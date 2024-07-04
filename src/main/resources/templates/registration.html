@@ -28,7 +28,7 @@
             </p>
         </div>
         <div class="form-group">
-            <label th:for="identificationNumber">Identification Number:</label>
+            <label th:for="identificationNumber">Identification Number</label>
             <input type="text" class="form-control"
                    id="identificationNumber"
                    name="identificationNumber"
@@ -39,7 +39,7 @@
             </p>
         </div>
         <div class="form-group">
-            <label th:for="password">Password:</label>
+            <label th:for="password">Password</label>
             <input type="password" class="form-control"
                    id="password"
                    name="password"
@@ -50,15 +50,19 @@
             </p>
         </div>
         <div class="form-group">
-            <label th:for="confirmPassword">Confirm Password:</label>
+            <label th:for="confirmPassword">Confirm Password</label>
             <input type="password" class="form-control"
                    id="confirmPassword"
                    name="confirmPassword"
                    th:field="*{confirmPassword}"
                    th:errorclass="is-invalid">
+            <p class="errors alert alert-danger"
+               th:if="${unconfirmed}">
+                Unconfirmed password.
+            </p>
         </div>
         <div class="form-group">
-            <label th:for="role">Role:</label>
+            <label th:for="role">Role</label>
             <select class="form-control"
                     id="role"
                     name="role"

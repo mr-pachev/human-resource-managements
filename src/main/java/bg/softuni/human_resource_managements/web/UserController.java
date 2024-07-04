@@ -3,6 +3,7 @@ package bg.softuni.human_resource_managements.web;
 import bg.softuni.human_resource_managements.model.dto.AddUserDTO;
 import bg.softuni.human_resource_managements.model.dto.LoginUserDTO;
 import bg.softuni.human_resource_managements.model.enums.RoleName;
+import bg.softuni.human_resource_managements.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class UserController {
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
     @ModelAttribute("addUserDTO")
     public AddUserDTO addUserDTO() {
         return new AddUserDTO();
@@ -31,13 +38,17 @@ public class UserController {
             BindingResult bindingResult,
             RedirectAttributes rAtt) {
 
-        if (bindingResult.hasErrors()) {
+        boolean congirmPasswod = addUserDTO.getPassword().equals(addUserDTO.getConfirmPassword());
+
+        if (bindingResult.hasErrors() || !congirmPasswod) {
             rAtt.addFlashAttribute("addUserDTO", addUserDTO);
+            rAtt.addFlashAttribute("unconfirmed", true);
             rAtt.addFlashAttribute("org.springframework.validation.BindingResult.addUserDTO", bindingResult);
+
             return "redirect:/registration";
         }
 
-
+        userService.addUser(addUserDTO);
 
         return "redirect:/login";
     }

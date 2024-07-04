@@ -7,8 +7,8 @@ import jakarta.validation.constraints.Size;
 
 public class AddUserDTO {
     private long userId;
-    @NotNull
-    private int identificationNumber;
+    @Size(min = 10, max = 10)
+    private String identificationNumber;
     @NotBlank
     @Size(min = 3, max = 15)
     private String username;
@@ -27,11 +27,11 @@ public class AddUserDTO {
         this.userId = userId;
     }
 
-    public int getIdentificationNumber() {
+    public String getIdentificationNumber() {
         return identificationNumber;
     }
 
-    public void setIdentificationNumber(int identificationNumber) {
+    public void setIdentificationNumber(String identificationNumber) {
         this.identificationNumber = identificationNumber;
     }
 
