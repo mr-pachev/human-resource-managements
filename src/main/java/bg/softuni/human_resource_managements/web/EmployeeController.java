@@ -46,17 +46,13 @@ public class EmployeeController {
             BindingResult bindingResult,
             RedirectAttributes rAtt) {
 
-        if (bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors() || !employeeService.addEmployee(addEmployeeDTO)) {
             rAtt.addFlashAttribute("addEmployeeDTO", addEmployeeDTO);
             rAtt.addFlashAttribute("org.springframework.validation.BindingResult.addEmployeeDTO", bindingResult);
+            rAtt.addFlashAttribute("isExist", true);
             return "redirect:/registration";
         }
 
-        if(!employeeService.addEmployee(addEmployeeDTO)){
-            rAtt.addFlashAttribute("isExist", true);
-        }
-
-
-        return "regirect:/login";
+        return "redirect:/login";
     }
 }

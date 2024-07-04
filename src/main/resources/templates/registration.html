@@ -10,7 +10,12 @@
 <body>
     <div th:replace="~{fragments/navigation}"></div>
     <div class="form-container registration-container">
-        <h2 class="text-center">Add Employee</h2>
+        <div class="bg-danger text-center" th:if="${isExist}">
+            <p class="d-block">The employee already exists</p>
+        </div>
+        <div th:unless="${isExist}">
+            <h2 class="text-center">Add Employee</h2>
+        </div>
         <form th:action="@{/registration}"
           th:object="${addEmployeeDTO}"
           th:method="POST"
