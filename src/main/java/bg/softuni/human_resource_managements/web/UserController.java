@@ -38,9 +38,9 @@ public class UserController {
             BindingResult bindingResult,
             RedirectAttributes rAtt) {
 
-        boolean congirmPasswod = addUserDTO.getPassword().equals(addUserDTO.getConfirmPassword());
+        boolean confirmPassword = addUserDTO.getPassword().equals(addUserDTO.getConfirmPassword());
 
-        if (bindingResult.hasErrors() || !congirmPasswod) {
+        if (bindingResult.hasErrors() || !confirmPassword) {
             rAtt.addFlashAttribute("addUserDTO", addUserDTO);
             rAtt.addFlashAttribute("unconfirmed", true);
             rAtt.addFlashAttribute("org.springframework.validation.BindingResult.addUserDTO", bindingResult);
@@ -48,8 +48,12 @@ public class UserController {
             return "redirect:/registration";
         }
 
-        userService.addUser(addUserDTO);
-
+        boolean isCreatedUser =  userService.addUser(addUserDTO);
+        if (!isCreatedUser) {
+            rAtt.addFlashAttribute("addUserDTO", addUserDTO);
+            rAtt.addFlashAttribute("noAddedUser", true);
+            return "redirect:/registration";
+        }
         return "redirect:/login";
     }
 

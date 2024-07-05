@@ -43,10 +43,9 @@ public class UserServiceImpl implements UserService {
         }
 
         user.setEmployee(currentEmployee.get());
-        Role roleName = roleRepository.findByRoleName(RoleName.valueOf(addUserDTO.getRole()));
+        user.setRole(roleRepository.findByRoleName(RoleName.valueOf(addUserDTO.getRole())));
         user.setPassword(passwordEncoder.encode(addUserDTO.getPassword()));
 
-        System.out.println();
         userRepository.save(user);
 
         return true;
