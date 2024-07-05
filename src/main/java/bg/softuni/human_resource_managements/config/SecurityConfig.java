@@ -15,7 +15,7 @@ public class SecurityConfig {
                         authorizeRequest -> {
                             authorizeRequest
                                     .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                                    .requestMatchers("/login", "/registration", "/login-error").permitAll()
+                                    .requestMatchers("/", "/login", "/registration", "/login-error").permitAll()
                                     .anyRequest().authenticated();
                         }
                 )
@@ -31,7 +31,7 @@ public class SecurityConfig {
                 .logout(
                         logout -> {
                             logout.logoutUrl("/logout");
-                            logout.logoutSuccessUrl("/login");
+                            logout.logoutSuccessUrl("/index");
                             logout.invalidateHttpSession(true);
                         }
                 )
