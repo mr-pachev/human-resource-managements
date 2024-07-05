@@ -6,19 +6,19 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgb(57, 57, 57, 0.7);
+    background-color: rgba(57, 57, 57, 0.7);
     padding: 10px;
     z-index: 1000;
 }
 
-.navbar a {
+.navbar a, .logout-button {
     color: white;
     padding: 14px 20px;
     text-decoration: none;
     text-align: center;
 }
 
-.navbar a:hover {
+.navbar a:hover, .logout-button:hover {
     background-color: #ddd;
     color: black;
 }
@@ -29,6 +29,27 @@
 
 .navbar .nav-right a {
     margin-left: 10px;
+}
+
+.logout-form {
+    display: inline;
+}
+
+.logout-button {
+    background: none;
+    border: none;
+    color: white;
+    padding: 4px 20px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    font: inherit;
+}
+
+/* За да се гарантира, че формата е в една линия с другите линкове */
+.nav-left form.logout-form {
+    display: inline;
+    margin-right: 10px;
 }
 
 body {
@@ -69,8 +90,7 @@ body {
     box-sizing: border-box;
 }
 
-footer{
+footer {
     padding-top: 60px;
     padding-bottom: 10px;
 }
-

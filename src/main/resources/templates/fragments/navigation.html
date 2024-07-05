@@ -1,26 +1,27 @@
 <div th:fragment="navigation">
     <div class="navbar">
-    <div class="nav-left">
-        <th:block sec:authorize="!isAuthenticated()">
-            <a th:href="@{/login}">Login</a>
-            <a th:href="@{/registration}">Registration</a>
-        </th:block>
-            <form sec:authorize="isAuthenticated()"
-                    th:method="POST"
-                    th:action="@{/logout}"
-            >
-            <button type="submit">Logout</button>
-            </form>
-    </div>
-    <div class="nav-right">
-        <th:block sec:authorize="isAuthenticated()">
-            <a th:href="@{/add-employee}">Add Employee</a>
-            <a th:href="@{/departments}">Departments</a>
-            <a th:href="@{/projects}">Projects</a>
-            <a th:href="@{/project-managers}">Project Managers</a>
-            <a th:href="@{/supervisors}">Supervisors</a>
-            <a th:href="@{/positions}">Positions</a>
-        </th:block>
+        <div class="nav-left">
+            <th:block sec:authorize="!isAuthenticated()">
+                <a th:href="@{/login}">Login</a>
+                <a th:href="@{/registration}">Registration</a>
+            </th:block>
+            <th:block sec:authorize="isAuthenticated()">
+                <form class="logout-form"
+                      th:method="POST"
+                      th:action="@{/logout}">
+                    <button type="submit" class="logout-button">Logout</button>
+                </form>
+            </th:block>
+        </div>
+        <div class="nav-right">
+            <th:block sec:authorize="isAuthenticated()">
+                <a th:href="@{/add-employee}">Add Employee</a>
+                <a th:href="@{/departments}">Departments</a>
+                <a th:href="@{/projects}">Projects</a>
+                <a th:href="@{/project-managers}">Project Managers</a>
+                <a th:href="@{/supervisors}">Supervisors</a>
+                <a th:href="@{/positions}">Positions</a>
+            </th:block>
+        </div>
     </div>
 </div>
-  </div>
