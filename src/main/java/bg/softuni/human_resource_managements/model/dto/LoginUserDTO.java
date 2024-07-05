@@ -11,8 +11,6 @@ public class LoginUserDTO {
     @NotBlank
     @Size(min = 4, max = 10)
     private String password;
-    @NotBlank
-    private String confirmPassword;
 
     public long getUserId() {
         return userId;
@@ -36,13 +34,5 @@ public class LoginUserDTO {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
     }
 }

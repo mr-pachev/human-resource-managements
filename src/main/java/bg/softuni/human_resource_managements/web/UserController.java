@@ -3,6 +3,7 @@ package bg.softuni.human_resource_managements.web;
 import bg.softuni.human_resource_managements.model.dto.AddUserDTO;
 import bg.softuni.human_resource_managements.model.dto.LoginUserDTO;
 import bg.softuni.human_resource_managements.model.enums.RoleName;
+import bg.softuni.human_resource_managements.service.UserHelperService;
 import bg.softuni.human_resource_managements.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -16,9 +17,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class UserController {
     private final UserService userService;
+    private final UserHelperService userHelperService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserHelperService userHelperService) {
         this.userService = userService;
+        this.userHelperService = userHelperService;
     }
 
     @ModelAttribute("addUserDTO")
@@ -26,9 +29,14 @@ public class UserController {
         return new AddUserDTO();
     }
 
+    @ModelAttribute("loginUserDTO")
+    public LoginUserDTO loginUserDTO() {
+        return new LoginUserDTO();
+    }
+
     @GetMapping("/registration")
     public String viewAddUser(Model model){
-        model.addAttribute("roles", RoleName.values());
+               model.addAttribute("roles", RoleName.values());
         return "registration";
     }
 
@@ -58,15 +66,15 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String viewLogin(Model model){
-        model.addAttribute("loginUserDTO", new  LoginUserDTO());
+    public String viewLogin(){
+
         return "login";
     }
 
     @GetMapping("/login-error")
     public String viewLoginError(Model model) {
         model.addAttribute("showErrorMessage", true);
-        model.addAttribute("loginUserDTO", new LoginUserDTO());
+
         return "login";
     }
 }

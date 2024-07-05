@@ -11,12 +11,16 @@
 <body>
 <div th:replace="~{fragments/navigation}"></div>
     <div class="form-container login-form">
-        <h2 class="text-center">Login</h2>
+        <div th:unless="${showErrorMessage}">
+            <h2 class="text-center">Login</h2>
+        </div>
         <form id="loginForm"
         th:action="@{/login}"
         th:object="${loginUserDTO}"
         th:method="POST">
-            <div class="bg-danger" th:if="${showErrorMessage}" th:text="'Invalid username or password'"></div>
+            <div class="bg-danger text-center" th:if="${showErrorMessage}">
+                <p class="d-block">Invalid username or password</p>
+            </div>
             <div class="form-group">
                 <label th:for="username">Username</label>
                 <input type="text" class="form-control"
@@ -34,6 +38,6 @@
             <button type="submit" class="btn btn-primary btn-block">Login</button>
         </form>
     </div>
-    <footer th:replace="fragments/footer"></footer>
+    <footer th:replace="~{fragments/footer}"></footer>
 </body>
 </html>
