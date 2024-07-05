@@ -1,17 +1,26 @@
-  <div  th:fragment="navigation">
+<div th:fragment="navigation">
     <div class="navbar">
     <div class="nav-left">
-        <a href="/login">Login</a>
-        <a href="/registration">Registration</a>
-        <a href="/logout">Logout</a>
+        <th:block sec:authorize="!isAuthenticated()">
+            <a th:href="@{/login}">Login</a>
+            <a th:href="@{/registration}">Registration</a>
+        </th:block>
+            <form sec:authorize="isAuthenticated()"
+                    th:method="POST"
+                    th:action="@{/logout}"
+            >
+            <button type="submit">Logout</button>
+            </form>
     </div>
     <div class="nav-right">
-        <a href="/add-employee">Add Employee</a>
-        <a href="/departments">Departments</a>
-        <a href="/projects">Projects</a>
-        <a href="/project-managers">Project Managers</a>
-        <a href="/supervisors">Supervisors</a>
-        <a href="/positions">Positions</a>
+        <th:block sec:authorize="isAuthenticated()">
+            <a th:href="@{/add-employee}">Add Employee</a>
+            <a th:href="@{/departments}">Departments</a>
+            <a th:href="@{/projects}">Projects</a>
+            <a th:href="@{/project-managers}">Project Managers</a>
+            <a th:href="@{/supervisors}">Supervisors</a>
+            <a th:href="@{/positions}">Positions</a>
+        </th:block>
     </div>
 </div>
   </div>

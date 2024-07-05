@@ -24,17 +24,17 @@ public class SecurityConfig {
                             formLogin.loginPage("/login");
                             formLogin.usernameParameter("username");
                             formLogin.passwordParameter("password");
-                            formLogin.defaultSuccessUrl("/", true);
+                            formLogin.defaultSuccessUrl("/add-employee", true);
                             formLogin.failureUrl("/login-error");
                         }
                 )
                 .logout(
                         logout -> {
                             logout.logoutUrl("/logout");
-                            logout.logoutSuccessUrl("/");
+                            logout.logoutSuccessUrl("/login");
                             logout.invalidateHttpSession(true);
                         }
-                ) //страница за проверка на идентификация(authentication -> кой)
+                )
                 .build();
     }
 

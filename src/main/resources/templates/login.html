@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="bg"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec='http://www.thymeleaf.org/extras/spring-security'>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,14 +13,21 @@
 <div th:replace="~{fragments/navigation}"></div>
     <div class="form-container login-form">
         <h2 class="text-center">Login</h2>
-        <form id="loginForm">
+        <form id="loginForm"
+        th:action="@{/login}"
+        th:object="${loginUserDTO}"
+        th:method="POST">
             <div class="form-group">
                 <label th:for="username">Username</label>
-                <input type="text" class="form-control" id="username">
+                <input type="text" class="form-control"
+                       id="username"
+                        th:field="*{username}">
             </div>
             <div class="form-group">
                 <label th:for="password">Password</label>
-                <input type="password" class="form-control" id="password">
+                <input type="password" class="form-control"
+                       id="password"
+                       th:field="*{password}">
             </div>
             <button type="submit" class="btn btn-primary btn-block">Login</button>
         </form>

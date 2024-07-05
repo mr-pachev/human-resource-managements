@@ -26,6 +26,11 @@ public class UserController {
         return new AddUserDTO();
     }
 
+    @ModelAttribute("loginUserDTO")
+    public LoginUserDTO loginUserDTO() {
+        return new LoginUserDTO();
+    }
+
     @GetMapping("/registration")
     public String viewAddUser(Model model){
         model.addAttribute("roles", RoleName.values());
@@ -74,7 +79,7 @@ public class UserController {
             return "redirect:/login";
         }
 
-        return "redirect:/index";
+        return "redirect:/registration";
     }
 
 }
