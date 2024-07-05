@@ -26,11 +26,6 @@ public class UserController {
         return new AddUserDTO();
     }
 
-    @ModelAttribute("loginUserDTO")
-    public LoginUserDTO loginUserDTO() {
-        return new LoginUserDTO();
-    }
-
     @GetMapping("/registration")
     public String viewAddUser(Model model){
         model.addAttribute("roles", RoleName.values());
@@ -63,23 +58,15 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String viewLogin(){
+    public String viewLogin(Model model){
+        model.addAttribute("loginUserDTO", new  LoginUserDTO());
         return "login";
     }
 
-    @PostMapping("/login")
-    public String loginUser(
-            @Valid LoginUserDTO loginUserDTO,
-            BindingResult bindingResult,
-            RedirectAttributes rAtt) {
-
-        if (bindingResult.hasErrors()) {
-            rAtt.addFlashAttribute("loginUserDTO", loginUserDTO);
-            rAtt.addFlashAttribute("org.springframework.validation.BindingResult.loginUserDTO", bindingResult);
-            return "redirect:/login";
-        }
-
-        return "redirect:/registration";
+    @GetMapping("/login-error")
+    public String viewLoginError(Model model) {
+        model.addAttribute("showErrorMessage", true);
+        model.addAttribute("loginUserDTO", new LoginUserDTO());
+        return "login";
     }
-
 }

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="bg"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec='http://www.thymeleaf.org/extras/spring-security'>
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,17 +16,20 @@
         th:action="@{/login}"
         th:object="${loginUserDTO}"
         th:method="POST">
+            <div class="bg-danger" th:if="${showErrorMessage}" th:text="'Invalid username or password'"></div>
             <div class="form-group">
                 <label th:for="username">Username</label>
                 <input type="text" class="form-control"
                        id="username"
-                        th:field="*{username}">
+                        th:field="*{username}"
+                       aria-describedby="usernameHelpInline">
             </div>
             <div class="form-group">
                 <label th:for="password">Password</label>
                 <input type="password" class="form-control"
                        id="password"
-                       th:field="*{password}">
+                       th:field="*{password}"
+                       aria-describedby="passwordHelpInline">
             </div>
             <button type="submit" class="btn btn-primary btn-block">Login</button>
         </form>
