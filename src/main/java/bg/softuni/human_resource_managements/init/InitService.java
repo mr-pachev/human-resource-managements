@@ -3,12 +3,15 @@ package bg.softuni.human_resource_managements.init;
 import bg.softuni.human_resource_managements.model.entity.Department;
 import bg.softuni.human_resource_managements.model.entity.Education;
 import bg.softuni.human_resource_managements.model.entity.Position;
+import bg.softuni.human_resource_managements.model.entity.Role;
 import bg.softuni.human_resource_managements.model.enums.DepartmentName;
 import bg.softuni.human_resource_managements.model.enums.EducationName;
 import bg.softuni.human_resource_managements.model.enums.PositionName;
+import bg.softuni.human_resource_managements.model.enums.RoleName;
 import bg.softuni.human_resource_managements.repository.DepartmentRepository;
 import bg.softuni.human_resource_managements.repository.EducationRepository;
 import bg.softuni.human_resource_managements.repository.PositionRepository;
+import bg.softuni.human_resource_managements.repository.RoleRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -20,15 +23,16 @@ public class InitService implements CommandLineRunner {
     private final PositionRepository positionRepository;
     private final DepartmentRepository departmentRepository;
     private final EducationRepository educationRepository;
+    private final RoleRepository roleRepository;
    Map<PositionName, String> descriptionPosition = new HashMap<>();
    Map<DepartmentName, String> descriptionDepartment = new HashMap<>();
 
-   List<Education> educations = new ArrayList<>();
-
-    public InitService(PositionRepository positionRepository, DepartmentRepository departmentRepository, EducationRepository educationRepository) {
+    public InitService(PositionRepository positionRepository, DepartmentRepository departmentRepository,
+                       EducationRepository educationRepository, RoleRepository roleRepository) {
         this.positionRepository = positionRepository;
         this.departmentRepository = departmentRepository;
         this.educationRepository = educationRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -39,6 +43,7 @@ public class InitService implements CommandLineRunner {
         long countPosition = this.positionRepository.count();
         long countDepartment = this.departmentRepository.count();
         long countEducation = this.educationRepository.count();
+        long countRole = this.roleRepository.count();
 
         if (countPosition > 0) {
             return;
@@ -47,6 +52,9 @@ public class InitService implements CommandLineRunner {
             return;
         }
         if (countEducation > 0) {
+            return;
+        }
+        if (countRole > 0) {
             return;
         }
 
@@ -62,9 +70,14 @@ public class InitService implements CommandLineRunner {
                 .map(Education::new)
                 .toList();
 
+        List<Role> toInsertRole = Arrays.stream(RoleName.values())
+                .map(Role::new)
+                .toList();
+
         this.positionRepository.saveAll(toInsertPosition);
         this.departmentRepository.saveAll(toInsertDepartment);
         this.educationRepository.saveAll(toInsertEducation);
+        this.roleRepository.saveAll(toInsertRole);
     }
 
     private void initializePositionMap() {

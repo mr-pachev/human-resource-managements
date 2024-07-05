@@ -21,6 +21,8 @@ public class Education extends BaseEntity{
     }
 
     public Education(EducationName educationName) {
+        this();
+
         this.educationName = educationName;
     }
 

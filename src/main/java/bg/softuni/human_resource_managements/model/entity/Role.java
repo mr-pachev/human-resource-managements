@@ -4,6 +4,7 @@ import bg.softuni.human_resource_managements.model.enums.RoleName;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,6 +15,16 @@ public class Role extends BaseEntity{
     private RoleName roleName;
     @OneToMany(mappedBy = "role")
     private List<User> users;
+
+    public Role() {
+        this.users = new ArrayList<>();
+    }
+
+    public Role(RoleName roleName) {
+        this();
+
+        this.roleName = roleName;
+    }
 
     public RoleName getRoleName() {
         return roleName;
