@@ -1,6 +1,7 @@
 <div th:fragment="navigation">
     <div class="navbar">
         <div class="nav-left">
+                <a th:href="@{/}">Home</a>
             <th:block sec:authorize="!isAuthenticated()">
                 <a th:href="@{/login}">Login</a>
                 <a th:href="@{/registration}">Registration</a>

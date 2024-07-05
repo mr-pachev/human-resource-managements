@@ -46,7 +46,6 @@
     font: inherit;
 }
 
-/* За да се гарантира, че формата е в една линия с другите линкове */
 .nav-left form.logout-form {
     display: inline;
     margin-right: 10px;
