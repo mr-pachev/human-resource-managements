@@ -4,6 +4,13 @@
     text-align: center;
 }
 
+.nav-greeting{
+    color: dimgray;
+    background-color: #ddd;
+    padding: 14px 20px;
+    text-align: center;
+}
+
 .navbar {
     position: fixed;
     top: 0;
@@ -49,11 +56,6 @@
 .nav-left form.logout-form {
     display: inline;
     margin-right: 10px;
-}
-
-.nav-greeting {
-    padding: 14px 20px;
-    font: inherit;
 }
 
 body {

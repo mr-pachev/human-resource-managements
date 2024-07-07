@@ -12,6 +12,9 @@
                       th:action="@{/logout}">
                     <button type="submit" class="logout-button">Logout</button>
                 </form>
+                <span class="nav-greeting">
+                    Hello <span th:text="${@userHelperService.userDetails.username}"></span>!
+                </span>
             </th:block>
         </div>
         <div class="nav-right">
