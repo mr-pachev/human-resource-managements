@@ -40,7 +40,9 @@
                     <td th:text="${employee.department}">Department</td>
                     <td th:text="${employee.education}">Education</td>
                     <td th:href="@{/add-employee}" sec:authorize="hasRole('ADMIN')">
-                        <a href="/" class="btn btn-primary btn-sm">Edit</a>
+                        <form th:method="POST" th:action="@{/employee-details/{id}(id=${employee.id})}" class="d-inline">
+                            <input class="btn btn-primary btn-sm" type="submit" value="Edith"/>
+                        </form>
                         <form th:method="POST" th:action="@{/delete-employee/{id}(id=${employee.id})}" class="d-inline">
                             <input class="btn btn-danger btn-sm" type="submit" value="Remove"/>
                         </form>
