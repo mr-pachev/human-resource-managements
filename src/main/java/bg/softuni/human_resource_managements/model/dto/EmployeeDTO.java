@@ -1,5 +1,11 @@
 package bg.softuni.human_resource_managements.model.dto;
 
+import bg.softuni.human_resource_managements.model.entity.Department;
+import bg.softuni.human_resource_managements.model.entity.Education;
+import bg.softuni.human_resource_managements.model.entity.Position;
+
+import java.time.LocalDate;
+
 public class EmployeeDTO {
     private long id;
 

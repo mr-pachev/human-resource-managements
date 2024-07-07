@@ -33,7 +33,7 @@ public class EmployeeController {
     }
 
     @ModelAttribute("employeeDTO")
-    public EmployeeDTO employeeDTO() {
+    public EmployeeDTO createEmptyEmployeeDTO() {
         return new EmployeeDTO();
     }
 
@@ -75,14 +75,20 @@ public class EmployeeController {
         return "redirect:/employees";
     }
 
+
     @PostMapping("/employee-details/{id}")
-    public String viewEmployee(@PathVariable("id") Long id, Model model){
+    public String viewEdithEmployee(@PathVariable("id") Long id, Model model) {
         model.addAttribute("positions", PositionName.values());
         model.addAttribute("departments", DepartmentName.values());
         model.addAttribute("educations", EducationName.values());
-        model.addAttribute("employee", employeeService.getEmployeeByID(id));
+
+        EmployeeDTO employeeDTO = employeeService.getEmployeeByID(id);
+        model.addAttribute("employeeDTO", employeeDTO);
+
+        employeeService.edithEmployee(employeeDTO);
 
         return "employee-details";
     }
+
 
 }

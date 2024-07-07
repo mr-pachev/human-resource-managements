@@ -9,6 +9,7 @@ public interface EmployeeService {
     boolean addEmployee(AddEmployeeDTO addEmployeeDTO);
     List<EmployeeDTO> getAllEmployees();
     void removeEmployee(long id);
-
     EmployeeDTO getEmployeeByID(long id);
+
+    void edithEmployee(EmployeeDTO employeeDTO);
 }
