@@ -21,6 +21,7 @@
                     <th>Identification Number</th>
                     <th>Age</th>
                     <th>Start Date</th>
+                    <th>End Date</th>
                     <th>Position</th>
                     <th>Department</th>
                     <th>Education</th>
@@ -34,9 +35,16 @@
                     <td th:text="${employee.identificationNumber}">Identification Number</td>
                     <td th:text="${employee.age}">Age</td>
                     <td th:text="${employee.startDate}">Start Date</td>
+                    <td th:text="${employee.endDate}">End Date</td>
                     <td th:text="${employee.position}">Position</td>
                     <td th:text="${employee.department}">Department</td>
                     <td th:text="${employee.education}">Education</td>
+                    <td>
+                        <a href="/" class="btn btn-primary btn-sm">Edit</a>
+                        <form th:method="POST" th:action="@{/delete-employee/{id}(id=${employee.id})}" class="d-inline">
+                            <input class="btn btn-danger btn-sm" type="submit" value="Remove"/>
+                        </form>
+                    </td>
                 </tr>
             </tbody>
         </table>

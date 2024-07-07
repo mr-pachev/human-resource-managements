@@ -68,6 +68,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         return allEmployees;
     }
 
+    @Override
+    public void removeEmployee(long id) {
+        employeeRepository.deleteById(id);
+    }
+
     public EmployeeDTO map(Employee employee){
         EmployeeDTO employeeDTO = mapper.map(employee, EmployeeDTO.class);
         employeeDTO.setPosition(employee.getPosition().getPositionName().name());

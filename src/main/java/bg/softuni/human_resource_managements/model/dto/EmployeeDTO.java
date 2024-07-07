@@ -1,6 +1,7 @@
 package bg.softuni.human_resource_managements.model.dto;
 
 public class EmployeeDTO {
+    private long id;
 
     private String firstName;
 
@@ -14,11 +15,21 @@ public class EmployeeDTO {
 
     private String startDate;
 
+    private String endDate;
+
     private String position;
 
     private String department;
 
     private String education;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -66,6 +77,14 @@ public class EmployeeDTO {
 
     public void setStartDate(String startDate) {
         this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 
     public String getPosition() {

@@ -8,4 +8,6 @@ import java.util.List;
 public interface EmployeeService {
     boolean addEmployee(AddEmployeeDTO addEmployeeDTO);
     List<EmployeeDTO> getAllEmployees();
+
+    void removeEmployee(long id);
 }
