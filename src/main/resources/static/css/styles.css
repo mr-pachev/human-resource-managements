@@ -1,3 +1,9 @@
+.navbar, .navbar a, .logout-button, .nav-greeting {
+    color: white;
+    text-decoration: none;
+    text-align: center;
+}
+
 .navbar {
     position: fixed;
     top: 0;
@@ -12,10 +18,7 @@
 }
 
 .navbar a, .logout-button {
-    color: white;
     padding: 14px 20px;
-    text-decoration: none;
-    text-align: center;
 }
 
 .navbar a:hover, .logout-button:hover {
@@ -38,17 +41,19 @@
 .logout-button {
     background: none;
     border: none;
-    color: white;
-    padding: 4px 20px;
-    text-decoration: none;
-    text-align: center;
     cursor: pointer;
     font: inherit;
+    padding: 4px 20px;
 }
 
 .nav-left form.logout-form {
     display: inline;
     margin-right: 10px;
+}
+
+.nav-greeting {
+    padding: 14px 20px;
+    font: inherit;
 }
 
 body {

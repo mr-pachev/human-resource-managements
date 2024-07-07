@@ -57,12 +57,12 @@ public class UserController {
         }
 
         userService.addUser(addUserDTO);
-//        boolean isCreatedUser =  userService.addUser(addUserDTO);
-//        if (!isCreatedUser) {
-//            rAtt.addFlashAttribute("addUserDTO", addUserDTO);
-//            rAtt.addFlashAttribute("noAddedUser", true);
-//            return "redirect:/registration";
-//        }
+        boolean isCreatedUser =  userService.addUser(addUserDTO);
+        if (!isCreatedUser) {
+            rAtt.addFlashAttribute("addUserDTO", addUserDTO);
+            rAtt.addFlashAttribute("noAddedUser", true);
+            return "redirect:/registration";
+        }
         return "redirect:/login";
     }
 

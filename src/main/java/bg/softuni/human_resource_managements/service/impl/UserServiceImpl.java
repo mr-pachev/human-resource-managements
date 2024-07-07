@@ -36,27 +36,32 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addUser(AddUserDTO addUserDTO) {
-//        User user = mapper.map(addUserDTO, User.class);
-//        Optional<User> isExistUser = userRepository.findByUsername(addUserDTO.getUsername());
-//
-//        Optional<Employee> currentEmployee = employeeRepository.findAllByIdentificationNumber(addUserDTO.getIdentificationNumber());
-//
-//        if (isExistUser.isPresent() || currentEmployee.isEmpty()) {
-//            return false;
-//        }
-//
-//        user.setEmployee(currentEmployee.get());
-//        user.setRole(roleRepository.findByRoleName(RoleName.valueOf(addUserDTO.getRole())));
-//        user.setPassword(passwordEncoder.encode(addUserDTO.getPassword()));
-//
-//        userRepository.save(user);
-//
-//        return true;
-      usersRestClient
-                .post()
-                .uri("http://localhost:8081/users")
-                .body(addUserDTO)
-                .retrieve();
+    public boolean addUser(AddUserDTO addUserDTO) {
+        User user = mapper.map(addUserDTO, User.class);
+        Optional<User> isExistUser = userRepository.findByUsername(addUserDTO.getUsername());
+
+        Optional<Employee> currentEmployee = employeeRepository.findAllByIdentificationNumber(addUserDTO.getIdentificationNumber());
+
+        if (isExistUser.isPresent() || currentEmployee.isEmpty()) {
+            return false;
+        }
+
+        user.setEmployee(currentEmployee.get());
+        user.setRole(roleRepository.findByRoleName(RoleName.valueOf(addUserDTO.getRole())));
+        user.setPassword(passwordEncoder.encode(addUserDTO.getPassword()));
+
+        userRepository.save(user);
+
+//      usersRestClient
+//                .post()
+//                .uri("http://localhost:8081/users")
+//                .body(addUserDTO)
+//                .retrieve();
+        return true;
+    }
+
+    @Override
+    public boolean findUserByUsername(String username) {
+        return userRepository.findByUsername(username).isPresent();
     }
 }
