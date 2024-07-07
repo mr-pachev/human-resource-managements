@@ -1,13 +1,13 @@
 package bg.softuni.human_resource_managements.web;
 
 import bg.softuni.human_resource_managements.model.dto.AddEmployeeDTO;
+import bg.softuni.human_resource_managements.model.dto.EmployeeDTO;
 import bg.softuni.human_resource_managements.model.enums.DepartmentName;
 import bg.softuni.human_resource_managements.model.enums.EducationName;
 import bg.softuni.human_resource_managements.model.enums.PositionName;
 import bg.softuni.human_resource_managements.service.EmployeeService;
 import bg.softuni.human_resource_managements.service.UserHelperService;
 import jakarta.validation.Valid;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,6 +30,11 @@ public class EmployeeController {
     @ModelAttribute("addEmployeeDTO")
     public AddEmployeeDTO createEmptyDTO() {
         return new AddEmployeeDTO();
+    }
+
+    @ModelAttribute("employeeDTO")
+    public EmployeeDTO employeeDTO() {
+        return new EmployeeDTO();
     }
 
     @GetMapping("/add-employee")
@@ -68,6 +73,16 @@ public class EmployeeController {
         employeeService.removeEmployee(id);
 
         return "redirect:/employees";
+    }
+
+    @PostMapping("/employee-details/{id}")
+    public String viewEmployee(@PathVariable("id") Long id, Model model){
+        model.addAttribute("positions", PositionName.values());
+        model.addAttribute("departments", DepartmentName.values());
+        model.addAttribute("educations", EducationName.values());
+        model.addAttribute("employee", employeeService.getEmployeeByID(id));
+
+        return "employee-details";
     }
 
 }
