@@ -15,6 +15,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -80,6 +81,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         return map(employee);
     }
 
+    @Override
+    public void edithEmployee(EmployeeDTO employeeDTO) {
+        Employee employee = reMap(employeeDTO);
+
+        employeeRepository.save(employee);
+    }
+
     public EmployeeDTO map(Employee employee){
         EmployeeDTO employeeDTO = mapper.map(employee, EmployeeDTO.class);
         employeeDTO.setPosition(employee.getPosition().getPositionName().name());
@@ -87,5 +95,28 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeDTO.setEducation(employee.getEducation().getEducationName().name());
 
        return employeeDTO;
+    }
+
+    public Employee reMap(EmployeeDTO employeeDTO){
+        Employee employee = employeeRepository.findById(employeeDTO.getId());
+
+        employee.setFirstName(employeeDTO.getFirstName());
+        employee.setMiddleName(employeeDTO.getMiddleName());
+        employee.setLastName(employeeDTO.getLastName());
+        employee.setAge(employeeDTO.getAge());
+
+        LocalDate startDate = mapper.map(employeeDTO.getStartDate(), LocalDate.class);
+        employee.setStartDate(startDate);
+
+        if(employeeDTO.getEndDate() != null){
+            LocalDate endDate = mapper.map(employeeDTO.getEndDate(), LocalDate.class);
+            employee.setEndDate(endDate);
+        }
+
+        employee.setPosition(positionRepository.findByPositionName(PositionName.valueOf(employeeDTO.getPosition())));
+        employee.setDepartment(departmentRepository.findByDepartmentName(DepartmentName.valueOf(employeeDTO.getDepartment())));
+        employee.setEducation(educationRepository.findByEducationName(EducationName.valueOf(employeeDTO.getEducation())));
+
+        return employee;
     }
 }
