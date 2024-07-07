@@ -23,9 +23,9 @@ public class Employee extends BaseEntity{
     @NotBlank
     @Column(unique = true)
     private String identificationNumber;
-    @NotEmpty
+    @NotNull
     private int age;
-    @NotEmpty
+    @NotNull
     private LocalDate startDate;
 
     private LocalDate endDate;

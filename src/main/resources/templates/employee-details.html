@@ -13,10 +13,12 @@
 <div class="form-container registration-container">
     <h2 class="text-center">Edith Employee</h2>
 
-    <form th:action="@{/employee-details/{id}}"
+    <form
+          th:action="@{/employee-details}"
           th:object="${employeeDTO}"
           th:method="POST"
           id="addEmployeeForm">
+
         <div class="form-group">
             <label th:for="firstName">First Name</label>
             <input type="text" class="form-control" th:placeholder="${employeeDTO.firstName}"
@@ -54,6 +56,7 @@
             <label th:for="identificationNumber">Identification Number</label>
             <input type="text" class="form-control" th:placeholder="${employeeDTO.identificationNumber}"
                    id="identificationNumber"
+                   th:field="${employeeDTO.identificationNumber}"
                    name="identificationNumber" readonly>
         </div>
         <div class="form-group">
@@ -132,6 +135,11 @@
                 Engine type is required.
             </p>
         </div>
+<!--        <form th:method="POST"-->
+<!--              th:action="@{/edith-employee-details/{id}(id=${employeeDTO.getId()})}">-->
+<!--            <input class="btn btn-link" type="submit" value="Save"/>-->
+<!--        </form>-->
+
         <button type="submit" class="btn btn-primary btn-block">Save</button>
     </form>
 </div>

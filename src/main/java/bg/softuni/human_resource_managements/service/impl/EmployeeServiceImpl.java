@@ -98,7 +98,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public Employee reMap(EmployeeDTO employeeDTO){
-        Employee employee = employeeRepository.findById(employeeDTO.getId());
+        Employee employee = employeeRepository.findByIdentificationNumber(employeeDTO.getIdentificationNumber());
 
         employee.setFirstName(employeeDTO.getFirstName());
         employee.setMiddleName(employeeDTO.getMiddleName());
@@ -108,7 +108,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         LocalDate startDate = mapper.map(employeeDTO.getStartDate(), LocalDate.class);
         employee.setStartDate(startDate);
 
-        if(employeeDTO.getEndDate() != null){
+        if(!employeeDTO.getEndDate().isEmpty()){
             LocalDate endDate = mapper.map(employeeDTO.getEndDate(), LocalDate.class);
             employee.setEndDate(endDate);
         }
