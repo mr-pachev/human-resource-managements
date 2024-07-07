@@ -6,6 +6,7 @@ import bg.softuni.human_resource_managements.model.enums.EducationName;
 import bg.softuni.human_resource_managements.model.enums.PositionName;
 import bg.softuni.human_resource_managements.service.EmployeeService;
 import jakarta.validation.Valid;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -49,5 +50,11 @@ public class EmployeeController {
         }
 
         return "redirect:/login";
+    }
+
+    @GetMapping("/employees")
+    public String allEmployees(Model model){
+        model.addAttribute("employees", employeeService.getAllEmployees());
+        return "employees";
     }
 }

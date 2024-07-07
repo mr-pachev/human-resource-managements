@@ -19,7 +19,8 @@
         </div>
         <div class="nav-right">
             <th:block sec:authorize="isAuthenticated()">
-                <a th:href="@{/add-employee}" sec:authorize="hasRole('ADMIN')">Add Employee</a>
+<!--                <a th:href="@{/add-employee}" sec:authorize="hasRole('ADMIN')">Add Employee</a>-->
+                <a th:href="@{/employees}">Employees</a>
                 <a th:href="@{/departments}">Departments</a>
                 <a th:href="@{/projects}">Projects</a>
                 <a th:href="@{/project-managers}">Project Managers</a>

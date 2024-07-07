@@ -24,7 +24,7 @@ public class SecurityConfig {
                             formLogin.loginPage("/login");
                             formLogin.usernameParameter("username");
                             formLogin.passwordParameter("password");
-                            formLogin.defaultSuccessUrl("/add-employee", true);
+                            formLogin.defaultSuccessUrl("/", true);
                             formLogin.failureUrl("/login-error");
                         }
                 )
