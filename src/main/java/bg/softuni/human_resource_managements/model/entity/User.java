@@ -12,6 +12,9 @@ public class User extends BaseEntity{
     @NotBlank
     private String password;
 
+    @NotBlank
+    private String identificationNumber;
+
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
@@ -49,5 +52,13 @@ public class User extends BaseEntity{
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    public String getIdentificationNumber() {
+        return identificationNumber;
+    }
+
+    public void setIdentificationNumber(String identificationNumber) {
+        this.identificationNumber = identificationNumber;
     }
 }

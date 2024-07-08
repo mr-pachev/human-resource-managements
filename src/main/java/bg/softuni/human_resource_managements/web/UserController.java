@@ -2,6 +2,7 @@ package bg.softuni.human_resource_managements.web;
 
 import bg.softuni.human_resource_managements.model.dto.AddUserDTO;
 import bg.softuni.human_resource_managements.model.dto.LoginUserDTO;
+import bg.softuni.human_resource_managements.model.dto.UserDTO;
 import bg.softuni.human_resource_managements.model.enums.RoleName;
 import bg.softuni.human_resource_managements.service.UserHelperService;
 import bg.softuni.human_resource_managements.service.UserService;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -32,6 +35,11 @@ public class UserController {
     @ModelAttribute("loginUserDTO")
     public LoginUserDTO loginUserDTO() {
         return new LoginUserDTO();
+    }
+
+    @ModelAttribute("userDTO")
+    public UserDTO userDTO() {
+        return new UserDTO();
     }
 
     @GetMapping("/registration")
@@ -56,7 +64,6 @@ public class UserController {
             return "redirect:/registration";
         }
 
-        userService.addUser(addUserDTO);
         boolean isCreatedUser =  userService.addUser(addUserDTO);
         if (!isCreatedUser) {
             rAtt.addFlashAttribute("addUserDTO", addUserDTO);
@@ -77,5 +84,13 @@ public class UserController {
         model.addAttribute("showErrorMessage", true);
 
         return "login";
+    }
+
+    @GetMapping("/users")
+    public String getUsers(Model model){
+        List<UserDTO> userDTOS = userService.getAllUsers();
+        model.addAttribute("userDTOS", userDTOS);
+
+        return "users";
     }
 }

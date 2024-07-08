@@ -2,6 +2,7 @@ package bg.softuni.human_resource_managements.service.impl;
 
 import bg.softuni.human_resource_managements.config.RestConfig;
 import bg.softuni.human_resource_managements.model.dto.AddUserDTO;
+import bg.softuni.human_resource_managements.model.dto.UserDTO;
 import bg.softuni.human_resource_managements.model.entity.Employee;
 import bg.softuni.human_resource_managements.model.entity.Role;
 import bg.softuni.human_resource_managements.model.entity.User;
@@ -11,10 +12,13 @@ import bg.softuni.human_resource_managements.repository.RoleRepository;
 import bg.softuni.human_resource_managements.repository.UserRepository;
 import bg.softuni.human_resource_managements.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -51,17 +55,34 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(addUserDTO.getPassword()));
 
         userRepository.save(user);
+        return true;
 
-//      usersRestClient
+
+//        usersRestClient
 //                .post()
 //                .uri("http://localhost:8081/users")
 //                .body(addUserDTO)
 //                .retrieve();
-        return true;
+//
+//        return ;
     }
 
     @Override
     public boolean findUserByUsername(String username) {
         return userRepository.findByUsername(username).isPresent();
+    }
+
+    @Override
+    public List<UserDTO> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        List<UserDTO> userDTOS = new ArrayList<>();
+
+        for (User user : users) {
+            UserDTO userDTO = mapper.map(user, UserDTO.class);
+            userDTO.setRole(user.getRole().getRoleName().name());
+            userDTOS.add(userDTO);
+        }
+
+        return userDTOS;
     }
 }
