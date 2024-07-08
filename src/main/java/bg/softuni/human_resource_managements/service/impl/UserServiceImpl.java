@@ -44,30 +44,30 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean addUser(AddUserDTO addUserDTO) {
-        User user = mapper.map(addUserDTO, User.class);
-        Optional<User> isExistUser = userRepository.findByUsername(addUserDTO.getUsername());
-
-        Optional<Employee> currentEmployee = employeeRepository.findAllByIdentificationNumber(addUserDTO.getIdentificationNumber());
-
-        if (isExistUser.isPresent() || currentEmployee.isEmpty()) {
-            return false;
-        }
-
-        user.setEmployee(currentEmployee.get());
-        user.setRole(roleRepository.findByRoleName(RoleName.valueOf(addUserDTO.getRole())));
-        user.setPassword(passwordEncoder.encode(addUserDTO.getPassword()));
-
-        userRepository.save(user);
-        return true;
-
-
-//        usersRestClient
-//                .post()
-//                .uri("http://localhost:8081/users")
-//                .body(addUserDTO)
-//                .retrieve();
+//        User user = mapper.map(addUserDTO, User.class);
+//        Optional<User> isExistUser = userRepository.findByUsername(addUserDTO.getUsername());
 //
-//        return ;
+//        Optional<Employee> currentEmployee = employeeRepository.findAllByIdentificationNumber(addUserDTO.getIdentificationNumber());
+//
+//        if (isExistUser.isPresent() || currentEmployee.isEmpty()) {
+//            return false;
+//        }
+//
+//        user.setEmployee(currentEmployee.get());
+//        user.setRole(roleRepository.findByRoleName(RoleName.valueOf(addUserDTO.getRole())));
+//        user.setPassword(passwordEncoder.encode(addUserDTO.getPassword()));
+//
+//        userRepository.save(user);
+//        return true;
+
+
+        usersRestClient
+                .post()
+                .uri("http://localhost:8081/users")
+                .body(addUserDTO)
+                .retrieve();
+
+        return true;
     }
 
     @Override
@@ -77,23 +77,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> getAllUsers() {
-//        List<User> users = userRepository.findAll();
-//        List<UserDTO> userDTOS = new ArrayList<>();
-//
-//        for (User user : users) {
-//            UserDTO userDTO = mapper.map(user, UserDTO.class);
-//            userDTO.setRole(user.getRole().getRoleName().name());
-//            userDTOS.add(userDTO);
-//        }
-//
-//        return userDTOS;
+
      return usersRestClient
         .get()
         .uri("http://localhost:8081/users")
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
         .body(new ParameterizedTypeReference<>(){});
-
     }
 
     @Override
@@ -102,5 +92,15 @@ public class UserServiceImpl implements UserService {
                 .uri("http://localhost:8081/users/" + id)
                 .retrieve()
                 .toBodilessEntity();
+    }
+
+    @Override
+    public UserDTO getUserDetails(long id) {
+        return usersRestClient
+                .get()
+                .uri("http://localhost:8081/users/{id}", id)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(UserDTO.class);
     }
 }
