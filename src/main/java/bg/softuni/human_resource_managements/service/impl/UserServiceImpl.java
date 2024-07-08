@@ -12,7 +12,10 @@ import bg.softuni.human_resource_managements.repository.RoleRepository;
 import bg.softuni.human_resource_managements.repository.UserRepository;
 import bg.softuni.human_resource_managements.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatusCode;
+import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
@@ -74,15 +77,30 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> getAllUsers() {
-        List<User> users = userRepository.findAll();
-        List<UserDTO> userDTOS = new ArrayList<>();
+//        List<User> users = userRepository.findAll();
+//        List<UserDTO> userDTOS = new ArrayList<>();
+//
+//        for (User user : users) {
+//            UserDTO userDTO = mapper.map(user, UserDTO.class);
+//            userDTO.setRole(user.getRole().getRoleName().name());
+//            userDTOS.add(userDTO);
+//        }
+//
+//        return userDTOS;
+     return usersRestClient
+        .get()
+        .uri("http://localhost:8081/users")
+        .accept(MediaType.APPLICATION_JSON)
+        .retrieve()
+        .body(new ParameterizedTypeReference<>(){});
 
-        for (User user : users) {
-            UserDTO userDTO = mapper.map(user, UserDTO.class);
-            userDTO.setRole(user.getRole().getRoleName().name());
-            userDTOS.add(userDTO);
-        }
+    }
 
-        return userDTOS;
+    @Override
+    public void removeUser(long id) {
+        usersRestClient.delete()
+                .uri("http://localhost:8081/users/" + id)
+                .retrieve()
+                .toBodilessEntity();
     }
 }
