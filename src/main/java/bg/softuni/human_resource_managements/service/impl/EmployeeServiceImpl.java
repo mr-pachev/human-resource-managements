@@ -82,6 +82,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public EmployeeDTO getEmployeeByIdentificationNumber(String number) {
+        Employee employee = employeeRepository.findByIdentificationNumber(number);
+
+        return map(employee);
+    }
+
+    @Override
     public void edithEmployee(EmployeeDTO employeeDTO) {
         Employee employee = reMap(employeeDTO);
 

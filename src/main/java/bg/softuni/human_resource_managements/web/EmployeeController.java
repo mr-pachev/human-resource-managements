@@ -76,7 +76,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/employee-details/{id}")
-    public String viewEdithEmployee(@PathVariable("id") Long id, Model model){
+    public String pullEdithEmployee(@PathVariable("id") Long id, Model model){
 
         EmployeeDTO  employeeDTO = employeeService.getEmployeeByID(id);
         model.addAttribute(employeeDTO);
@@ -89,9 +89,28 @@ public class EmployeeController {
     }
 
     @PostMapping("/employee-details")
-    public String edithEmployee(@Valid EmployeeDTO employeeDTO){
+    public String edithEmployee(@Valid EmployeeDTO employeeDTO,
+                           BindingResult bindingResult,
+                           RedirectAttributes rAtt){
+
+        if(bindingResult.hasErrors()){
+            rAtt.addFlashAttribute("employeeDTO", employeeDTO);
+            rAtt.addFlashAttribute("org.springframework.validation.BindingResult.employeeDTO", bindingResult);
+
+            return "redirect:/employee-details";
+        }
 
         employeeService.edithEmployee(employeeDTO);
         return "redirect:/employees";
+    }
+
+    @GetMapping("/employee-details")
+    public String showEmployeeDetails(Model model) {
+
+        model.addAttribute("positions", PositionName.values());
+        model.addAttribute("departments", DepartmentName.values());
+        model.addAttribute("educations", EducationName.values());
+
+        return "employee-details";
     }
 }

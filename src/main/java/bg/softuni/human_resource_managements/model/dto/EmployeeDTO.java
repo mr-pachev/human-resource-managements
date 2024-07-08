@@ -3,7 +3,9 @@ package bg.softuni.human_resource_managements.model.dto;
 import bg.softuni.human_resource_managements.model.entity.Department;
 import bg.softuni.human_resource_managements.model.entity.Education;
 import bg.softuni.human_resource_managements.model.entity.Position;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
@@ -14,15 +16,17 @@ public class EmployeeDTO {
     @NotBlank
     @Size(min = 3, max = 10)
     private String firstName;
-
+    @NotBlank
+    @Size(min = 3, max = 10)
     private String middleName;
-
+    @NotBlank
+    @Size(min = 3, max = 10)
     private String lastName;
 
     private String identificationNumber;
-
+    @Min(18)
     private int age;
-
+    @NotNull
     private String startDate;
 
     private String endDate;
