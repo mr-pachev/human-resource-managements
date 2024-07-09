@@ -27,6 +27,17 @@
                 <a th:href="@{/supervisors}">Supervisors</a>
                 <a th:href="@{/positions}">Positions</a>
             </th:block>
+            <form th:method="GET">
+                <label class="text-white" for="lang">Language</label>
+                <select
+                        id="lang"
+                        name="lang"
+                        onchange="this.form.submit()">
+                    <option value="en_US">English</option>
+                    <option value="bg_BG">Бългалски</option>
+                </select>
+            </form>
+
         </div>
     </div>
 </div>

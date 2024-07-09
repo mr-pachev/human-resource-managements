@@ -12,6 +12,7 @@ import bg.softuni.human_resource_managements.repository.EmployeeRepository;
 import bg.softuni.human_resource_managements.repository.PositionRepository;
 import bg.softuni.human_resource_managements.service.EmployeeService;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
@@ -50,7 +51,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         Optional<Employee> isExistEmployee = employeeRepository.findAllByIdentificationNumber(addEmployeeDTO.getIdentificationNumber());
 
-        if(isExistEmployee.isPresent()){
+        if (isExistEmployee.isPresent()) {
             return false;
         }
 
@@ -80,7 +81,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeDTO getEmployeeByID(long id) {
         Employee employee = employeeRepository.findById(id);
-
         return map(employee);
     }
 
@@ -95,24 +95,19 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void edithEmployee(EmployeeDTO employeeDTO) {
         Employee employee = reMap(employeeDTO);
 
-//        employeeRepository.save(employee);
-        employeesRestClient
-                .post()
-                .uri("http://localhost:8081/employees")
-                .body(employee)
-                .retrieve();
+        employeeRepository.save(employee);
     }
 
-    public EmployeeDTO map(Employee employee){
+    public EmployeeDTO map(Employee employee) {
         EmployeeDTO employeeDTO = mapper.map(employee, EmployeeDTO.class);
         employeeDTO.setPosition(employee.getPosition().getPositionName().name());
         employeeDTO.setDepartment(employee.getDepartment().getDepartmentName().name());
         employeeDTO.setEducation(employee.getEducation().getEducationName().name());
 
-       return employeeDTO;
+        return employeeDTO;
     }
 
-    public Employee reMap(EmployeeDTO employeeDTO){
+    public Employee reMap(EmployeeDTO employeeDTO) {
         Employee employee = employeeRepository.findByIdentificationNumber(employeeDTO.getIdentificationNumber());
 
         employee.setFirstName(employeeDTO.getFirstName());
@@ -123,7 +118,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         LocalDate startDate = mapper.map(employeeDTO.getStartDate(), LocalDate.class);
         employee.setStartDate(startDate);
 
-        if(!employeeDTO.getEndDate().isEmpty()){
+        if (!employeeDTO.getEndDate().isEmpty()) {
             LocalDate endDate = mapper.map(employeeDTO.getEndDate(), LocalDate.class);
             employee.setEndDate(endDate);
         }

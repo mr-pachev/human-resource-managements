@@ -15,14 +15,4 @@ public class RestConfig {
                 .defaultHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
                 .build();
     }
-
-    @Bean
-    public RestClient employeesRestClient(EmployeesApiConfig employeesApiConfig){
-        return RestClient
-                .builder()
-                .baseUrl(employeesApiConfig.getBaseEmployeesUrl())
-                .defaultHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
-                .build();
-    }
-
 }

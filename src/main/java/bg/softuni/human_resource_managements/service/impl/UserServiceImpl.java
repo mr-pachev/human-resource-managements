@@ -49,15 +49,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean addUser(AddUserDTO addUserDTO) {
-//        User user = mapper.map(addUserDTO, User.class);
-//        Optional<User> isExistUser = userRepository.findByUsername(addUserDTO.getUsername());
-//
-//        Optional<Employee> currentEmployee = employeeRepository.findAllByIdentificationNumber(addUserDTO.getIdentificationNumber());
-//
-//        if (isExistUser.isPresent() || currentEmployee.isEmpty()) {
-//            return false;
-//        }
-//
+        User user = mapper.map(addUserDTO, User.class);
+        List<UserDTO> allUsers = getAllUsers();
+
+        boolean isExistUser = allUsers
+                .stream()
+                .anyMatch(userDTO -> userDTO.getUsername().equals(addUserDTO.getUsername()));
+
+        Optional<Employee> currentEmployee = employeeRepository.findAllByIdentificationNumber(addUserDTO.getIdentificationNumber());
+
+        if (isExistUser || currentEmployee.isEmpty()) {
+            return false;
+        }
+
+
 //        user.setEmployee(currentEmployee.get());
 //        user.setRole(roleRepository.findByRoleName(RoleName.valueOf(addUserDTO.getRole())));
 //        user.setPassword(passwordEncoder.encode(addUserDTO.getPassword()));
@@ -71,7 +76,14 @@ public class UserServiceImpl implements UserService {
                 .uri("http://localhost:8081/users")
                 .body(addUserDTO)
                 .retrieve();
-
+//                .onStatus(
+//                        s -> s.isSameCodeAs(HttpStatus.CONFLICT),
+//                        (req, resp) -> {
+//                            // convert response to cusom object
+//                            ErrorDTO errorDTO = objectMapper.readValue(resp.getBody(), ErrorDTO.class);
+//                            throw new YourException(errorDTO.errorCode());
+//                        }
+//                );
         return true;
     }
 
@@ -120,6 +132,7 @@ public class UserServiceImpl implements UserService {
                 .body(userDTO)
                 .retrieve();
     }
+
     public User reMapUser(UserDTO userDTO){
         User user = userRepository.findByUsername(userDTO.getUsername()).get();
 
