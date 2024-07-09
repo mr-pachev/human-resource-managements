@@ -2,10 +2,14 @@ package bg.softuni.human_resource_managements.service.impl;
 
 import bg.softuni.human_resource_managements.config.RestConfig;
 import bg.softuni.human_resource_managements.model.dto.AddUserDTO;
+import bg.softuni.human_resource_managements.model.dto.EmployeeDTO;
 import bg.softuni.human_resource_managements.model.dto.UserDTO;
 import bg.softuni.human_resource_managements.model.entity.Employee;
 import bg.softuni.human_resource_managements.model.entity.Role;
 import bg.softuni.human_resource_managements.model.entity.User;
+import bg.softuni.human_resource_managements.model.enums.DepartmentName;
+import bg.softuni.human_resource_managements.model.enums.EducationName;
+import bg.softuni.human_resource_managements.model.enums.PositionName;
 import bg.softuni.human_resource_managements.model.enums.RoleName;
 import bg.softuni.human_resource_managements.repository.EmployeeRepository;
 import bg.softuni.human_resource_managements.repository.RoleRepository;
@@ -20,6 +24,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -102,5 +107,25 @@ public class UserServiceImpl implements UserService {
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .body(UserDTO.class);
+    }
+
+    @Override
+    public void edithUser(UserDTO userDTO) {
+//        User user = reMapUser(userDTO);
+
+//        employeeRepository.save(employee);
+        usersRestClient
+                .post()
+                .uri("http://localhost:8081/users/edith")
+                .body(userDTO)
+                .retrieve();
+    }
+    public User reMapUser(UserDTO userDTO){
+        User user = userRepository.findByUsername(userDTO.getUsername()).get();
+
+        user.setUsername(userDTO.getUsername());
+        user.setRole(roleRepository.findByRoleName(RoleName.valueOf(userDTO.getRole())));
+
+        return user;
     }
 }

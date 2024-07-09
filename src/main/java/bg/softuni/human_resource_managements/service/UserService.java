@@ -1,6 +1,7 @@
 package bg.softuni.human_resource_managements.service;
 
 import bg.softuni.human_resource_managements.model.dto.AddUserDTO;
+import bg.softuni.human_resource_managements.model.dto.EmployeeDTO;
 import bg.softuni.human_resource_managements.model.dto.UserDTO;
 
 import java.util.List;
@@ -11,4 +12,5 @@ public interface UserService {
     List<UserDTO> getAllUsers();
     void removeUser(long id);
     UserDTO getUserDetails(long id);
+    void edithUser(UserDTO userDTO);
 }

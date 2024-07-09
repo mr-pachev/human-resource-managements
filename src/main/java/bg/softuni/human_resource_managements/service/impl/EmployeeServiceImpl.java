@@ -14,6 +14,7 @@ import bg.softuni.human_resource_managements.service.EmployeeService;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClient;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -28,14 +29,16 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final PositionRepository positionRepository;
     private final DepartmentRepository departmentRepository;
     private final EducationRepository educationRepository;
+    private final RestClient employeesRestClient;
 
-    public EmployeeServiceImpl(ModelMapper mapper, PasswordEncoder passwordEncoder, EmployeeRepository employeeRepository, PositionRepository positionRepository, DepartmentRepository departmentRepository, EducationRepository educationRepository) {
+    public EmployeeServiceImpl(ModelMapper mapper, PasswordEncoder passwordEncoder, EmployeeRepository employeeRepository, PositionRepository positionRepository, DepartmentRepository departmentRepository, EducationRepository educationRepository, RestClient employeesRestClient) {
         this.mapper = mapper;
         this.passwordEncoder = passwordEncoder;
         this.employeeRepository = employeeRepository;
         this.positionRepository = positionRepository;
         this.departmentRepository = departmentRepository;
         this.educationRepository = educationRepository;
+        this.employeesRestClient = employeesRestClient;
     }
 
     @Override
@@ -92,7 +95,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void edithEmployee(EmployeeDTO employeeDTO) {
         Employee employee = reMap(employeeDTO);
 
-        employeeRepository.save(employee);
+//        employeeRepository.save(employee);
+        employeesRestClient
+                .post()
+                .uri("http://localhost:8081/employees")
+                .body(employee)
+                .retrieve();
     }
 
     public EmployeeDTO map(Employee employee){

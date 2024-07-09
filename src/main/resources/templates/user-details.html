@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="bg" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec='http://www.thymeleaf.org/extras/spring-security'>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Employee</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+<body>
+<div th:replace="~{fragments/navigation}"></div>
+<div class="form-container registration-container">
+    <h2 class="text-center">Edith User</h2>
+
+    <form
+          th:action="@{/user-details}"
+          th:object="${userDTO}"
+          th:method="POST"
+          id="userEdithForm">
+
+        <div class="form-group">
+            <label th:for="username">Username</label>
+            <input type="text" class="form-control" th:placeholder="${userDTO.username}"
+                   id="username"
+                   name="username"
+                   th:field="*{username}"
+                   th:errorclass="is-invalid">
+            <p class="invalid-feedback errors alert alert-danger">
+                First name must contain 3 to 10 letters.
+            </p>
+        </div>
+        <div class="form-group">
+            <label th:for="identificationNumber">Identification Number</label>
+            <input type="text" class="form-control" th:placeholder="${userDTO.identificationNumber}"
+                   id="identificationNumber"
+                   th:field="${userDTO.identificationNumber}"
+                   name="identificationNumber" readonly>
+        </div>
+        <div class="form-group">
+            <label th:for="role">Role</label>
+            <select class="form-control" th:placeholder="${userDTO.role}"
+                    id="role"
+                    name="role"
+                    th:field="*{role}"
+                    th:errorclass="is-invalid">
+                <option value=""> -- Select Role -- </option>
+                <option
+                        th:each="role: ${roles}"
+                        th:value="${role}"
+                        th:text="${role}">Role
+                </option>
+            </select>
+            <p class="invalid-feedback errors alert alert-danger">
+                Engine type is required.
+            </p>
+        </div>
+<!--        <form th:method="POST"-->
+<!--              th:action="@{/edith-employee-details/{id}(id=${employeeDTO.getId()})}">-->
+<!--            <input class="btn btn-link" type="submit" value="Save"/>-->
+<!--        </form>-->
+
+        <button type="submit" class="btn btn-primary btn-block">Save</button>
+    </form>
+</div>
+<footer th:replace="~{fragments/footer}"></footer>
+</body>
+</html>

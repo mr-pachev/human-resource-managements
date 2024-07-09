@@ -1,8 +1,12 @@
 package bg.softuni.human_resource_managements.web;
 
 import bg.softuni.human_resource_managements.model.dto.AddUserDTO;
+import bg.softuni.human_resource_managements.model.dto.EmployeeDTO;
 import bg.softuni.human_resource_managements.model.dto.LoginUserDTO;
 import bg.softuni.human_resource_managements.model.dto.UserDTO;
+import bg.softuni.human_resource_managements.model.enums.DepartmentName;
+import bg.softuni.human_resource_managements.model.enums.EducationName;
+import bg.softuni.human_resource_managements.model.enums.PositionName;
 import bg.softuni.human_resource_managements.model.enums.RoleName;
 import bg.softuni.human_resource_managements.service.UserHelperService;
 import bg.softuni.human_resource_managements.service.UserService;
@@ -101,5 +105,39 @@ public class UserController {
         userService.removeUser(id);
 
         return "redirect:/users";
+    }
+
+    @PostMapping("/user-details/{id}")
+    public String pullEdithEmployee(@PathVariable("id") Long id, Model model){
+
+        UserDTO userDTO = userService.getUserDetails(id);
+        model.addAttribute(userDTO);
+
+        model.addAttribute("roles", RoleName.values());
+
+        return "user-details";
+    }
+
+    @PostMapping("/user-details")
+    public String edithEmployee(@Valid UserDTO userDTO,
+                                BindingResult bindingResult,
+                                RedirectAttributes rAtt){
+
+        if(bindingResult.hasErrors()){
+            rAtt.addFlashAttribute("userDTO", userDTO);
+            rAtt.addFlashAttribute("org.springframework.validation.BindingResult.userDTO", bindingResult);
+
+            return "redirect:/user-details";
+        }
+
+        userService.edithUser(userDTO);
+        return "redirect:/users";
+    }
+
+    @GetMapping("/user-details")
+    public String showUserDetails(Model model) {
+        model.addAttribute("roles", RoleName.values());
+
+        return "user-details";
     }
 }
