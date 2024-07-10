@@ -1,10 +1,10 @@
 <div th:fragment="navigation">
     <div class="navbar">
         <div class="nav-left">
-            <a th:href="@{/}">Home</a>
+            <a th:href="@{/}" th:text="#{navigation_home}">Home</a>
             <th:block sec:authorize="!isAuthenticated()">
-                <a th:href="@{/login}">Login</a>
-                <a th:href="@{/registration}">Registration</a>
+                <a th:href="@{/login}" th:text="#{navigation_login}">Login</a>
+                <a th:href="@{/registration}" th:text="#{navigation_registration}">Registration</a>
             </th:block>
             <th:block sec:authorize="isAuthenticated()">
                 <form class="logout-form"
@@ -20,15 +20,13 @@
         <div class="nav-right">
             <th:block sec:authorize="isAuthenticated()">
                 <a th:href="@{/users}" sec:authorize="hasRole('ADMIN')">Users</a>
-                <a th:href="@{/employees}">Employees</a>
-                <a th:href="@{/departments}">Departments</a>
-                <a th:href="@{/projects}">Projects</a>
-                <a th:href="@{/project-managers}">Project Managers</a>
-                <a th:href="@{/supervisors}">Supervisors</a>
-                <a th:href="@{/positions}">Positions</a>
+                <a th:href="@{/employees}" th:text="#{navigation_employees}">Employees</a>
+                <a th:href="@{/departments}" th:text="#{navigation_departments}">Departments</a>
+                <a th:href="@{/projects}" th:text="#{navigation_projects}">Projects</a>
+                <a th:href="@{/positions}" th:text="#{navigation_positions}">Positions</a>
             </th:block>
             <form th:method="GET">
-                <label class="text-white" for="lang">Language</label>
+                <label class="text-white" for="lang" th:text="#{navigation_language}">Language</label>
                 <select
                         id="lang"
                         name="lang"
