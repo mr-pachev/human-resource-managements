@@ -33,6 +33,6 @@ logging:
 server:
   port: 8080
 
-users:
+employees:
   api:
     baseUrl: "http://localhost:8081"

@@ -17,7 +17,7 @@
         <div th:unless="${isExist}">
             <h2 class="text-center">Add Employee</h2>
         </div>
-        <form th:action="@{/registration}"
+        <form th:action="@{/add-employee}"
           th:object="${addEmployeeDTO}"
           th:method="POST"
           id="addEmployeeForm">

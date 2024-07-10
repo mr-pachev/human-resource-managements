@@ -4,8 +4,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConfigurationProperties(prefix = "users.api")
-public class UsersApiConfig {
+@ConfigurationProperties(prefix = "employees.api")
+public class EmployeesApiConfig {
     private String baseUrl;
 
     public String getBaseUrl() {

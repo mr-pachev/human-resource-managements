@@ -62,28 +62,10 @@ public class UserServiceImpl implements UserService {
             return false;
         }
 
+        user.setRole(roleRepository.findByRoleName(RoleName.valueOf(addUserDTO.getRole())));
+        user.setPassword(passwordEncoder.encode(addUserDTO.getPassword()));
 
-//        user.setEmployee(currentEmployee.get());
-//        user.setRole(roleRepository.findByRoleName(RoleName.valueOf(addUserDTO.getRole())));
-//        user.setPassword(passwordEncoder.encode(addUserDTO.getPassword()));
-//
-//        userRepository.save(user);
-//        return true;
-
-
-        usersRestClient
-                .post()
-                .uri("http://localhost:8081/users")
-                .body(addUserDTO)
-                .retrieve();
-//                .onStatus(
-//                        s -> s.isSameCodeAs(HttpStatus.CONFLICT),
-//                        (req, resp) -> {
-//                            // convert response to cusom object
-//                            ErrorDTO errorDTO = objectMapper.readValue(resp.getBody(), ErrorDTO.class);
-//                            throw new YourException(errorDTO.errorCode());
-//                        }
-//                );
+        userRepository.save(user);
         return true;
     }
 
@@ -94,43 +76,40 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> getAllUsers() {
+        List<UserDTO> users = new ArrayList<>();
 
-     return usersRestClient
-        .get()
-        .uri("http://localhost:8081/users")
-        .accept(MediaType.APPLICATION_JSON)
-        .retrieve()
-        .body(new ParameterizedTypeReference<>(){});
+        for (User user : userRepository.findAll()) {
+            users.add(map(user));
+        }
+
+        return users;
     }
 
     @Override
     public void removeUser(long id) {
-        usersRestClient.delete()
-                .uri("http://localhost:8081/users/" + id)
-                .retrieve()
-                .toBodilessEntity();
+        userRepository.deleteById(id);
     }
 
     @Override
     public UserDTO getUserDetails(long id) {
-        return usersRestClient
-                .get()
-                .uri("http://localhost:8081/users/{id}", id)
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .body(UserDTO.class);
+       Optional<User> user = userRepository.findById(id);
+
+       UserDTO userDTO = map(user.get());
+
+       return userDTO;
     }
 
     @Override
     public void edithUser(UserDTO userDTO) {
-//        User user = reMapUser(userDTO);
+        User user = reMapUser(userDTO);
 
-//        employeeRepository.save(employee);
-        usersRestClient
-                .post()
-                .uri("http://localhost:8081/users/edith")
-                .body(userDTO)
-                .retrieve();
+        userRepository.save(user);
+    }
+
+    public UserDTO map(User user){
+        UserDTO userDTO = mapper.map(user, UserDTO.class);
+        userDTO.setRole(user.getRole().getRoleName().name());
+        return userDTO;
     }
 
     public User reMapUser(UserDTO userDTO){

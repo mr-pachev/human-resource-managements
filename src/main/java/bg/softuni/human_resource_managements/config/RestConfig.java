@@ -8,10 +8,10 @@ import org.springframework.web.client.RestClient;
 @Configuration
 public class RestConfig {
     @Bean
-    public RestClient usersRestClient(UsersApiConfig usersApiConfig){
+    public RestClient employeesRestClient(EmployeesApiConfig employeesApiConfig){
         return RestClient
                 .builder()
-                .baseUrl(usersApiConfig.getBaseUrl())
+                .baseUrl(employeesApiConfig.getBaseUrl())
                 .defaultHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
                 .build();
     }

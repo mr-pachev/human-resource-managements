@@ -19,9 +19,6 @@ public class User extends BaseEntity{
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @OneToOne
-    private Employee employee;
-
     public String getUsername() {
         return username;
     }
@@ -44,14 +41,6 @@ public class User extends BaseEntity{
 
     public void setRole(Role role) {
         this.role = role;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
     }
 
     public String getIdentificationNumber() {

@@ -12,6 +12,7 @@ import bg.softuni.human_resource_managements.repository.EmployeeRepository;
 import bg.softuni.human_resource_managements.repository.PositionRepository;
 import bg.softuni.human_resource_managements.service.EmployeeService;
 import org.modelmapper.ModelMapper;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -44,10 +45,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public boolean addEmployee(AddEmployeeDTO addEmployeeDTO) {
-        Employee employee = mapper.map(addEmployeeDTO, Employee.class);
-        employee.setPosition(positionRepository.findByPositionName(PositionName.valueOf(addEmployeeDTO.getPosition())));
-        employee.setDepartment(departmentRepository.findByDepartmentName(DepartmentName.valueOf(addEmployeeDTO.getDepartment())));
-        employee.setEducation(educationRepository.findByEducationName(EducationName.valueOf(addEmployeeDTO.getEducation())));
+        List<EmployeeDTO> employeeDTOS = employeesRestClient
+                .get()
+                .uri("http://localhost:8081/employees")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(new ParameterizedTypeReference<>(){});
 
         Optional<Employee> isExistEmployee = employeeRepository.findAllByIdentificationNumber(addEmployeeDTO.getIdentificationNumber());
 
@@ -55,7 +58,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             return false;
         }
 
-        employeeRepository.save(employee);
+//        employeeRepository.save(employee);
 
         return true;
     }

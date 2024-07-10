@@ -6,6 +6,7 @@ import bg.softuni.human_resource_managements.model.enums.DepartmentName;
 import bg.softuni.human_resource_managements.model.enums.EducationName;
 import bg.softuni.human_resource_managements.model.enums.PositionName;
 import bg.softuni.human_resource_managements.service.EmployeeService;
+import bg.softuni.human_resource_managements.service.PositionService;
 import bg.softuni.human_resource_managements.service.UserHelperService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -22,9 +23,12 @@ public class EmployeeController {
     private final EmployeeService employeeService;
     private final UserHelperService userHelperService;
 
-    public EmployeeController(EmployeeService employeeService, UserHelperService userHelperService) {
+    private final PositionService positionService;
+
+    public EmployeeController(EmployeeService employeeService, UserHelperService userHelperService, PositionService positionService) {
         this.employeeService = employeeService;
         this.userHelperService = userHelperService;
+        this.positionService = positionService;
     }
 
     @ModelAttribute("addEmployeeDTO")
@@ -39,7 +43,8 @@ public class EmployeeController {
 
     @GetMapping("/add-employee")
     public String registrationView(Model model) {
-        model.addAttribute("positions", PositionName.values());
+//        model.addAttribute("positions", PositionName.values());
+        model.addAttribute("positions", positionService.getAllPositionNames());
         model.addAttribute("departments", DepartmentName.values());
         model.addAttribute("educations", EducationName.values());
         return "add-employee";
