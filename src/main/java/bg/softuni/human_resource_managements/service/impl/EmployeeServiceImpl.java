@@ -26,16 +26,14 @@ import java.util.Optional;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     private final ModelMapper mapper;
-    private final PasswordEncoder passwordEncoder;
     private final EmployeeRepository employeeRepository;
     private final PositionRepository positionRepository;
     private final DepartmentRepository departmentRepository;
     private final EducationRepository educationRepository;
     private final RestClient employeesRestClient;
 
-    public EmployeeServiceImpl(ModelMapper mapper, PasswordEncoder passwordEncoder, EmployeeRepository employeeRepository, PositionRepository positionRepository, DepartmentRepository departmentRepository, EducationRepository educationRepository, RestClient employeesRestClient) {
+    public EmployeeServiceImpl(ModelMapper mapper, EmployeeRepository employeeRepository, PositionRepository positionRepository, DepartmentRepository departmentRepository, EducationRepository educationRepository, RestClient employeesRestClient) {
         this.mapper = mapper;
-        this.passwordEncoder = passwordEncoder;
         this.employeeRepository = employeeRepository;
         this.positionRepository = positionRepository;
         this.departmentRepository = departmentRepository;
@@ -45,40 +43,37 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public boolean addEmployee(AddEmployeeDTO addEmployeeDTO) {
-        List<EmployeeDTO> employeeDTOS = employeesRestClient
-                .get()
+
+       if(isExistEmployee(addEmployeeDTO.getIdentificationNumber())){
+           return false;
+       }
+
+        employeesRestClient
+                .post()
                 .uri("http://localhost:8081/employees")
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .body(new ParameterizedTypeReference<>(){});
-
-        Optional<Employee> isExistEmployee = employeeRepository.findAllByIdentificationNumber(addEmployeeDTO.getIdentificationNumber());
-
-        if (isExistEmployee.isPresent()) {
-            return false;
-        }
-
-//        employeeRepository.save(employee);
+                .body(addEmployeeDTO)
+                .retrieve();
 
         return true;
     }
 
     @Override
     public List<EmployeeDTO> getAllEmployees() {
-        List<Employee> employees = employeeRepository.findAll();
 
-        List<EmployeeDTO> allEmployees = new ArrayList<>();
-
-        for (Employee employee : employees) {
-            allEmployees.add(map(employee));
-        }
-
-        return allEmployees;
+        return employeesRestClient
+                .get()
+                .uri("http://localhost:8081/employees")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(new ParameterizedTypeReference<>(){});
     }
 
     @Override
     public void removeEmployee(long id) {
-        employeeRepository.deleteById(id);
+        employeesRestClient.delete()
+                .uri("http://localhost:8081/employees/" + id)
+                .retrieve()
+                .toBodilessEntity();
     }
 
     @Override
@@ -92,6 +87,19 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = employeeRepository.findByIdentificationNumber(number);
 
         return map(employee);
+    }
+
+    @Override
+    public boolean isExistEmployee(String identificationNumber) {
+        List<EmployeeDTO> employeeDTOS = employeesRestClient
+                .get()
+                .uri("http://localhost:8081/employees")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(new ParameterizedTypeReference<>(){});
+
+        return employeeDTOS.stream()
+                .anyMatch(employee -> employee.getIdentificationNumber().equals(identificationNumber));
     }
 
     @Override

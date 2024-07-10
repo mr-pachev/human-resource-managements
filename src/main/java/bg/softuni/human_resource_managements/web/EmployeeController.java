@@ -5,9 +5,7 @@ import bg.softuni.human_resource_managements.model.dto.EmployeeDTO;
 import bg.softuni.human_resource_managements.model.enums.DepartmentName;
 import bg.softuni.human_resource_managements.model.enums.EducationName;
 import bg.softuni.human_resource_managements.model.enums.PositionName;
-import bg.softuni.human_resource_managements.service.EmployeeService;
-import bg.softuni.human_resource_managements.service.PositionService;
-import bg.softuni.human_resource_managements.service.UserHelperService;
+import bg.softuni.human_resource_managements.service.*;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,14 +19,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class EmployeeController {
     private final EmployeeService employeeService;
-    private final UserHelperService userHelperService;
-
     private final PositionService positionService;
+    private final DepartmentService departmentService;
+    private final EducationService educationService;
 
-    public EmployeeController(EmployeeService employeeService, UserHelperService userHelperService, PositionService positionService) {
+    public EmployeeController(EmployeeService employeeService, PositionService positionService, DepartmentService departmentService, EducationService educationService) {
         this.employeeService = employeeService;
-        this.userHelperService = userHelperService;
         this.positionService = positionService;
+        this.departmentService = departmentService;
+        this.educationService = educationService;
     }
 
     @ModelAttribute("addEmployeeDTO")
@@ -43,10 +42,9 @@ public class EmployeeController {
 
     @GetMapping("/add-employee")
     public String registrationView(Model model) {
-//        model.addAttribute("positions", PositionName.values());
         model.addAttribute("positions", positionService.getAllPositionNames());
-        model.addAttribute("departments", DepartmentName.values());
-        model.addAttribute("educations", EducationName.values());
+        model.addAttribute("departments", departmentService.getAllDepartments());
+        model.addAttribute("educations", educationService.getAllEducations());
         return "add-employee";
     }
 
@@ -63,7 +61,9 @@ public class EmployeeController {
             return "redirect:/add-employee";
         }
 
-        return "redirect:/login";
+        employeeService.addEmployee(addEmployeeDTO);
+
+        return "redirect:/employees";
     }
 
     @GetMapping("/employees")

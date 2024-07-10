@@ -14,6 +14,7 @@ import bg.softuni.human_resource_managements.model.enums.RoleName;
 import bg.softuni.human_resource_managements.repository.EmployeeRepository;
 import bg.softuni.human_resource_managements.repository.RoleRepository;
 import bg.softuni.human_resource_managements.repository.UserRepository;
+import bg.softuni.human_resource_managements.service.EmployeeService;
 import bg.softuni.human_resource_managements.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.core.ParameterizedTypeReference;
@@ -35,14 +36,16 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final EmployeeRepository employeeRepository;
     private final UserRepository userRepository;
+    private final EmployeeService employeeService;
     private final RoleRepository roleRepository;
     private final RestClient usersRestClient;
 
-    public UserServiceImpl(ModelMapper mapper, PasswordEncoder passwordEncoder, EmployeeRepository employeeRepository, UserRepository userRepository, RoleRepository roleRepository, RestClient usersRestClient) {
+    public UserServiceImpl(ModelMapper mapper, PasswordEncoder passwordEncoder, EmployeeRepository employeeRepository, UserRepository userRepository, EmployeeService employeeService, RoleRepository roleRepository, RestClient usersRestClient) {
         this.mapper = mapper;
         this.passwordEncoder = passwordEncoder;
         this.employeeRepository = employeeRepository;
         this.userRepository = userRepository;
+        this.employeeService = employeeService;
         this.roleRepository = roleRepository;
         this.usersRestClient = usersRestClient;
     }
@@ -56,9 +59,10 @@ public class UserServiceImpl implements UserService {
                 .stream()
                 .anyMatch(userDTO -> userDTO.getUsername().equals(addUserDTO.getUsername()));
 
-        Optional<Employee> currentEmployee = employeeRepository.findAllByIdentificationNumber(addUserDTO.getIdentificationNumber());
+//        Optional<Employee> currentEmployee = employeeRepository.findAllByIdentificationNumber(addUserDTO.getIdentificationNumber());
+        boolean isExistEmployee = employeeService.isExistEmployee(addUserDTO.getIdentificationNumber());
 
-        if (isExistUser || currentEmployee.isEmpty()) {
+        if (isExistUser || !isExistEmployee) {
             return false;
         }
 
@@ -94,9 +98,7 @@ public class UserServiceImpl implements UserService {
     public UserDTO getUserDetails(long id) {
        Optional<User> user = userRepository.findById(id);
 
-       UserDTO userDTO = map(user.get());
-
-       return userDTO;
+        return map(user.get());
     }
 
     @Override
