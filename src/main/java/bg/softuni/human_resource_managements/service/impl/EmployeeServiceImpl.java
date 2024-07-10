@@ -78,15 +78,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDTO getEmployeeByID(long id) {
-        Employee employee = employeeRepository.findById(id);
-        return map(employee);
-    }
-
-    @Override
-    public EmployeeDTO getEmployeeByIdentificationNumber(String number) {
-        Employee employee = employeeRepository.findByIdentificationNumber(number);
-
-        return map(employee);
+        return employeesRestClient
+                .get()
+                .uri("http://localhost:8081/employees/{id}", id)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(EmployeeDTO.class);
     }
 
     @Override
@@ -104,40 +101,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void edithEmployee(EmployeeDTO employeeDTO) {
-        Employee employee = reMap(employeeDTO);
-
-        employeeRepository.save(employee);
-    }
-
-    public EmployeeDTO map(Employee employee) {
-        EmployeeDTO employeeDTO = mapper.map(employee, EmployeeDTO.class);
-        employeeDTO.setPosition(employee.getPosition().getPositionName().name());
-        employeeDTO.setDepartment(employee.getDepartment().getDepartmentName().name());
-        employeeDTO.setEducation(employee.getEducation().getEducationName().name());
-
-        return employeeDTO;
-    }
-
-    public Employee reMap(EmployeeDTO employeeDTO) {
-        Employee employee = employeeRepository.findByIdentificationNumber(employeeDTO.getIdentificationNumber());
-
-        employee.setFirstName(employeeDTO.getFirstName());
-        employee.setMiddleName(employeeDTO.getMiddleName());
-        employee.setLastName(employeeDTO.getLastName());
-        employee.setAge(employeeDTO.getAge());
-
-        LocalDate startDate = mapper.map(employeeDTO.getStartDate(), LocalDate.class);
-        employee.setStartDate(startDate);
-
-        if (!employeeDTO.getEndDate().isEmpty()) {
-            LocalDate endDate = mapper.map(employeeDTO.getEndDate(), LocalDate.class);
-            employee.setEndDate(endDate);
-        }
-
-        employee.setPosition(positionRepository.findByPositionName(PositionName.valueOf(employeeDTO.getPosition())));
-        employee.setDepartment(departmentRepository.findByDepartmentName(DepartmentName.valueOf(employeeDTO.getDepartment())));
-        employee.setEducation(educationRepository.findByEducationName(EducationName.valueOf(employeeDTO.getEducation())));
-
-        return employee;
+        employeesRestClient
+                .post()
+                .uri("http://localhost:8081/employees/edith")
+                .body(employeeDTO)
+                .retrieve();
     }
 }
