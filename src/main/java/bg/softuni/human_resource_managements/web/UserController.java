@@ -1,12 +1,8 @@
 package bg.softuni.human_resource_managements.web;
 
 import bg.softuni.human_resource_managements.model.dto.AddUserDTO;
-import bg.softuni.human_resource_managements.model.dto.EmployeeDTO;
 import bg.softuni.human_resource_managements.model.dto.LoginUserDTO;
 import bg.softuni.human_resource_managements.model.dto.UserDTO;
-import bg.softuni.human_resource_managements.model.enums.DepartmentName;
-import bg.softuni.human_resource_managements.model.enums.EducationName;
-import bg.softuni.human_resource_managements.model.enums.PositionName;
 import bg.softuni.human_resource_managements.model.enums.RoleName;
 import bg.softuni.human_resource_managements.service.UserHelperService;
 import bg.softuni.human_resource_managements.service.UserService;

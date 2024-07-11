@@ -2,9 +2,6 @@ package bg.softuni.human_resource_managements.web;
 
 import bg.softuni.human_resource_managements.model.dto.AddEmployeeDTO;
 import bg.softuni.human_resource_managements.model.dto.EmployeeDTO;
-import bg.softuni.human_resource_managements.model.enums.DepartmentName;
-import bg.softuni.human_resource_managements.model.enums.EducationName;
-import bg.softuni.human_resource_managements.model.enums.PositionName;
 import bg.softuni.human_resource_managements.service.*;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -86,9 +83,9 @@ public class EmployeeController {
         EmployeeDTO  employeeDTO = employeeService.getEmployeeByID(id);
         model.addAttribute(employeeDTO);
 
-        model.addAttribute("positions", PositionName.values());
-        model.addAttribute("departments", DepartmentName.values());
-        model.addAttribute("educations", EducationName.values());
+        model.addAttribute("positions", positionService.getAllPositionNames());
+        model.addAttribute("departments", departmentService.getAllDepartments());
+        model.addAttribute("educations", educationService.getAllEducations());
 
         return "employee-details";
     }
@@ -112,9 +109,9 @@ public class EmployeeController {
     @GetMapping("/employee-details")
     public String showEmployeeDetails(Model model) {
 
-        model.addAttribute("positions", PositionName.values());
-        model.addAttribute("departments", DepartmentName.values());
-        model.addAttribute("educations", EducationName.values());
+        model.addAttribute("positions", positionService.getAllPositionNames());
+        model.addAttribute("departments", departmentService.getAllDepartments());
+        model.addAttribute("educations", educationService.getAllEducations());
 
         return "employee-details";
     }
