@@ -2,42 +2,22 @@ package bg.softuni.human_resource_managements.service.impl;
 
 import bg.softuni.human_resource_managements.model.dto.AddEmployeeDTO;
 import bg.softuni.human_resource_managements.model.dto.EmployeeDTO;
-import bg.softuni.human_resource_managements.model.entity.Employee;
-import bg.softuni.human_resource_managements.model.enums.DepartmentName;
-import bg.softuni.human_resource_managements.model.enums.EducationName;
-import bg.softuni.human_resource_managements.model.enums.PositionName;
-import bg.softuni.human_resource_managements.repository.DepartmentRepository;
-import bg.softuni.human_resource_managements.repository.EducationRepository;
-import bg.softuni.human_resource_managements.repository.EmployeeRepository;
-import bg.softuni.human_resource_managements.repository.PositionRepository;
 import bg.softuni.human_resource_managements.service.EmployeeService;
 import org.modelmapper.ModelMapper;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     private final ModelMapper mapper;
-    private final EmployeeRepository employeeRepository;
-    private final PositionRepository positionRepository;
-    private final DepartmentRepository departmentRepository;
-    private final EducationRepository educationRepository;
     private final RestClient employeesRestClient;
 
-    public EmployeeServiceImpl(ModelMapper mapper, EmployeeRepository employeeRepository, PositionRepository positionRepository, DepartmentRepository departmentRepository, EducationRepository educationRepository, RestClient employeesRestClient) {
+    public EmployeeServiceImpl(ModelMapper mapper, RestClient employeesRestClient) {
         this.mapper = mapper;
-        this.employeeRepository = employeeRepository;
-        this.positionRepository = positionRepository;
-        this.departmentRepository = departmentRepository;
-        this.educationRepository = educationRepository;
         this.employeesRestClient = employeesRestClient;
     }
 
