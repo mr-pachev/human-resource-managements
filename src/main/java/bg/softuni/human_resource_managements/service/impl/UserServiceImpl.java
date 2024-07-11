@@ -58,11 +58,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean findUserByUsername(String username) {
-        return userRepository.findByUsername(username).isPresent();
-    }
-
-    @Override
     public List<UserDTO> getAllUsers() {
         List<UserDTO> users = new ArrayList<>();
 

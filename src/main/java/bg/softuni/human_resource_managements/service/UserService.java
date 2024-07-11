@@ -10,7 +10,6 @@ import java.util.Optional;
 
 public interface UserService {
     boolean addUser(AddUserDTO addUserDTO);
-    boolean findUserByUsername(String username);
     List<UserDTO> getAllUsers();
     void removeUser(long id);
     UserDTO getUserDetails(long id);
