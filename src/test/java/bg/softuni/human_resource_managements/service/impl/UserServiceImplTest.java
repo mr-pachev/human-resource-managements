@@ -1,64 +1,68 @@
 package bg.softuni.human_resource_managements.service.impl;
 
 import bg.softuni.human_resource_managements.model.dto.AddUserDTO;
+import bg.softuni.human_resource_managements.model.entity.User;
 import bg.softuni.human_resource_managements.repository.RoleRepository;
 import bg.softuni.human_resource_managements.repository.UserRepository;
 import bg.softuni.human_resource_managements.service.EmployeeService;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.client.RestClient;
 
-import java.util.ArrayList;
-import java.util.List;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.verify;
 
-class UserServiceImplTest {
+@ExtendWith(MockitoExtension.class)
+public class UserServiceImplTest {
     private UserServiceImpl toTest;
-
-    private ModelMapper mockModelMapper;
-    private PasswordEncoder mockPasswordEncoder;
+    @Captor
+    ArgumentCaptor<User> userArgumentCaptor;
+    @Mock
     private UserRepository mockUserRepository;
+    @Mock
     private EmployeeService mockEmployeeService;
+    @Mock
     private RoleRepository mockRoleRepository;
-    private RestClient mockUsersRestClient;
+    @Mock
+    private PasswordEncoder mockPasswordEncoder;
 
     @BeforeEach
     void setUp(){
-        mockModelMapper = Mockito.mock(ModelMapper.class);
-        mockPasswordEncoder = Mockito.mock(PasswordEncoder.class);
-        mockUserRepository = Mockito.mock(UserRepository.class);
-        mockEmployeeService = Mockito.mock(EmployeeService.class);
-        mockRoleRepository = Mockito.mock(RoleRepository.class);
-        mockUsersRestClient = Mockito.mock(RestClient.class);
-
-        toTest = new UserServiceImpl(mockModelMapper, mockPasswordEncoder,
-                mockUserRepository, mockEmployeeService,
-                mockRoleRepository, mockUsersRestClient);
+        toTest = new UserServiceImpl(
+                new ModelMapper(),
+                mockPasswordEncoder,
+                mockUserRepository,
+                mockEmployeeService,
+                mockRoleRepository
+        );
     }
 
     @Test
-    void addUser() {
-        List<AddUserDTO> testUsers = new ArrayList<>();
-        AddUserDTO testUser1 = new AddUserDTO();
+    void addUser(){
+        AddUserDTO addUserDTO = new AddUserDTO();
 
-        testUser1.setUsername("test");
-        testUser1.setPassword("0000");
-        testUser1.setIdentificationNumber("1111111112");
-        testUser1.setRole("ADMIN");
+        addUserDTO.setUserId(1);
+        addUserDTO.setUsername("test");
+        addUserDTO.setRole("ADMIN");
+        addUserDTO.setPassword("0000");
+        addUserDTO.setConfirmPassword("0000");
+        addUserDTO.setIdentificationNumber("1111111112");
 
-        testUsers.add(testUser1);
+        toTest.addUser(addUserDTO);
 
-        AddUserDTO testUser2 = new AddUserDTO();
+        verify(mockUserRepository).save(userArgumentCaptor.capture());
 
-        testUser2.setUsername("test");
-        testUser2.setPassword("0000");
-        testUser2.setIdentificationNumber("1111111112");
-        testUser2.setRole("ADMIN");
+        User actualitySaveUserCapture = userArgumentCaptor.getValue();
 
-        testUsers.add(testUser2);
-
-        boolean
+        Assertions.assertEquals(addUserDTO.getUsername(), actualitySaveUserCapture.getUsername());
     }
 }

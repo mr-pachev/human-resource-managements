@@ -24,15 +24,13 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final EmployeeService employeeService;
     private final RoleRepository roleRepository;
-    private final RestClient usersRestClient;
 
-    public UserServiceImpl(ModelMapper mapper, PasswordEncoder passwordEncoder, UserRepository userRepository, EmployeeService employeeService, RoleRepository roleRepository, RestClient usersRestClient) {
+    public UserServiceImpl(ModelMapper mapper, PasswordEncoder passwordEncoder, UserRepository userRepository, EmployeeService employeeService, RoleRepository roleRepository) {
         this.mapper = mapper;
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.employeeService = employeeService;
         this.roleRepository = roleRepository;
-        this.usersRestClient = usersRestClient;
     }
 
     @Override
