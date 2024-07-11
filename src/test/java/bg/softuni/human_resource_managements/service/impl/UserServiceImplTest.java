@@ -1,18 +1,18 @@
 package bg.softuni.human_resource_managements.service.impl;
 
 import bg.softuni.human_resource_managements.model.dto.AddUserDTO;
-import bg.softuni.human_resource_managements.model.entity.User;
-import bg.softuni.human_resource_managements.model.enums.RoleName;
 import bg.softuni.human_resource_managements.repository.RoleRepository;
 import bg.softuni.human_resource_managements.repository.UserRepository;
 import bg.softuni.human_resource_managements.service.EmployeeService;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.client.RestClient;
+
+import java.util.ArrayList;
+import java.util.List;
 
 class UserServiceImplTest {
     private UserServiceImpl toTest;
@@ -40,15 +40,25 @@ class UserServiceImplTest {
 
     @Test
     void addUser() {
-        AddUserDTO testUser = new AddUserDTO();
+        List<AddUserDTO> testUsers = new ArrayList<>();
+        AddUserDTO testUser1 = new AddUserDTO();
 
-        testUser.setUsername("test");
-        testUser.setPassword("0000");
-        testUser.setIdentificationNumber("1111111112");
-        testUser.setRole(mockRoleRepository.findByRoleName(RoleName.ADMIN).toString());
+        testUser1.setUsername("test");
+        testUser1.setPassword("0000");
+        testUser1.setIdentificationNumber("1111111112");
+        testUser1.setRole("ADMIN");
 
+        testUsers.add(testUser1);
 
-        boolean addUser = toTest.addUser(testUser);
-        Assertions.assertEquals(true, addUser);
+        AddUserDTO testUser2 = new AddUserDTO();
+
+        testUser2.setUsername("test");
+        testUser2.setPassword("0000");
+        testUser2.setIdentificationNumber("1111111112");
+        testUser2.setRole("ADMIN");
+
+        testUsers.add(testUser2);
+
+        boolean
     }
 }
