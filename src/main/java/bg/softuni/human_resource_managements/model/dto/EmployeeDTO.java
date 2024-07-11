@@ -9,13 +9,13 @@ public class EmployeeDTO {
     private long id;
 
     @NotBlank
-    @Size(min = 3, max = 10)
+    @Size(min = 3, max = 15)
     private String firstName;
     @NotBlank
-    @Size(min = 3, max = 10)
+    @Size(min = 3, max = 15)
     private String middleName;
     @NotBlank
-    @Size(min = 3, max = 10)
+    @Size(min = 3, max = 15)
     private String lastName;
 
     private String identificationNumber;

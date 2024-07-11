@@ -1,6 +1,7 @@
 package bg.softuni.human_resource_managements.service.impl;
 
 import bg.softuni.human_resource_managements.model.dto.AddEmployeeDTO;
+import bg.softuni.human_resource_managements.model.dto.AddUserDTO;
 import bg.softuni.human_resource_managements.model.dto.EmployeeDTO;
 import bg.softuni.human_resource_managements.service.EmployeeService;
 import org.modelmapper.ModelMapper;
@@ -81,10 +82,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void edithEmployee(EmployeeDTO employeeDTO) {
+        AddEmployeeDTO addEmployeeDTO = mapper.map(employeeDTO, AddEmployeeDTO.class);
         employeesRestClient
                 .post()
                 .uri("http://localhost:8081/employees/edith")
-                .body(employeeDTO)
+                .body(addEmployeeDTO)
                 .retrieve();
     }
 }
