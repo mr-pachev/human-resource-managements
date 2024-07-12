@@ -62,7 +62,6 @@ public class UserServiceImpl implements UserService {
         for (User user : userRepository.findAll()) {
             users.add(map(user));
         }
-
         return users;
     }
 
@@ -79,7 +78,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void edithUser(UserDTO userDTO) {
+    public void editUser(UserDTO userDTO) {
         User user = reMapUser(userDTO);
 
         userRepository.save(user);

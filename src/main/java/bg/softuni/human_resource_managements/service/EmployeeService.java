@@ -11,5 +11,5 @@ public interface EmployeeService {
     void removeEmployee(long id);
     EmployeeDTO getEmployeeByID(long id);
     boolean isExistEmployee(String identificationNumber);
-    void edithEmployee(EmployeeDTO employeeDTO);
+    void editEmployee(EmployeeDTO employeeDTO);
 }

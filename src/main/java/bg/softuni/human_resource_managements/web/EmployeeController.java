@@ -102,7 +102,7 @@ public class EmployeeController {
             return "redirect:/employee-details";
         }
 
-        employeeService.edithEmployee(employeeDTO);
+        employeeService.editEmployee(employeeDTO);
         return "redirect:/employees";
     }
 

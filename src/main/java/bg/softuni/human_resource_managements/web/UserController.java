@@ -126,7 +126,7 @@ public class UserController {
             return "redirect:/user-details";
         }
 
-        userService.edithUser(userDTO);
+        userService.editUser(userDTO);
         return "redirect:/users";
     }
 

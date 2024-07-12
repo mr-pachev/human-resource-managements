@@ -13,5 +13,5 @@ public interface UserService {
     List<UserDTO> getAllUsers();
     void removeUser(long id);
     UserDTO getUserDetails(long id);
-    void edithUser(UserDTO userDTO);
+    void editUser(UserDTO userDTO);
 }

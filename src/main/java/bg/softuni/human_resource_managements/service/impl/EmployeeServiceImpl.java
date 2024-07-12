@@ -81,11 +81,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void edithEmployee(EmployeeDTO employeeDTO) {
+    public void editEmployee(EmployeeDTO employeeDTO) {
         AddEmployeeDTO addEmployeeDTO = mapper.map(employeeDTO, AddEmployeeDTO.class);
         employeesRestClient
                 .post()
-                .uri("http://localhost:8081/employees/edith")
+                .uri("http://localhost:8081/employees/edit")
                 .body(addEmployeeDTO)
                 .retrieve();
     }
