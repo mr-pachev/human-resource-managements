@@ -12,15 +12,15 @@
     <div th:fragment="navigation">
     <div class="navbar">
         <div class="nav-left">
-            <a th:href="@{/}">Home</a>
+            <a th:href="@{/}" th:text="#{nav_bar_home}">Home</a>
             <th:block sec:authorize="!isAuthenticated()">
                 <a th:href="@{/login}" th:text="#{nav_bar_login}">Login</a>
-                <a th:href="@{/registration}" >Registration</a>
+                <a th:href="@{/registration}" th:text="#{nav_bar_registration}">Registration</a>
             </th:block>
             <th:block sec:authorize="isAuthenticated()">
                 <form class="logout-form"
                       th:method="POST"
-                      th:action="@{/logout}">
+                      th:action="@{/logout}" th:text="#{nav_bar_logout}">
                     <button type="submit" class="logout-button">Logout</button>
                 </form>
                 <span class="nav-greeting">
@@ -30,13 +30,13 @@
         </div>
         <div class="nav-right">
             <th:block sec:authorize="isAuthenticated()">
-                <a th:href="@{/users}" sec:authorize="hasRole('ADMIN')">Users</a>
-                <a th:href="@{/employees}">Employees</a>
-                <a th:href="@{/departments}">Departments</a>
-                <a th:href="@{/projects}">Projects</a>
-                <a th:href="@{/positions}">Positions</a>
+                <a th:href="@{/users}" th:text="#{nav_bar_users}" sec:authorize="hasRole('ADMIN')">Users</a>
+                <a th:href="@{/employees}" th:text="#{nav_bar_employees}">Employees</a>
+                <a th:href="@{/departments}" th:text="#{nav_bar_departments}">Departments</a>
+                <a th:href="@{/projects}" th:text="#{nav_bar_projects}">Projects</a>
+                <a th:href="@{/positions}" th:text="#{nav_bar_positions}">Positions</a>
             </th:block>
-            <form th:method="GET">
+            <form class="language-form" th:method="GET">
                 <label class="nav-right" for="lang" th:text="#{nav_bar_language}">Language</label>
                 <select
                         id="lang"
@@ -46,7 +46,6 @@
                     <option value="bg_BG" th:selected="${#locale.toString()} == 'bg_BG'">Бългалски</option>
                 </select>
             </form>
-
         </div>
     </div>
 </div>

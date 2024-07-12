@@ -19,7 +19,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -52,12 +51,12 @@ public class UserServiceImplTest {
     @BeforeEach
     void setUp() {
         testUser = new User();
-        testUser.setId(1L); // Set user id for testing
+        testUser.setId(1L);
         testUser.setUsername("Pachev");
         testUser.setRole(new Role(RoleName.ADMIN));
 
         userDTO = new UserDTO();
-        userDTO.setUserId(1L); // Set user id for testing
+        userDTO.setUserId(1L);
         userDTO.setUsername("Pachev");
         userDTO.setRole("ADMIN");
 
@@ -129,11 +128,11 @@ public class UserServiceImplTest {
     void testEditUser() {
         when(mockUserRepository.findByUsername(userDTO.getUsername())).thenReturn(Optional.of(testUser));
         when(mockRoleRepository.findByRoleName(RoleName.ADMIN)).thenReturn(new Role(RoleName.ADMIN));
-        when(mockUserRepository.save(any())).thenAnswer(invocation -> invocation.getArgument(0)); // Mock save() to return the saved entity
+        when(mockUserRepository.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
 
         userServiceImpl.editUser(userDTO);
 
-        verify(mockUserRepository, times(1)).save(any(User.class)); // Verify that save() was called once with any User argument
+        verify(mockUserRepository, times(1)).save(any(User.class));
     }
 
     @Test
@@ -167,7 +166,7 @@ public class UserServiceImplTest {
     @Test
     void testAddUser_UserExists() {
         when(mockModelMapper.map(addUserDTO, User.class)).thenReturn(testUser);
-        when(mockModelMapper.map(testUser, UserDTO.class)).thenReturn(userDTO); // Ensure the mapping returns userDTO
+        when(mockModelMapper.map(testUser, UserDTO.class)).thenReturn(userDTO);
         when(mockUserRepository.findAll()).thenReturn(List.of(testUser));
         when(mockEmployeeService.isExistEmployee(addUserDTO.getIdentificationNumber())).thenReturn(true);
 
