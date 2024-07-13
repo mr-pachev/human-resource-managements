@@ -20,8 +20,8 @@
             <th:block sec:authorize="isAuthenticated()">
                 <form class="logout-form"
                       th:method="POST"
-                      th:action="@{/logout}" th:text="#{nav_bar_logout}">
-                    <button type="submit" class="logout-button">Logout</button>
+                      th:action="@{/logout}">
+                    <button type="submit" class="logout-button" th:text="#{nav_bar_logout}">Logout</button>
                 </form>
                 <span class="nav-greeting">
                     Hello <span th:text="${@userHelperService.userDetails.username}"></span>!
