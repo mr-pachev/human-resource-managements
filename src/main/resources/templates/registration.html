@@ -16,14 +16,14 @@
             <p class="d-block">Non-existent identification number or the user already exists</p>
         </div>
         <div th:unless="${noAddedUser}">
-            <h2 class="text-center">Add User</h2>
+            <h2 class="text-center" id="registration_user" th:text="#{registration_user}">Add User</h2>
         </div>
         <form
             th:action="@{/registration}"
             th:method="POST"
             th:object="${addUserDTO}">
         <div class="form-group">
-            <label th:for="username">Username:</label>
+            <label th:for="username" id="registration_username" th:text="#{registration_username}">Username:</label>
             <input type="text" class="form-control"
                    id="username"
                    name="username"
@@ -34,7 +34,7 @@
             </p>
         </div>
         <div class="form-group">
-            <label th:for="identificationNumber">Identification Number</label>
+            <label th:for="identificationNumber" id="registration_ID" th:text="#{registration_ID}">Identification Number</label>
             <input type="text" class="form-control"
                    id="identificationNumber"
                    name="identificationNumber"
@@ -45,7 +45,7 @@
             </p>
         </div>
         <div class="form-group">
-            <label th:for="password">Password</label>
+            <label th:for="password" id="registration_password" th:text="#{registration_password}">Password</label>
             <input type="password" class="form-control"
                    id="password"
                    name="password"
@@ -56,7 +56,7 @@
             </p>
         </div>
         <div class="form-group">
-            <label th:for="confirmPassword">Confirm Password</label>
+            <label th:for="confirmPassword" id="registration_confPass" th:text="#{registration_confPass}">Confirm Password</label>
             <input type="password" class="form-control"
                    id="confirmPassword"
                    name="confirmPassword"
@@ -68,7 +68,7 @@
             </p>
         </div>
         <div class="form-group">
-            <label th:for="role">Role</label>
+            <label th:for="role" id="registration_role" th:text="#{registration_role}">Role</label>
             <select class="form-control"
                     id="role"
                     name="role"
@@ -83,7 +83,7 @@
                 Select Role.
             </p>
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        <button type="submit" class="btn btn-primary btn-block" id="registration_button" th:text="#{registration_button}">Save</button>
     </form>
     </div>
     <footer th:replace="~{fragments/footer}"></footer>
