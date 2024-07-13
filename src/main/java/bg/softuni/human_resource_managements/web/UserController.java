@@ -114,8 +114,11 @@ public class UserController {
         return "user-details";
     }
 
-    @GetMapping("/user-details")
-    public String showUserDetails(Model model) {
+    @GetMapping("/user-details/{id}")
+    public String showUserDetails(@PathVariable("id") Long id, Model model) {
+
+        UserDTO userDTO = userService.getUserDetails(id);
+        model.addAttribute(userDTO);
 
         model.addAttribute("roles", RoleName.values());
 
