@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="bg"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,13 +10,30 @@
 </head>
 <body>
 <div th:replace="~{fragments/navigation}"></div>
-    <div class="form-container index-form">
+<!--    <div class="form-container index-form">-->
 
-        <h2 class="text-center">Human Resource Managements</h2>
+<!--        <h2 class="text-center">Human Resource Managements</h2>-->
 
-        <p>is an application for facilitating and managing human resources. It's purpose is to create, maintain and store employee data. There are restrictions on access and user rights.</p></p>
+<!--        <p>is an application for facilitating and managing human resources. It's purpose is to create, maintain and store employee data. There are restrictions on access and user rights.</p></p>-->
 
+<!--    </div>-->
+<main>
+    <div class="form-index">
+        <h1 class="text-center" id="tile" th:text="#{index_title}">Welcome to Human Resource Managements</h1>
+        <hr class="my-3 bg-dark w-50"/>
+
+        <p class="h3" id="description" th:text="#{index_description}">
+            It is an application to facilitate and manage human resources. Its purpose is to create, maintain and store employee data. There are restrictions on access and user rights. Enjoy using it.</p>
+        <hr class="my-3 bg-white w-75"/>
+
+        <h4>
+            <a class="text-primary" th:href="@{/login}" id="login" th:text="#{index_login}">Login</a>
+            <span id="login_desc" th:text="#{index_login_desc}">if you have an account or</span>
+            <a class="text-primary" th:href="@{/register}" id="registration" th:text="#{index_registration}">Register</a>
+            <span id="registration_desc" th:text="#{index_registration_desc}">now and check employees.</span>
+        </h4>
     </div>
+</main>
     <footer th:replace="~{fragments/footer}"></footer>
 </body>
 </html>
