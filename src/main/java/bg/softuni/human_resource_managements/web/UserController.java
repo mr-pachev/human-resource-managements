@@ -114,7 +114,15 @@ public class UserController {
         return "user-details";
     }
 
-    @PostMapping("/user-details")
+    @GetMapping("/user-details")
+    public String showUserDetails(Model model) {
+
+        model.addAttribute("roles", RoleName.values());
+
+        return "user-details";
+    }
+
+    @PostMapping("/edit-user-details")
     public String edithEmployee(@Valid UserDTO userDTO,
                                 BindingResult bindingResult,
                                 RedirectAttributes rAtt){
@@ -128,12 +136,5 @@ public class UserController {
 
         userService.editUser(userDTO);
         return "redirect:/users";
-    }
-
-    @GetMapping("/user-details")
-    public String showUserDetails(Model model) {
-        model.addAttribute("roles", RoleName.values());
-
-        return "user-details";
     }
 }
