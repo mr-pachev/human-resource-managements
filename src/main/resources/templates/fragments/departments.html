@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="bg"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+<body>
+<div th:replace="~{fragments/navigation}"></div>
+<div class="employees-form">
+    <h2 class="text-center">Departments</h2>
+    <a href="/add-employee" class="btn btn-success add-employee-btn">Add</a>
+    <table class="departments-form">
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Middle Name</th>
+            <th>Last Name</th>
+            <th>Identification Number</th>
+            <th>Age</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Position</th>
+            <th>Department</th>
+            <th>Education</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="employee : ${employees}">
+            <td th:text="${employee.firstName}">First Name</td>
+            <td th:text="${employee.middleName}">Middle Name</td>
+            <td th:text="${employee.lastName}">Last Name</td>
+            <td th:text="${employee.identificationNumber}">Identification Number</td>
+            <td th:text="${employee.age}">Age</td>
+            <td th:text="${employee.startDate}">Start Date</td>
+            <td th:text="${employee.endDate}">End Date</td>
+            <td th:text="${employee.position}">Position</td>
+            <td th:text="${employee.department}">Department</td>
+            <td th:text="${employee.education}">Education</td>
+            <td th:href="@{/add-employee}" sec:authorize="hasRole('ADMIN')">
+                <form th:method="POST" th:action="@{/employee-details/{id}(id=${employee.id})}" class="d-inline">
+                    <input class="btn btn-primary btn-sm" type="submit" value="Edith"/>
+                </form>
+                <form th:method="POST" th:action="@{/delete-employee/{id}(id=${employee.id})}" class="d-inline">
+                    <input class="btn btn-danger btn-sm" type="submit" value="Remove"/>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<footer th:replace="~{fragments/footer}"></footer>
+</body>
+</html>

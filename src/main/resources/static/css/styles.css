@@ -98,7 +98,7 @@ body {
     margin: auto;
 }
 
-.employees-form{
+.employees-form, .departments-form{
     width: 100%;
     max-width: 100%;
     padding: 15px;
@@ -127,6 +127,12 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
+}
+
+.employee-count {
+    font-size: 0.8em;
+    color: gray;
+    margin-left: 10px;
 }
 
 .add-employee-btn {
