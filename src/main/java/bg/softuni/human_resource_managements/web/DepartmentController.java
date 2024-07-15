@@ -49,7 +49,7 @@ public class DepartmentController {
             return "redirect:/department-details";
         }
 
-        employeeService.editEmployee(departmentDTO);
+
         return "redirect:/departments";
     }
 }
