@@ -14,6 +14,10 @@ public class DepartmentDTO {
     @NotBlank
     @Size(min = 9, max = 50)
     private String manager;
+
+    @NotBlank
+    @Size(min = 10, max = 255)
+    private String descriptions;
     private List<String> employees;
     private List<String>  projects;
 
@@ -55,5 +59,13 @@ public class DepartmentDTO {
 
     public void setProjects(List<String> projects) {
         this.projects = projects;
+    }
+
+    public String getDescriptions() {
+        return descriptions;
+    }
+
+    public void setDescriptions(String descriptions) {
+        this.descriptions = descriptions;
     }
 }

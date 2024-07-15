@@ -1,8 +1,10 @@
 package bg.softuni.human_resource_managements.service.impl;
 
+import bg.softuni.human_resource_managements.model.dto.AddDepartmentDTO;
 import bg.softuni.human_resource_managements.model.dto.DepartmentDTO;
 import bg.softuni.human_resource_managements.model.dto.EmployeeDTO;
 import bg.softuni.human_resource_managements.service.DepartmentService;
+import org.modelmapper.ModelMapper;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -15,9 +17,12 @@ public class DepartmentServiceImpl implements DepartmentService {
     private final RestClient employeesRestClient;
     private final RestClient departmentsRestClient;
 
-    public DepartmentServiceImpl(RestClient employeesRestClient, RestClient departmentsRestClient) {
+    private final ModelMapper mapper;
+
+    public DepartmentServiceImpl(RestClient employeesRestClient, RestClient departmentsRestClient, ModelMapper mapper) {
         this.employeesRestClient = employeesRestClient;
         this.departmentsRestClient = departmentsRestClient;
+        this.mapper = mapper;
     }
 
     @Override
@@ -52,6 +57,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public void editDepartment(DepartmentDTO departmentDTO) {
-
+        AddDepartmentDTO addDepartmentDTO = mapper.map(departmentDTO, AddDepartmentDTO.class);
+        System.out.println();
     }
 }

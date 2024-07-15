@@ -31,6 +31,17 @@
             </p>
         </div>
         <div class="form-group">
+            <label th:for="descriptions">Descriptions</label>
+            <input type="text" class="form-control" th:placeholder="${departmentDTO.descriptions}"
+                   id="descriptions"
+                   name="descriptions"
+                   th:field="*{descriptions}"
+                   th:errorclass="is-invalid">
+            <p class="invalid-feedback errors alert alert-danger">
+                Descriptions name must contain 10 to 255 letters.
+            </p>
+        </div>
+        <div class="form-group">
             <label th:for="manager">Manager</label>
             <input type="text" class="form-control" th:placeholder="${departmentDTO.manager}"
                    id="manager"
@@ -40,7 +51,6 @@
             <p class="invalid-feedback errors alert alert-danger">
                 Manager name must contain 9 to 50 letters.
             </p>
-        </div>
         </div>
         <!--        <form th:method="POST"-->
         <!--              th:action="@{/edith-employee-details/{id}(id=${employeeDTO.getId()})}">-->

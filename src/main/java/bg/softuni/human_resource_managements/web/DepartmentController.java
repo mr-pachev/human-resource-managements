@@ -49,7 +49,13 @@ public class DepartmentController {
             return "redirect:/department-details";
         }
 
-
+        departmentService.editDepartment(departmentDTO);
         return "redirect:/departments";
+    }
+
+    @GetMapping("/department-details")
+    public String showEmployeeDetails() {
+
+        return "department-details";
     }
 }
