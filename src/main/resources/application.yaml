@@ -36,3 +36,7 @@ server:
 employees:
   api:
     baseUrl: "http://localhost:8081"
+
+departments:
+  api:
+    baseDepartmentsUrl: "http://localhost:8081"

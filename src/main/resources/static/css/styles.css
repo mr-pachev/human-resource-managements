@@ -135,7 +135,7 @@ body {
     margin-left: 10px;
 }
 
-.add-employee-btn {
+.add-employee-btn, .add-department-btn {
     display: block;
     width: auto;
     max-width: 200px;

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="bg" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec='http://www.thymeleaf.org/extras/spring-security'>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Employee</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+<body>
+<div th:replace="~{fragments/navigation}"></div>
+<div class="form-container registration-container">
+    <h2 class="text-center">Edith Department</h2>
+
+    <form
+            th:action="@{/department-details}"
+            th:object="${departmentDTO}"
+            th:method="POST"
+            id="addDepartmentForm">
+
+        <div class="form-group">
+            <label th:for="departmentName">Name</label>
+            <input type="text" class="form-control" th:placeholder="${departmentDTO.departmentName}"
+                   id="departmentName"
+                   name="departmentName"
+                   th:field="*{departmentName}"
+                   th:errorclass="is-invalid">
+            <p class="invalid-feedback errors alert alert-danger">
+                Department name must contain 3 to 50 letters.
+            </p>
+        </div>
+        <div class="form-group">
+            <label th:for="manager">Manager</label>
+            <input type="text" class="form-control" th:placeholder="${departmentDTO.manager}"
+                   id="manager"
+                   name="manager"
+                   th:field="*{manager}"
+                   th:errorclass="is-invalid">
+            <p class="invalid-feedback errors alert alert-danger">
+                Manager name must contain 9 to 50 letters.
+            </p>
+        </div>
+        </div>
+        <!--        <form th:method="POST"-->
+        <!--              th:action="@{/edith-employee-details/{id}(id=${employeeDTO.getId()})}">-->
+        <!--            <input class="btn btn-link" type="submit" value="Save"/>-->
+        <!--        </form>-->
+
+        <button type="submit" class="btn btn-primary btn-block">Save</button>
+    </form>
+</div>
+<footer th:replace="~{fragments/footer}"></footer>
+</body>
+</html>

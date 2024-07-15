@@ -15,4 +15,13 @@ public class RestConfig {
                 .defaultHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
                 .build();
     }
+
+    @Bean
+    public RestClient departmentsRestClient(DepartmentsApiConfig departmentsApiConfig){
+        return RestClient
+                .builder()
+                .baseUrl(departmentsApiConfig.getBaseDepartmentsUrl())
+                .defaultHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
+                .build();
+    }
 }
