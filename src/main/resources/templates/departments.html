@@ -29,7 +29,7 @@
             <td th:text="${department.manager}">Manager Name</td>
             <td th:text="${department.employees.size()}">Employees</td>
             <td th:text="${department.projects.size()}">Projects</td>
-            <td th:href="@{/add-employee}" sec:authorize="hasRole('ADMIN')">
+            <td th:href="@{/add-department}" sec:authorize="hasRole('ADMIN')">
                 <form th:method="POST" th:action="@{/department-details/{id}(id=${department.id})}" class="d-inline">
                     <input class="btn btn-primary btn-sm" type="submit" value="Edith"/>
                 </form>

@@ -15,11 +15,14 @@ public class DepartmentDTO {
     @Size(min = 9, max = 50)
     private String manager;
 
+    @Size(min = 10, max = 10)
+    private String identificationNumber;
+
     @NotBlank
     @Size(min = 10, max = 255)
     private String descriptions;
     private List<String> employees;
-    private List<String>  projects;
+    private List<String> projects;
 
     public long getId() {
         return id;
@@ -45,6 +48,22 @@ public class DepartmentDTO {
         this.manager = manager;
     }
 
+    public String getIdentificationNumber() {
+        return identificationNumber;
+    }
+
+    public void setIdentificationNumber(String identificationNumber) {
+        this.identificationNumber = identificationNumber;
+    }
+
+    public String getDescriptions() {
+        return descriptions;
+    }
+
+    public void setDescriptions(String descriptions) {
+        this.descriptions = descriptions;
+    }
+
     public List<String> getEmployees() {
         return employees;
     }
@@ -59,13 +78,5 @@ public class DepartmentDTO {
 
     public void setProjects(List<String> projects) {
         this.projects = projects;
-    }
-
-    public String getDescriptions() {
-        return descriptions;
-    }
-
-    public void setDescriptions(String descriptions) {
-        this.descriptions = descriptions;
     }
 }
