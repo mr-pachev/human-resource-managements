@@ -129,6 +129,27 @@ body {
     box-sizing: border-box;
 }
 
+.add-employee-btn {
+    display: block;
+    width: auto;
+    max-width: 200px;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #28a745;
+    border-color: #28a745;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.add-employee-btn:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+    color: white;
+}
+
 footer {
     padding-top: 60px;
     padding-bottom: 10px;
