@@ -3,12 +3,22 @@ package bg.softuni.human_resource_managements.model.dto;
 import java.util.List;
 
 public class ProjectDTO {
+
+    private long id;
     private String name;
     private String description;
     private String startDate;
     private String endDate;
     private String responsibleDepartment;
     private List<String> employees;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
