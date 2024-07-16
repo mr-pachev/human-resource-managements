@@ -12,8 +12,8 @@
 <body>
 <div th:replace="~{fragments/navigation}"></div>
     <div class="users-form">
-        <h2 class="text-center">Users</h2>
-        <table class="departments-form justify-content-center">
+        <h2 class="text-center">Users:<span class="count" th:text="${userDTOS.size()}"></span></h2>
+        <table class="departments-form justify-content-center table table-striped">
             <thead>
                 <tr>
                     <th>Username</th>
