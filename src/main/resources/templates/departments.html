@@ -14,7 +14,7 @@
 <div class="departments-form">
     <h2 class="text-center">Departments: <span class="departments-count" th:text="${departments.size()}"></span></h2>
     <a href="/add-department" class="btn btn-success add-department-btn" sec:authorize="hasRole('ADMIN')">Add</a>
-    <table class="departments-form">
+    <table>
         <thead>
         <tr>
             <th>Name</th>
@@ -33,9 +33,9 @@
                 <form th:method="POST" th:action="@{/department-details/{id}(id=${department.id})}" class="d-inline">
                     <input class="btn btn-primary btn-sm" type="submit" value="Edith"/>
                 </form>
-<!--                <form th:method="POST" th:action="@{/delete-employee/{id}(id=${employee.id})}" class="d-inline">-->
-<!--                    <input class="btn btn-danger btn-sm" type="submit" value="Remove"/>-->
-<!--                </form>-->
+                <form th:method="POST" th:action="@{/delete-department/{id}(id=${department.id})}" class="d-inline">
+                    <input class="btn btn-danger btn-sm" type="submit" value="Remove"/>
+                </form>
             </td>
         </tr>
         </tbody>

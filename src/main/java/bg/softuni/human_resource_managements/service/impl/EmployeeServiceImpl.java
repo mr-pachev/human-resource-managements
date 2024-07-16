@@ -68,7 +68,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public boolean isExistEmployee(String identificationNumber) {
+    public boolean isExistEmployee(String managerFullName) {
         List<EmployeeDTO> employeeDTOS = employeesRestClient
                 .get()
                 .uri("http://localhost:8081/employees")
@@ -77,7 +77,12 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .body(new ParameterizedTypeReference<>(){});
 
         return employeeDTOS.stream()
-                .anyMatch(employee -> employee.getIdentificationNumber().equals(identificationNumber));
+                .anyMatch(employee -> {
+                    String managerName = employee.getFirstName() + " " +
+                                        employee.getMiddleName() + " " +
+                                        employee.getLastName();
+                    return managerName.equals(managerFullName);
+                });
     }
 
     @Override

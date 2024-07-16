@@ -65,4 +65,12 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .body(addDepartmentDTO)
                 .retrieve();
     }
+
+    @Override
+    public void removeDepartment(long id) {
+        departmentsRestClient.delete()
+                .uri("http://localhost:8081/departments/" + id)
+                .retrieve()
+                .toBodilessEntity();
+    }
 }

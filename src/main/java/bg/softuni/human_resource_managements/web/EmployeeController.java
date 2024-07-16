@@ -70,7 +70,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/delete-employee/{id}")
-    public String deleteWord(@PathVariable("id") Long id) {
+    public String deleteEmployee(@PathVariable("id") Long id) {
 
         employeeService.removeEmployee(id);
 

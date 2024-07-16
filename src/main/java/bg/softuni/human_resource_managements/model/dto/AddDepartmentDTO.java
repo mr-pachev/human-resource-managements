@@ -16,9 +16,6 @@ public class AddDepartmentDTO {
     @Size(min = 10, max = 255)
     private String descriptions;
 
-    @Size(min = 10, max = 10)
-    private String identificationNumber;
-
     public String getDepartmentName() {
         return departmentName;
     }
@@ -43,11 +40,4 @@ public class AddDepartmentDTO {
         this.descriptions = descriptions;
     }
 
-    public String getIdentificationNumber() {
-        return identificationNumber;
-    }
-
-    public void setIdentificationNumber(String identificationNumber) {
-        this.identificationNumber = identificationNumber;
-    }
 }
