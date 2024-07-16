@@ -24,4 +24,12 @@ public class RestConfig {
                 .defaultHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
                 .build();
     }
+    @Bean
+    public RestClient projectRestClient(ProjectsApiConfig projectsApiConfig){
+        return RestClient
+                .builder()
+                .baseUrl(projectsApiConfig.getBaseProjectUrl())
+                .defaultHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
+                .build();
+    }
 }

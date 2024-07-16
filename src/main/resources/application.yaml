@@ -40,3 +40,7 @@ employees:
 departments:
   api:
     baseDepartmentsUrl: "http://localhost:8081"
+
+projects:
+  api:
+    baseProjectUrl: "http://localhost:8081"
