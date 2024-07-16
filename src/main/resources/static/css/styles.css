@@ -4,13 +4,6 @@
     text-align: center;
 }
 
-.nav-greeting{
-    color: dimgray;
-    background-color: #ddd;
-    padding: 14px 20px;
-    text-align: center;
-}
-
 .navbar {
     position: fixed;
     top: 0;
@@ -33,7 +26,7 @@
     color: black;
 }
 
-.navbar .nav-left a {
+.navbar .nav-left a, .nav-left form.logout-form {
     margin-right: 10px;
 }
 
@@ -41,12 +34,14 @@
     margin-left: 10px;
 }
 
-.language-form {
-    display: inline-block;
+.nav-greeting {
+    color: dimgray;
+    background-color: #ddd;
+    padding: 14px 20px;
 }
 
-.logout-form {
-    display: inline;
+.language-form, .logout-form {
+    display: inline-block;
 }
 
 .logout-button {
@@ -55,11 +50,6 @@
     cursor: pointer;
     font: inherit;
     padding: 4px 20px;
-}
-
-.nav-left form.logout-form {
-    display: inline;
-    margin-right: 10px;
 }
 
 body {
@@ -95,26 +85,7 @@ body {
     margin: auto;
 }
 
-.employees-form{
-    width: 100%;
-    max-width: 100%;
-    padding: 15px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    margin: auto;
-}
-
-.departments-form{
-    width: 75%;
-    padding: 15px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    margin: auto;
-}
-
-.users-form{
+ .users-form, .employees-form, .departments-form{
     width: max-content;
     padding: 15px;
     background: rgba(255, 255, 255, 0.9);
