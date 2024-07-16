@@ -12,32 +12,31 @@
 <body>
 <div th:replace="~{fragments/navigation}"></div>
 <div class="departments-form">
-    <h2 class="text-center">Departments: <span class="departments-count" th:text="${departments.size()}"></span></h2>
-    <a href="/add-department" class="btn btn-success add-department-btn" sec:authorize="hasRole('ADMIN')">Add</a>
-    <table>
+    <h2 class="text-center">Departments: <span class="count" th:text="${departments.size()}"></span></h2>
+    <table class="departments-form justify-content-center">
         <thead>
-        <tr>
+            <tr>
             <th>Name</th>
             <th>Manager Name</th>
             <th>Employees</th>
             <th>Projects</th>
-        </tr>
+            </tr>
         </thead>
         <tbody>
-        <tr th:each="department : ${departments}">
+            <tr th:each="department : ${departments}">
             <td th:text="${department.departmentName}">Name</td>
             <td th:text="${department.manager}">Manager Name</td>
             <td th:text="${department.employees.size()}">Employees</td>
             <td th:text="${department.projects.size()}">Projects</td>
             <td th:href="@{/add-department}" sec:authorize="hasRole('ADMIN')">
                 <form th:method="POST" th:action="@{/department-details/{id}(id=${department.id})}" class="d-inline">
-                    <input class="btn btn-primary btn-sm" type="submit" value="Edith"/>
+                    <input class="btn btn-primary btn-sm" type="submit" value="Edit"/>
                 </form>
                 <form th:method="POST" th:action="@{/delete-department/{id}(id=${department.id})}" class="d-inline">
                     <input class="btn btn-danger btn-sm" type="submit" value="Remove"/>
                 </form>
             </td>
-        </tr>
+            </tr>
         </tbody>
     </table>
 </div>

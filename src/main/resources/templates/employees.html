@@ -12,9 +12,9 @@
 <body>
 <div th:replace="~{fragments/navigation}"></div>
     <div class="employees-form">
-        <h2 class="text-center">Employees: <span class="employee-count" th:text="${employees.size()}"></span></h2>
+        <h2 class="text-center">Employees: <span class="count" th:text="${employees.size()}"></span></h2>
         <a href="/add-employee" class="btn btn-success add-employee-btn" sec:authorize="hasRole('ADMIN')">Add</a>
-        <table class="employees-form">
+        <table class="employees-form justify-content-center">
             <thead>
                 <tr>
                     <th>First Name</th>
@@ -43,7 +43,7 @@
                     <td th:text="${employee.education}">Education</td>
                     <td th:href="@{/add-employee}" sec:authorize="hasRole('ADMIN')">
                         <form th:method="POST" th:action="@{/employee-details/{id}(id=${employee.id})}" class="d-inline">
-                            <input class="btn btn-primary btn-sm" type="submit" value="Edith"/>
+                            <input class="btn btn-primary btn-sm" type="submit" value="Edit"/>
                         </form>
                         <form th:method="POST" th:action="@{/delete-employee/{id}(id=${employee.id})}" class="d-inline">
                             <input class="btn btn-danger btn-sm" type="submit" value="Remove"/>
