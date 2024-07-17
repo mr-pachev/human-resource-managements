@@ -31,7 +31,7 @@
             <td th:text="${project.startDate}">Start Date</td>
             <td th:text="${project.endDate}">End Date</td>
             <td th:text="${project.responsibleDepartment}">Responsible Department</td>
-            <td th:text="${project.employees}">Employees</td>
+            <td th:text="${project.employees.size()}">Employees</td>
             <td th:href="@{/add-department}" sec:authorize="hasRole('ADMIN')">
                 <form th:method="POST" th:action="@{/project-details/{id}(id=${project.id})}" class="d-inline">
                     <input class="btn btn-primary btn-sm" type="submit" value="Edit"/>

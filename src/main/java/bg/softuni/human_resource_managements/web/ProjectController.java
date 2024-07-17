@@ -1,12 +1,13 @@
 package bg.softuni.human_resource_managements.web;
 
-import bg.softuni.human_resource_managements.model.dto.DepartmentDTO;
+import bg.softuni.human_resource_managements.model.dto.EmployeeDTO;
 import bg.softuni.human_resource_managements.model.dto.ProjectDTO;
 import bg.softuni.human_resource_managements.service.DepartmentService;
 import bg.softuni.human_resource_managements.service.ProjectService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -37,4 +38,16 @@ public class ProjectController {
         return "project-details";
     }
 
+    @GetMapping("/project-employees/{id}")
+    public String allProjectEmployees(@PathVariable("id") Long id, Model model){
+        model.addAttribute("projectEmployees", projectService.allProjectEmployees(id));
+        return "project-employees";
+    }
+
+    @PostMapping("/project-employees/{id}")
+    public String getAllProjectEmployees(@PathVariable("id") Long id, Model model){
+
+        model.addAttribute("projectEmployees", projectService.allProjectEmployees(id));
+        return "project-employees";
+    }
 }
