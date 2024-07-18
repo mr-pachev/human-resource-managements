@@ -1,7 +1,5 @@
 package bg.softuni.human_resource_managements.web;
 
-import bg.softuni.human_resource_managements.model.dto.DepartmentDTO;
-import bg.softuni.human_resource_managements.model.dto.EmployeeDTO;
 import bg.softuni.human_resource_managements.model.dto.ProjectDTO;
 import bg.softuni.human_resource_managements.service.DepartmentService;
 import bg.softuni.human_resource_managements.service.ProjectService;
@@ -10,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -32,34 +29,37 @@ public class ProjectController {
     }
 
     @PostMapping("/project-details/{id}")
-    public String pullEdithDepartment(@PathVariable("id") Long id, Model model){
+    public String pullEdithProject(@PathVariable("id") Long id, Model model){
         ProjectDTO projectDTO = projectService.getProjectDTOByID(id);
         model.addAttribute(projectDTO);
         model.addAttribute("departments", departmentService.getAllDepartments());
         return "project-details";
     }
 
-    @GetMapping("/project-employees/{id}")
-    public String allProjectEmployees(@PathVariable("id") Long id, Model model){
-        model.addAttribute("projectEmployees", projectService.allProjectEmployees(id));
-        model.addAttribute("projectId", id);
-        return "project-employees";
-    }
-
     @PostMapping("/project-details")
-    public String edithProject(@Valid ProjectDTO projectDTO,
-                                  BindingResult bindingResult,
-                                  RedirectAttributes rAtt){
+    public String editProject(@Valid ProjectDTO projectDTO,
+                              BindingResult bindingResult,
+                              RedirectAttributes rAtt) {
 
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             rAtt.addFlashAttribute("projectDTO", projectDTO);
             rAtt.addFlashAttribute("org.springframework.validation.BindingResult.projectDTO", bindingResult);
-            rAtt.addFlashAttribute("isNotExist", true);
-            return "redirect:/project-details";
+            rAtt.addFlashAttribute("departments", departmentService.getAllDepartments());
+            return "redirect:/project-details/" + projectDTO.getId();
         }
 
         projectService.editProject(projectDTO);
         return "redirect:/projects";
+    }
+
+    @GetMapping("/project-details/{id}")
+    public String showEditProjectForm(@PathVariable("id") Long id, Model model) {
+        if (!model.containsAttribute("projectDTO")) {
+            ProjectDTO projectDTO = projectService.getProjectDTOByID(id);
+            model.addAttribute("projectDTO", projectDTO);
+        }
+        model.addAttribute("departments", departmentService.getAllDepartments());
+        return "project-details";
     }
 
     @PostMapping("/project-employees/{id}")

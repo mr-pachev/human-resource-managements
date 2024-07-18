@@ -1,14 +1,24 @@
 package bg.softuni.human_resource_managements.model.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 import java.util.List;
 
 public class ProjectDTO {
 
     private long id;
+    @NotBlank
+    @Size(min = 3, max = 30)
     private String name;
+    @NotBlank
+    @Size(min = 10, max = 255)
     private String description;
+    @NotBlank
     private String startDate;
     private String endDate;
+    @NotBlank
+    @Size(min = 3, max = 50)
     private String responsibleDepartment;
     private List<String> employees;
 
