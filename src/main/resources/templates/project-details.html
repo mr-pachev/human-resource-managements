@@ -12,7 +12,12 @@
 <div th:replace="~{fragments/navigation}"></div>
 <div class="container-form">
     <h2 class="text-center">Edit Project</h2>
-    <form th:action="@{/project-details}" th:object="${projectDTO}" th:method="POST" id="edithProjectForm">
+    <form th:action="@{/project-details}"
+          th:object="${projectDTO}"
+          th:method="POST"
+          id="edithProjectForm">
+
+        <input type="hidden" th:field="*{id}" />
 
         <div class="form-group">
             <label th:for="name">Name</label>

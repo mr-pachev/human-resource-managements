@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -37,9 +38,12 @@ public class ProjectController {
     }
 
     @PostMapping("/project-details")
-    public String editProject(@Valid ProjectDTO projectDTO,
+    public String editProject(@RequestParam("id") Long id,
+                                @Valid ProjectDTO projectDTO,
                               BindingResult bindingResult,
                               RedirectAttributes rAtt) {
+
+        projectDTO.setId(id);
 
         if (bindingResult.hasErrors()) {
             rAtt.addFlashAttribute("projectDTO", projectDTO);
