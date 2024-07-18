@@ -24,30 +24,34 @@ public class ProjectController {
     @GetMapping("/projects")
     public String allProjects(Model model){
         model.addAttribute("projects", projectService.getAllProjectsDTOS());
-
         return "projects";
     }
 
     @PostMapping("/project-details/{id}")
     public String pullEdithDepartment(@PathVariable("id") Long id, Model model){
-
         ProjectDTO projectDTO = projectService.getProjectDTOByID(id);
         model.addAttribute(projectDTO);
         model.addAttribute("departments", departmentService.getAllDepartments());
-
         return "project-details";
     }
 
     @GetMapping("/project-employees/{id}")
     public String allProjectEmployees(@PathVariable("id") Long id, Model model){
         model.addAttribute("projectEmployees", projectService.allProjectEmployees(id));
+        model.addAttribute("projectId", id);
         return "project-employees";
     }
 
     @PostMapping("/project-employees/{id}")
     public String getAllProjectEmployees(@PathVariable("id") Long id, Model model){
-
         model.addAttribute("projectEmployees", projectService.allProjectEmployees(id));
+        model.addAttribute("projectId", id);
         return "project-employees";
+    }
+
+    @PostMapping("/delete-project-employee/{idEm}/{idPr}")
+    public String deleteDepartment(@PathVariable("idEm") Long idEm, @PathVariable("idPr") Long idPr) {
+        projectService.removeEmployeeFromProject(idEm, idPr);
+        return "redirect:/project-employees/" + idPr;
     }
 }

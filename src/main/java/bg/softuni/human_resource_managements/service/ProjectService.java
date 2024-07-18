@@ -8,7 +8,10 @@ import java.util.List;
 
 public interface ProjectService {
     List<ProjectDTO> getAllProjectsDTOS();
+
     ProjectDTO getProjectDTOByID(long id);
+
+    void removeEmployeeFromProject(long idEm, long idPr);
 
     List<EmployeeDTO> allProjectEmployees(long id);
 }

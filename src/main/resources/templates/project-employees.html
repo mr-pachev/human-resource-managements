@@ -26,29 +26,27 @@
             <th>Position</th>
             <th>Department</th>
             <th>Education</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
-<!--        <tr th:each="employee : ${employees}">-->
-<!--            <td th:text="${employee.firstName}">First Name</td>-->
-<!--            <td th:text="${employee.middleName}">Middle Name</td>-->
-<!--            <td th:text="${employee.lastName}">Last Name</td>-->
-<!--            <td th:text="${employee.identificationNumber}">Identification Number</td>-->
-<!--            <td th:text="${employee.age}">Age</td>-->
-<!--            <td th:text="${employee.startDate}">Start Date</td>-->
-<!--            <td th:text="${employee.endDate}">End Date</td>-->
-<!--            <td th:text="${employee.position}">Position</td>-->
-<!--            <td th:text="${employee.department}">Department</td>-->
-<!--            <td th:text="${employee.education}">Education</td>-->
-<!--            <td th:href="@{/add-employee}" sec:authorize="hasRole('ADMIN')">-->
-<!--                <form th:method="POST" th:action="@{/employee-details/{id}(id=${employee.id})}" class="d-inline">-->
-<!--                    <input class="btn btn-primary btn-sm" type="submit" value="Edit"/>-->
-<!--                </form>-->
-<!--                <form th:method="POST" th:action="@{/delete-employee/{id}(id=${employee.id})}" class="d-inline">-->
-<!--                    <input class="btn btn-danger btn-sm" type="submit" value="Remove"/>-->
-<!--                </form>-->
-<!--            </td>-->
-<!--        </tr>-->
+        <tr th:each="employee : ${projectEmployees}">
+            <td th:text="${employee.firstName}">First Name</td>
+            <td th:text="${employee.middleName}">Middle Name</td>
+            <td th:text="${employee.lastName}">Last Name</td>
+            <td th:text="${employee.identificationNumber}">Identification Number</td>
+            <td th:text="${employee.age}">Age</td>
+            <td th:text="${employee.startDate}">Start Date</td>
+            <td th:text="${employee.endDate}">End Date</td>
+            <td th:text="${employee.position}">Position</td>
+            <td th:text="${employee.department}">Department</td>
+            <td th:text="${employee.education}">Education</td>
+            <td>
+                <form th:method="POST" th:action="@{/delete-project-employee/{idEm}/{idPr}(idEm=${employee.id}, idPr=${projectId})}" class="d-inline">
+                    <input class="btn btn-danger btn-sm" type="submit" value="Remove"/>
+                </form>
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>
