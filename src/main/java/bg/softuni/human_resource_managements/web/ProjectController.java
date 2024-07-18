@@ -78,4 +78,11 @@ public class ProjectController {
         projectService.removeEmployeeFromProject(idEm, idPr);
         return "redirect:/project-employees/" + idPr;
     }
+
+    @PostMapping("/delete-project/{id}")
+    public String deleteDepartment(@PathVariable("id") Long id) {
+        projectService.removeProject(id);
+
+        return "redirect:/projects";
+    }
 }

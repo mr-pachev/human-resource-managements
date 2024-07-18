@@ -49,6 +49,14 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public void removeProject(long id) {
+        projectRestClient.delete()
+                .uri("http://localhost:8081/projects/{id}",id)
+                .retrieve()
+                .toBodilessEntity();
+    }
+
+    @Override
     public List<EmployeeDTO> allProjectEmployees(long id) {
         return projectRestClient
                 .get()

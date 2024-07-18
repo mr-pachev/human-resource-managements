@@ -36,9 +36,9 @@
                 <form th:method="POST" th:action="@{/project-details/{id}(id=${project.id})}" class="d-inline">
                     <input class="btn btn-primary btn-sm" type="submit" value="Edit"/>
                 </form>
-<!--                <form th:method="POST" th:action="@{/delete-department/{id}(id=${department.id})}" class="d-inline">-->
-<!--                    <input class="btn btn-danger btn-sm" type="submit" value="Remove"/>-->
-<!--                </form>-->
+                <form th:method="POST" th:action="@{/delete-project/{id}(id=${project.id})}" class="d-inline">
+                    <input class="btn btn-danger btn-sm" type="submit" value="Remove"/>
+                </form>
             </td>
         </tr>
         </tbody>
