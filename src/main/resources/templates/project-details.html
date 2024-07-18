@@ -26,7 +26,7 @@
                    name="name"
                    th:field="*{name}"
                    th:errorclass="is-invalid">
-            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="invalid-feedback">Project name must contain 3 to 30 letters.</p>
+            <p class="invalid-feedback errors alert alert-danger">Project name must contain 3 to 30 letters.</p>
         </div>
         <div class="form-group">
             <label th:for="descriptions">Descriptions</label>
@@ -35,7 +35,7 @@
                    name="descriptions"
                    th:field="*{description}"
                    th:errorclass="is-invalid">
-            <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="invalid-feedback">Descriptions must contain 10 to 255 letters.</p>
+            <p class="invalid-feedback errors alert alert-danger">Descriptions must contain 10 to 255 letters.</p>
         </div>
         <div class="form-group">
             <label th:for="startDate">Start Date</label>
@@ -68,7 +68,7 @@
 
     <form th:method="POST" th:action="@{/project-employees/{id}(id=${projectDTO.id})}" class="d-inline">
         <input class="btn btn-success btn-sm" type="submit" value="Edit Employees: "/>
-        <span class="count-pr-em" th:text="${projectDTO.employees.size()}"></span>
+        <span class="count-pr-em" th:text="${projectDTO != null and projectDTO.employees != null ? projectDTO.employees.size() : 0}"></span>
     </form>
 </div>
 <footer th:replace="~{fragments/footer}"></footer>
