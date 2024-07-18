@@ -1,12 +1,13 @@
 package bg.softuni.human_resource_managements.service;
 
-import bg.softuni.human_resource_managements.model.dto.DepartmentDTO;
-import bg.softuni.human_resource_managements.model.dto.EmployeeDTO;
-import bg.softuni.human_resource_managements.model.dto.ProjectDTO;
+import bg.softuni.human_resource_managements.model.dto.*;
 
 import java.util.List;
 
 public interface ProjectService {
+    boolean addProject(AddProjectDTO addProjectDTO);
+
+    boolean isExistProject(String projectName);
     List<ProjectDTO> getAllProjectsDTOS();
 
     ProjectDTO getProjectDTOByID(long id);

@@ -1,5 +1,6 @@
 package bg.softuni.human_resource_managements.web;
 
+import bg.softuni.human_resource_managements.model.dto.AddProjectDTO;
 import bg.softuni.human_resource_managements.model.dto.ProjectDTO;
 import bg.softuni.human_resource_managements.service.DepartmentService;
 import bg.softuni.human_resource_managements.service.ProjectService;
@@ -21,14 +22,32 @@ public class ProjectController {
     }
 
     @ModelAttribute("addProjectDTO")
-    public ProjectDTO createsProjectDTO() {
-        return new ProjectDTO();
+    public AddProjectDTO createAddProjectDTO() {
+        return new AddProjectDTO();
     }
 
     @GetMapping("/add-project")
     public String registrationView(Model model) {
         model.addAttribute("departments", departmentService.getAllDepartments());
         return "add-project";
+    }
+
+    @PostMapping("/add-project")
+    public String addProject(
+            @Valid AddProjectDTO addProjectDTO,
+            BindingResult bindingResult,
+            RedirectAttributes rAtt) {
+
+        if (bindingResult.hasErrors() || !projectService.addProject(addProjectDTO)) {
+            rAtt.addFlashAttribute("addProjectDTO", addProjectDTO);
+            rAtt.addFlashAttribute("org.springframework.validation.BindingResult.addProjectDTO", bindingResult);
+            rAtt.addFlashAttribute("isExist", true);
+            return "redirect:/add-project";
+        }
+
+        projectService.addProject(addProjectDTO);
+
+        return "redirect:/projects";
     }
 
     @GetMapping("/projects")

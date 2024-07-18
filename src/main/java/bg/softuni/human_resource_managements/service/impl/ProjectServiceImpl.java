@@ -1,9 +1,6 @@
 package bg.softuni.human_resource_managements.service.impl;
 
-import bg.softuni.human_resource_managements.model.dto.AddDepartmentDTO;
-import bg.softuni.human_resource_managements.model.dto.DepartmentDTO;
-import bg.softuni.human_resource_managements.model.dto.EmployeeDTO;
-import bg.softuni.human_resource_managements.model.dto.ProjectDTO;
+import bg.softuni.human_resource_managements.model.dto.*;
 import bg.softuni.human_resource_managements.service.ProjectService;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
@@ -18,6 +15,34 @@ public class ProjectServiceImpl implements ProjectService {
 
     public ProjectServiceImpl(RestClient projectRestClient) {
         this.projectRestClient = projectRestClient;
+    }
+
+    @Override
+    public boolean addProject(AddProjectDTO addProjectDTO) {
+        if(isExistProject(addProjectDTO.getName())){
+            return false;
+        }
+
+        projectRestClient
+                .post()
+                .uri("http://localhost:8081/projects")
+                .body(addProjectDTO)
+                .retrieve();
+
+        return true;
+    }
+
+    @Override
+    public boolean isExistProject(String newProjectName) {
+        List<ProjectDTO> projectDTOS = projectRestClient
+                .get()
+                .uri("http://localhost:8081/projects")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(new ParameterizedTypeReference<>(){});
+
+        return projectDTOS.stream()
+                .anyMatch(project -> project.getName().equals(newProjectName));
     }
 
     @Override
