@@ -1,5 +1,6 @@
 package bg.softuni.human_resource_managements.service.impl;
 
+import bg.softuni.human_resource_managements.model.dto.AddDepartmentDTO;
 import bg.softuni.human_resource_managements.model.dto.DepartmentDTO;
 import bg.softuni.human_resource_managements.model.dto.EmployeeDTO;
 import bg.softuni.human_resource_managements.model.dto.ProjectDTO;
@@ -55,5 +56,15 @@ public class ProjectServiceImpl implements ProjectService {
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .body(new ParameterizedTypeReference<>(){});
+    }
+
+    @Override
+    public void editProject(ProjectDTO projectDTO) {
+
+        projectRestClient
+                .post()
+                .uri("http://localhost:8081/projects/edit")
+                .body(projectDTO)
+                .retrieve();
     }
 }
