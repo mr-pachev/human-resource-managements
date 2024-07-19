@@ -110,4 +110,17 @@ public class ProjectServiceImpl implements ProjectService {
                 .body(projectDTO)
                 .retrieve();
     }
+
+    @Override
+    public void addProjectEmployee(String name) {
+
+    }
+
+    @Override
+    public boolean isExistEmployee(String name) {
+
+
+
+        return false;
+    }
 }

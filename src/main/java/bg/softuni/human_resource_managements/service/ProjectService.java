@@ -19,4 +19,8 @@ public interface ProjectService {
 
     List<EmployeeDTO> allProjectEmployees(long id);
     void editProject(ProjectDTO projectDTO);
+
+    void addProjectEmployee(String name);
+
+    boolean isExistEmployee(String name);
 }

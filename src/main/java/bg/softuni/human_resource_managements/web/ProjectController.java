@@ -105,30 +105,33 @@ public class ProjectController {
     //project-employees
     @PostMapping("/project-employees/{id}")
     public String fillAndViewAllProjectEmployees(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("projectEmployees", projectService.allProjectEmployees(id));
         model.addAttribute("projectId", id);
 
         return "redirect:/project-employees/" + id;
     }
 
     @GetMapping("/project-employees/{id}")
-    public String view(@PathVariable("id") Long id, Model model) {
+    public String viewProjectEmployees(@PathVariable("id") Long id, Model model) {
         model.addAttribute("projectEmployees", projectService.allProjectEmployees(id));
         model.addAttribute("projectId", id);
 
+        model.addAttribute("allEmployees", projectService.getAllEmployees());
+
         return "project-employees";
     }
 
-    @PostMapping("/add-project-employees/{fullName}")
-    public String addEmployee(@ModelAttribute("projectEmployeeDTO") ProjectEmployeeDTO projectEmployeeDTO,
-                              RedirectAttributes rAtt) {
+    //add another employee in current project
+    @PostMapping("/project-employee/{idPr}")
+    public String addEmployee(@PathVariable("idPr") Long idPR, ProjectEmployeeDTO projectEmployeeDTO){
+
+
 
 
         String name = projectEmployeeDTO.getFullName();
+        long uu = idPR;
 
-        return "project-employees";
+        return "redirect:/redirect:/project-employees";
     }
-
 
     //delete current employee from current project
     @PostMapping("/delete-project-employee/{idEm}/{idPr}")
