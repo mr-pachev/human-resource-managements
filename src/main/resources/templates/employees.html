@@ -14,7 +14,7 @@
     <div class="employees-form">
         <h2 class="text-center">Employees:<span class="count" th:text="${employees.size()}"></span></h2>
         <a href="/add-employee" class="btn btn-success add-employee-btn" sec:authorize="hasRole('ADMIN')">Add</a>
-        <table class="employees-form justify-content-center table table-striped">
+        <table class="justify-content-center table table-striped">
             <thead>
                 <tr>
                     <th>First Name</th>

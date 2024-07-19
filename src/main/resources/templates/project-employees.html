@@ -6,6 +6,7 @@
 <div th:replace="~{fragments/navigation}"></div>
 <div class="project-employees-form">
     <h2 class="text-center">Project Employees<span class="count" th:text="${projectEmployees.size()}"></span></h2>
+    <a href="/add-project-employee" class="btn btn-success add-employee-btn">Add</a>
     <table class="justify-content-center table table-striped">
     <thead>
     <tr>

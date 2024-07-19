@@ -106,7 +106,6 @@ public class ProjectController {
     @PostMapping("/project-employees/{id}")
     public String fillAndViewAllProjectEmployees(@PathVariable("id") Long id, Model model) {
         model.addAttribute("projectEmployees", projectService.allProjectEmployees(id));
-        model.addAttribute("allEmployees", projectService.getAllEmployees());
         model.addAttribute("projectId", id);
 
         return "redirect:/project-employees/" + id;
@@ -115,7 +114,6 @@ public class ProjectController {
     @GetMapping("/project-employees/{id}")
     public String view(@PathVariable("id") Long id, Model model) {
         model.addAttribute("projectEmployees", projectService.allProjectEmployees(id));
-        model.addAttribute("allEmployees", projectService.getAllEmployees());
         model.addAttribute("projectId", id);
 
         return "project-employees";
