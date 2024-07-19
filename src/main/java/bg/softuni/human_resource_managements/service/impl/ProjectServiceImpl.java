@@ -117,9 +117,17 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public boolean isExistEmployee(String name) {
+    public boolean isExistEmployeeInProject(String employeeName, long idPr) {
+        List<EmployeeDTO> allProjectEmployees = allProjectEmployees(idPr);
 
-
+        for (EmployeeDTO employee : allProjectEmployees) {
+            String fullName = employee.getFirstName() + " " +
+                            employee.getMiddleName() + " " +
+                            employee.getLastName();
+            if(fullName.equals(employeeName)){
+                return true;
+            }
+        }
 
         return false;
     }

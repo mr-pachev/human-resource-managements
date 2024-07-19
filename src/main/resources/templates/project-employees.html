@@ -27,7 +27,7 @@
                     th:field="*{fullName}">
                 <option value=""> -- Add Another Employee -- </option>
                 <option th:each="employee: ${allEmployees}"
-                        th:value="${employee.id}"
+                        th:value="${employee.fullName}"
                         th:text="${employee.fullName}">Employee Full Name</option>
             </select>
         </div>

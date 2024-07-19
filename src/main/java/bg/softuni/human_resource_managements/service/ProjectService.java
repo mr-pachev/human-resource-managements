@@ -22,5 +22,5 @@ public interface ProjectService {
 
     void addProjectEmployee(String name);
 
-    boolean isExistEmployee(String name);
+    boolean isExistEmployeeInProject(String employeeName, long idPr);
 }

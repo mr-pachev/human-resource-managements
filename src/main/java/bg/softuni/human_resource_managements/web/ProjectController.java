@@ -122,15 +122,21 @@ public class ProjectController {
 
     //add another employee in current project
     @PostMapping("/project-employee/{idPr}")
-    public String addEmployee(@PathVariable("idPr") Long idPR, ProjectEmployeeDTO projectEmployeeDTO){
+    public String addEmployee(@PathVariable("idPr") Long idPR,
+                              Model model,
+                              ProjectEmployeeDTO projectEmployeeDTO,
+                              RedirectAttributes rAtt){
 
+        String employeeName = projectEmployeeDTO.getFullName();
 
+        boolean isExist = projectService.isExistEmployeeInProject(employeeName, idPR);
+        if(isExist){
+            rAtt.addFlashAttribute("projectEmployees", projectService.allProjectEmployees(idPR));
+            rAtt.addFlashAttribute("isExist", true);
+            return "redirect:/project-employee/" + idPR;
+        }
 
-
-        String name = projectEmployeeDTO.getFullName();
-        long uu = idPR;
-
-        return "redirect:/redirect:/project-employees";
+        return "redirect:/project-employees/" + idPR;
     }
 
     //delete current employee from current project
