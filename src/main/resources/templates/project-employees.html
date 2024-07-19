@@ -4,7 +4,9 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 <div th:replace="~{fragments/navigation}"></div>
-<table class="employees-form justify-content-center table table-striped">
+<div class="project-employees-form">
+    <h2 class="text-center">Project Employees<span class="count" th:text="${projectEmployees.size()}"></span></h2>
+    <table class="justify-content-center table table-striped">
     <thead>
     <tr>
         <th>First Name</th>
@@ -40,6 +42,7 @@
     </tr>
     </tbody>
 </table>
+</div>
 <footer th:replace="~{fragments/footer}"></footer>
 </body>
 </html>
