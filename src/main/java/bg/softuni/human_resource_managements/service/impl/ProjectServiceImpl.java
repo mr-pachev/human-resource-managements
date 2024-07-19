@@ -56,6 +56,16 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public List<ProjectEmployeeDTO> getAllEmployees() {
+        return projectRestClient
+                .get()
+                .uri("http://localhost:8081/projects/all-employees")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(new ParameterizedTypeReference<>(){});
+    }
+
+    @Override
     public ProjectDTO getProjectDTOByID(long id) {
         return projectRestClient
                 .get()

@@ -10,6 +10,8 @@ public interface ProjectService {
     boolean isExistProject(String projectName);
     List<ProjectDTO> getAllProjectsDTOS();
 
+    List<ProjectEmployeeDTO> getAllEmployees();
+
     ProjectDTO getProjectDTOByID(long id);
 
     void removeEmployeeFromProject(long idEm, long idPr);

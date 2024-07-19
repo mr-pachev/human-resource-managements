@@ -2,6 +2,7 @@ package bg.softuni.human_resource_managements.web;
 
 import bg.softuni.human_resource_managements.model.dto.AddProjectDTO;
 import bg.softuni.human_resource_managements.model.dto.ProjectDTO;
+import bg.softuni.human_resource_managements.model.dto.ProjectEmployeeDTO;
 import bg.softuni.human_resource_managements.service.DepartmentService;
 import bg.softuni.human_resource_managements.service.ProjectService;
 import jakarta.validation.Valid;
@@ -22,18 +23,24 @@ public class ProjectController {
     }
 
     @ModelAttribute("addProjectDTO")
-    public AddProjectDTO createAddProjectDTO() {
+    public AddProjectDTO emptyAddProjectDTO() {
         return new AddProjectDTO();
     }
 
+    @ModelAttribute("projectEmployeeDTO")
+    public ProjectEmployeeDTO emptyProjectEmployeeDTO() {
+        return new ProjectEmployeeDTO();
+    }
+
+    //creat new project
     @GetMapping("/add-project")
-    public String registrationView(Model model) {
+    public String viewAddProjectForm(Model model) {
         model.addAttribute("departments", departmentService.getAllDepartments());
         return "add-project";
     }
 
     @PostMapping("/add-project")
-    public String addProject(
+    public String creatProject(
             @Valid AddProjectDTO addProjectDTO,
             BindingResult bindingResult,
             RedirectAttributes rAtt) {
@@ -50,14 +57,9 @@ public class ProjectController {
         return "redirect:/projects";
     }
 
-    @GetMapping("/projects")
-    public String allProjects(Model model){
-        model.addAttribute("projects", projectService.getAllProjectsDTOS());
-        return "projects";
-    }
-
+    //edit current project
     @PostMapping("/project-details/{id}")
-    public String pullEdithProject(@PathVariable("id") Long id, Model model){
+    public String fillEditProjectForm(@PathVariable("id") Long id, Model model) {
         ProjectDTO projectDTO = projectService.getProjectDTOByID(id);
         model.addAttribute(projectDTO);
         model.addAttribute("departments", departmentService.getAllDepartments());
@@ -66,7 +68,7 @@ public class ProjectController {
 
     @PostMapping("/project-details")
     public String editProject(@RequestParam("id") Long id,
-                                @Valid ProjectDTO projectDTO,
+                              @Valid ProjectDTO projectDTO,
                               BindingResult bindingResult,
                               RedirectAttributes rAtt) {
 
@@ -84,7 +86,7 @@ public class ProjectController {
     }
 
     @GetMapping("/project-details/{id}")
-    public String showEditProjectForm(@PathVariable("id") Long id, Model model) {
+    public String viewEditProjectForm(@PathVariable("id") Long id, Model model) {
         if (!model.containsAttribute("projectDTO")) {
             ProjectDTO projectDTO = projectService.getProjectDTOByID(id);
             model.addAttribute("projectDTO", projectDTO);
@@ -93,21 +95,53 @@ public class ProjectController {
         return "project-details";
     }
 
+    //all projects
+    @GetMapping("/projects")
+    public String viewAllProjects(Model model) {
+        model.addAttribute("projects", projectService.getAllProjectsDTOS());
+        return "projects";
+    }
+
+    //project-employees
     @PostMapping("/project-employees/{id}")
-    public String getAllProjectEmployees(@PathVariable("id") Long id, Model model){
+    public String fillAndViewAllProjectEmployees(@PathVariable("id") Long id, Model model) {
         model.addAttribute("projectEmployees", projectService.allProjectEmployees(id));
+        model.addAttribute("allEmployees", projectService.getAllEmployees());
         model.addAttribute("projectId", id);
+
+        return "redirect:/project-employees/" + id;
+    }
+
+    @GetMapping("/project-employees/{id}")
+    public String view(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("projectEmployees", projectService.allProjectEmployees(id));
+        model.addAttribute("allEmployees", projectService.getAllEmployees());
+        model.addAttribute("projectId", id);
+
         return "project-employees";
     }
 
+    @PostMapping("/add-project-employees/{fullName}")
+    public String addEmployee(@ModelAttribute("projectEmployeeDTO") ProjectEmployeeDTO projectEmployeeDTO,
+                              RedirectAttributes rAtt) {
+
+
+        String name = projectEmployeeDTO.getFullName();
+
+        return "project-employees";
+    }
+
+
+    //delete current employee from current project
     @PostMapping("/delete-project-employee/{idEm}/{idPr}")
-    public String deleteDepartment(@PathVariable("idEm") Long idEm, @PathVariable("idPr") Long idPr) {
+    public String deleteProjectEmployee(@PathVariable("idEm") Long idEm, @PathVariable("idPr") Long idPr) {
         projectService.removeEmployeeFromProject(idEm, idPr);
         return "redirect:/project-employees/" + idPr;
     }
 
+    //delete project by id
     @PostMapping("/delete-project/{id}")
-    public String deleteDepartment(@PathVariable("id") Long id) {
+    public String deleteProject(@PathVariable("id") Long id) {
         projectService.removeProject(id);
 
         return "redirect:/projects";
