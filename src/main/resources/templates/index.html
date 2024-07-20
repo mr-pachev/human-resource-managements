@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="bg"
-      xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+      xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +20,7 @@
             It is an application to facilitate and manage human resources. Its purpose is to create, maintain and store employee data. There are restrictions on access and user rights. Enjoy using it.</p>
         <hr class="my-3 bg-white w-75"/>
 
-        <h5>
+        <h5 sec:authorize="!isAuthenticated()">
             <a class="text-primary" th:href="@{/login}" id="login" th:text="#{index_login}">Login</a>
             <span id="login_desc" th:text="#{index_login_desc}">if you have an account or</span>
             <a class="text-primary" th:href="@{/register}" id="registration" th:text="#{index_registration}">Register</a>
