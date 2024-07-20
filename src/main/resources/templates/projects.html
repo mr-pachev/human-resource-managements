@@ -41,6 +41,11 @@
                     <input class="btn btn-danger btn-sm" type="submit" value="Remove"/>
                 </form>
             </td>
+            <td th:href="@{/add-department}" sec:authorize="hasRole('USER')">
+                <form th:method="POST" th:action="@{/project-employees/{id}(id=${project.id})}" class="d-inline">
+                    <input class="btn btn-primary btn-sm" type="submit" value="Employees"/>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

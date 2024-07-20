@@ -11,5 +11,6 @@ public interface EmployeeService {
     void removeEmployee(long id);
     EmployeeDTO getEmployeeByID(long id);
     boolean isExistEmployee(String managerFullName);
+    boolean isExistEmployeeByIN(String identificationNumber);
     void editEmployee(EmployeeDTO employeeDTO);
 }

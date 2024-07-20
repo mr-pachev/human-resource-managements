@@ -16,7 +16,8 @@
             th:action="@{/project-employee/{idPr}(idPr=${projectId})}"
           th:object="${projectEmployeeDTO}"
           th:method="POST"
-          id="addEmployeeForm">
+          id="addEmployeeForm"
+          sec:authorize="hasRole('ADMIN')">
         <div class="form-group">
             <label th:for="employee">Employee</label>
             <select class="form-control"
@@ -29,7 +30,7 @@
                         th:text="${employee.fullName}">Employee Full Name</option>
             </select>
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Add</button>
+        <button type="submit" class="btn btn-primary btn-block" sec:authorize="hasRole('ADMIN')">Add</button>
     </form>
 
     <table class="justify-content-center table table-striped">
@@ -45,7 +46,6 @@
         <th>Position</th>
         <th>Department</th>
         <th>Education</th>
-        <th>Action</th>
     </tr>
     </thead>
     <tbody>
@@ -61,7 +61,10 @@
         <td th:text="${employee.department}">Department</td>
         <td th:text="${employee.education}">Education</td>
         <td>
-            <form th:method="POST" th:action="@{/delete-project-employee/{idEm}/{idPr}(idEm=${employee.id}, idPr=${projectId})}" class="d-inline">
+            <form th:method="POST"
+                  th:action="@{/delete-project-employee/{idEm}/{idPr}(idEm=${employee.id}, idPr=${projectId})}"
+                  class="d-inline"
+                  sec:authorize="hasRole('ADMIN')">
                 <input class="btn btn-danger btn-sm" type="submit" value="Remove"/>
             </form>
         </td>

@@ -42,9 +42,9 @@ public class UserServiceImpl implements UserService {
                 .stream()
                 .anyMatch(userDTO -> userDTO.getUsername().equals(addUserDTO.getUsername()));
 
-        boolean isExistEmployee = employeeService.isExistEmployee(addUserDTO.getIdentificationNumber());
+        boolean isExistEmployeeByIN = employeeService.isExistEmployeeByIN(addUserDTO.getIdentificationNumber());
 
-        if (isExistUser || !isExistEmployee) {
+        if (isExistUser || !isExistEmployeeByIN) {
             return false;
         }
 

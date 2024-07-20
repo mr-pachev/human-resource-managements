@@ -86,6 +86,21 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public boolean isExistEmployeeByIN(String identificationNumber) {
+        List<EmployeeDTO> employeeDTOS = employeesRestClient
+                .get()
+                .uri("http://localhost:8081/employees")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(new ParameterizedTypeReference<>(){});
+
+        return employeeDTOS.stream()
+                .anyMatch(employee -> {
+                    return identificationNumber.equals(employee.getIdentificationNumber());
+                });
+    }
+
+    @Override
     public void editEmployee(EmployeeDTO employeeDTO) {
         AddEmployeeDTO addEmployeeDTO = mapper.map(employeeDTO, AddEmployeeDTO.class);
         employeesRestClient
