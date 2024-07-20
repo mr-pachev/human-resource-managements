@@ -6,16 +6,14 @@
 <div th:replace="~{fragments/navigation}"></div>
 <div class="project-employees-form">
 
-
-
-    <div class="bg-danger text-center" th:if="${isExist}">
+    <div class="container-form bg-danger text-center" th:if="${isExist}">
         <p class="d-block">The employee already exists</p>
     </div>
     <div th:unless="${isExist}">
         <h2 class="text-center">Project Employees<span class="count" th:text="${projectEmployees.size()}"></span></h2>
     </div>
     <form class="container-form"
-            th:action="@{/project-employee/{idPR}(idPR=${projectId})}"
+            th:action="@{/project-employee/{idPr}(idPr=${projectId})}"
           th:object="${projectEmployeeDTO}"
           th:method="POST"
           id="addEmployeeForm">
@@ -33,11 +31,6 @@
         </div>
         <button type="submit" class="btn btn-primary btn-block">Add</button>
     </form>
-
-
-
-
-
 
     <table class="justify-content-center table table-striped">
     <thead>

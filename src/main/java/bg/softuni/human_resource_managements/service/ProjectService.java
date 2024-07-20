@@ -20,7 +20,7 @@ public interface ProjectService {
     List<EmployeeDTO> allProjectEmployees(long id);
     void editProject(ProjectDTO projectDTO);
 
-    void addProjectEmployee(String name);
+    void addProjectEmployee(ProjectEmployeeDTO projectEmployeeDTO, long idPr);
 
     boolean isExistEmployeeInProject(String employeeName, long idPr);
 }

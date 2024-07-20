@@ -78,7 +78,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void removeEmployeeFromProject(long idEm, long idPr) {
         projectRestClient.delete()
-                .uri("http://localhost:8081/projects/employee{idEm}/{idPr}",idEm ,idPr)
+                .uri("http://localhost:8081/projects/employee/{idEm}/{idPr}",idEm ,idPr)
                 .retrieve()
                 .toBodilessEntity();
     }
@@ -112,23 +112,22 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public void addProjectEmployee(String name) {
+    public void addProjectEmployee(ProjectEmployeeDTO projectEmployeeDTO, long idPr) {
+        projectRestClient
+                .post()
+                .uri("http://localhost:8081/projects/add-employee/{idPr}", idPr)
+                .body(projectEmployeeDTO)
+                .retrieve();
 
     }
 
     @Override
     public boolean isExistEmployeeInProject(String employeeName, long idPr) {
-        List<EmployeeDTO> allProjectEmployees = allProjectEmployees(idPr);
-
-        for (EmployeeDTO employee : allProjectEmployees) {
-            String fullName = employee.getFirstName() + " " +
-                            employee.getMiddleName() + " " +
-                            employee.getLastName();
-            if(fullName.equals(employeeName)){
-                return true;
-            }
-        }
-
-        return false;
+        return allProjectEmployees(idPr).stream()
+                .map(employee -> employee.getFirstName() + " " +
+                        employee.getMiddleName() + " " +
+                        employee.getLastName())
+                .anyMatch(fullName -> fullName.equals(employeeName));
     }
 }
+
