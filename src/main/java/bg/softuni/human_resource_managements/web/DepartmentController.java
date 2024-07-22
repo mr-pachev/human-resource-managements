@@ -52,7 +52,10 @@ public class DepartmentController {
     @GetMapping("/department-details/{id}")
     public String viewDepartmentDetailsForm(@PathVariable("id") Long id, Model model) {
         DepartmentDTO departmentDTO = departmentService.getDepartmentDTOByID(id);
+
+        model.addAttribute("allEmployees", projectService.getAllEmployees());
         model.addAttribute(departmentDTO);
+
         return "department-details";
     }
 
@@ -61,7 +64,7 @@ public class DepartmentController {
                                 BindingResult bindingResult,
                                 RedirectAttributes rAtt){
 
-        if(bindingResult.hasErrors() || !employeeService.isExistEmployee(departmentDTO.getManager())){
+        if(bindingResult.hasErrors()){
             rAtt.addFlashAttribute("departmentDTO", departmentDTO);
             rAtt.addFlashAttribute("org.springframework.validation.BindingResult.departmentDTO", bindingResult);
             rAtt.addFlashAttribute("isNotExist", true);
@@ -86,10 +89,18 @@ public class DepartmentController {
             BindingResult bindingResult,
             RedirectAttributes rAtt) {
 
-        if (bindingResult.hasErrors() || departmentService.isExistDepartment(addDepartmentDTO.getDepartmentName())) {
+        if (bindingResult.hasErrors()) {
+            rAtt.addFlashAttribute("addDepartmentDTO", addDepartmentDTO);
+            rAtt.addFlashAttribute("org.springframework.validation.BindingResult.addDepartmentDTO", bindingResult);
+
+            return "redirect:/add-department";
+        }
+
+        if (departmentService.isExistDepartment(addDepartmentDTO.getDepartmentName())){
             rAtt.addFlashAttribute("addDepartmentDTO", addDepartmentDTO);
             rAtt.addFlashAttribute("org.springframework.validation.BindingResult.addDepartmentDTO", bindingResult);
             rAtt.addFlashAttribute("isExist", true);
+
             return "redirect:/add-department";
         }
 

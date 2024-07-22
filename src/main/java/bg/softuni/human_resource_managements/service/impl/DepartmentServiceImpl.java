@@ -3,6 +3,7 @@ package bg.softuni.human_resource_managements.service.impl;
 import bg.softuni.human_resource_managements.model.dto.AddDepartmentDTO;
 import bg.softuni.human_resource_managements.model.dto.DepartmentDTO;
 import bg.softuni.human_resource_managements.model.dto.EmployeeDTO;
+import bg.softuni.human_resource_managements.model.dto.ProjectDTO;
 import bg.softuni.human_resource_managements.service.DepartmentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.core.ParameterizedTypeReference;
@@ -68,12 +69,25 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public void addDepartment(AddDepartmentDTO addDepartmentDTO) {
+        departmentsRestClient
+                .post()
+                .uri("http://localhost:8081/departments")
+                .body(addDepartmentDTO)
+                .retrieve();
 
     }
 
     @Override
-    public boolean isExistDepartment(String name) {
-        return false;
+    public boolean isExistDepartment(String newDeaprtmentName) {
+        List<DepartmentDTO> departmentDTOS = departmentsRestClient
+                .get()
+                .uri("http://localhost:8081/departments")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(new ParameterizedTypeReference<>(){});
+
+        return departmentDTOS.stream()
+                .anyMatch(department -> department.getDepartmentName().equals(newDeaprtmentName));
     }
 
     @Override
