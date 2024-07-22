@@ -32,4 +32,13 @@ public class RestConfig {
                 .defaultHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
                 .build();
     }
+
+    @Bean
+    public RestClient positionRestClient(PositionsApiConfig positionsApiConfig){
+        return RestClient
+                .builder()
+                .baseUrl(positionsApiConfig.getBasePositionUrl())
+                .defaultHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
+                .build();
+    }
 }

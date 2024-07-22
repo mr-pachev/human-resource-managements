@@ -3,6 +3,8 @@ package bg.softuni.human_resource_managements.model.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.util.List;
+
 public class PositionDTO {
 
     @NotBlank
@@ -11,6 +13,8 @@ public class PositionDTO {
     @NotBlank
     @Size(min = 10, max = 255)
     private String description;
+
+    private List<String> employees;
 
     public String getPositionName() {
         return positionName;
@@ -26,5 +30,13 @@ public class PositionDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<String> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<String> employees) {
+        this.employees = employees;
     }
 }

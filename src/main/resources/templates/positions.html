@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="bg"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Positions</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+<body>
+<div th:replace="~{fragments/navigation}"></div>
+<div class="positions-form">
+    <h2 class="text-center">Positions:<span class="count" th:text="${allPositions.size()}"></span></h2>
+    <a href="/add-position" class="btn btn-success add-employee-btn" sec:authorize="hasRole('ADMIN')">Add</a>
+    <table class="departments-form justify-content-center table table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Employees</th>
+        </tr>
+        </thead>
+        <tbody>
+<!--        <tr th:each="position : ${allPositionsDTOS}">-->
+<!--            <td th:text="${department.departmentName}">Name</td>-->
+<!--            <td th:text="${department.manager}">Manager Name</td>-->
+<!--            <td th:text="${department.employees.size()}">Employees</td>-->
+<!--            <td th:href="@{/add-department}" sec:authorize="hasRole('ADMIN')">-->
+<!--                <form th:method="POST" th:action="@{/department-details/{id}(id=${department.id})}" class="d-inline">-->
+<!--                    <input class="btn btn-primary btn-sm" type="submit" value="Edit"/>-->
+<!--                </form>-->
+<!--                <form th:method="POST" th:action="@{/delete-department/{id}(id=${department.id})}" class="d-inline">-->
+<!--                    <input class="btn btn-danger btn-sm" type="submit" value="Remove"/>-->
+<!--                </form>-->
+<!--            </td>-->
+<!--        </tr>-->
+        </tbody>
+    </table>
+</div>
+<footer th:replace="~{fragments/footer}"></footer>
+</body>
+</html>

@@ -44,3 +44,7 @@ departments:
 projects:
   api:
     baseProjectUrl: "http://localhost:8081"
+
+positions:
+  api:
+    basePositionUrl: "http://localhost:8081"
