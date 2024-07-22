@@ -13,6 +13,7 @@
 <div th:replace="~{fragments/navigation}"></div>
 <div class="departments-form">
     <h2 class="text-center">Departments:<span class="count" th:text="${departments.size()}"></span></h2>
+    <a href="/add-department" class="btn btn-success add-employee-btn" sec:authorize="hasRole('ADMIN')">Add</a>
     <table class="departments-form justify-content-center table table-striped">
         <thead>
             <tr>

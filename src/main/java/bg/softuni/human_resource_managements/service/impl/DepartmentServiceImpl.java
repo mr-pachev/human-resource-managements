@@ -67,6 +67,16 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
+    public void addDepartment(AddDepartmentDTO addDepartmentDTO) {
+
+    }
+
+    @Override
+    public boolean isExistDepartment(String name) {
+        return false;
+    }
+
+    @Override
     public void removeDepartment(long id) {
         departmentsRestClient.delete()
                 .uri("http://localhost:8081/departments/" + id)
