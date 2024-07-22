@@ -1,5 +1,5 @@
 # Human Resource Managements - Rest Client
-The Human Resources Management project aims to provide a basic system for managing employees, departments, projects, and tasks in a small company.
+The Human Resources Management project aims to provide a basic system for managing employees, departments, projects, positions, and tasks in a small company.
 
 The application is divided into two subprojects, namely:
 
