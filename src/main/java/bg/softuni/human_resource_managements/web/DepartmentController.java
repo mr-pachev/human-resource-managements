@@ -111,6 +111,12 @@ public class DepartmentController {
 
     @PostMapping("/delete-department/{id}")
     public String deleteDepartment(@PathVariable("id") Long id) {
+        DepartmentDTO departmentDTO = departmentService.getDepartmentDTOByID(id);
+
+        //cannot delete this department because it is associated with employees with already deleted departments
+        if(departmentDTO.getDepartmentName().equals("DEFAULT_DEPARTMENT")){
+            return "redirect:/departments";
+        }
 
         departmentService.removeDepartment(id);
 
