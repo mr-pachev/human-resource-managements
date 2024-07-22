@@ -1,4 +1,9 @@
 # Human Resource Managements - Rest Client
-This application facilitates and manages human resources. Its purpose is to create, maintain, and store employee data. There are restrictions on access and user rights.
+The Human Resources Management project aims to provide a basic system for managing employees, departments, projects, and tasks in a small company.
 
-For the purposes of this demo, the project runs as a REST server, communicating via REST requests with [ https://github.com/mr-pachev/hrm-users.git ], which runs as a REST server.
+The application is divided into two subprojects, namely:
+
+Rest Client -> responsible for the registration of new users and the front-end.
+Rest Server -> containing the database and the business logic of the application.
+
+For the purposes of this demo, the project runs as a Rest Client, communicating via REST requests with [ https://github.com/mr-pachev/hrm-users.git ], which runs as a Rest Server.
