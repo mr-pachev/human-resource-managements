@@ -38,7 +38,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/add-employee")
-    public String registrationView(Model model) {
+    public String viewregistrationForm(Model model) {
         model.addAttribute("positions", positionService.getAllPositionNames());
         model.addAttribute("departments", departmentService.getAllDepartments());
         model.addAttribute("educations", educationService.getAllEducations());
