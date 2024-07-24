@@ -6,13 +6,21 @@ import jakarta.validation.constraints.Size;
 import java.util.List;
 
 public class PositionDTO {
-
+    long id;
     @NotBlank
     @Size(min = 3, max = 50)
     private String positionName;
     @NotBlank
     @Size(min = 10, max = 255)
     private String description;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     private List<String> employees;
 

@@ -32,7 +32,7 @@ public class ProjectController {
         return new ProjectEmployeeDTO();
     }
 
-    //creat new project
+    //add new project
     @GetMapping("/add-project")
     public String viewAddProjectForm(Model model) {
         model.addAttribute("departments", departmentService.getAllDepartments());
@@ -61,6 +61,7 @@ public class ProjectController {
     @PostMapping("/project-details/{id}")
     public String fillEditProjectForm(@PathVariable("id") Long id, Model model) {
         ProjectDTO projectDTO = projectService.getProjectDTOByID(id);
+
         model.addAttribute(projectDTO);
         model.addAttribute("departments", departmentService.getAllDepartments());
         return "project-details";
@@ -78,6 +79,7 @@ public class ProjectController {
             rAtt.addFlashAttribute("projectDTO", projectDTO);
             rAtt.addFlashAttribute("org.springframework.validation.BindingResult.projectDTO", bindingResult);
             rAtt.addFlashAttribute("departments", departmentService.getAllDepartments());
+
             return "redirect:/project-details/" + projectDTO.getId();
         }
 
@@ -92,6 +94,7 @@ public class ProjectController {
             model.addAttribute("projectDTO", projectDTO);
         }
         model.addAttribute("departments", departmentService.getAllDepartments());
+
         return "project-details";
     }
 
@@ -99,6 +102,7 @@ public class ProjectController {
     @GetMapping("/projects")
     public String viewAllProjects(Model model) {
         model.addAttribute("projects", projectService.getAllProjectsDTOS());
+
         return "projects";
     }
 
@@ -114,7 +118,6 @@ public class ProjectController {
     public String viewProjectEmployees(@PathVariable("id") Long id, Model model) {
         model.addAttribute("projectEmployees", projectService.allProjectEmployees(id));
         model.addAttribute("projectId", id);
-
         model.addAttribute("allEmployees", projectService.getAllEmployees());
 
         return "project-employees";

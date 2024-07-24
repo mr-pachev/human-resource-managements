@@ -86,7 +86,8 @@ body {
 }
 
  .users-form, .employees-form, .departments-form,
- .projects-form, .project-employees-form, .positions-form{
+ .projects-form, .project-employees-form,
+ .positions-form, .position-employees-form{
     width: max-content;
     padding: 15px;
     background: rgba(255, 255, 255, 0.9);

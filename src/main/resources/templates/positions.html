@@ -28,9 +28,9 @@
             <td class="description-cell" th:text="${position.description}">Description</td>
             <td th:text="${position.employees.size()}">Employees</td>
             <td sec:authorize="hasRole('ADMIN')">
-<!--                <form th:method="POST" th:action="@{/department-details/{id}(id=${department.id})}" class="d-inline">-->
-<!--                    <input class="btn btn-primary btn-sm" type="submit" value="Edit"/>-->
-<!--                </form>-->
+                <form th:method="POST" th:action="@{/position-details/{id}(id=${position.id})}" class="d-inline">
+                    <input class="btn btn-primary btn-sm" type="submit" value="Edit"/>
+                </form>
 <!--                <form th:method="POST" th:action="@{/delete-department/{id}(id=${department.id})}" class="d-inline">-->
 <!--                    <input class="btn btn-danger btn-sm" type="submit" value="Remove"/>-->
 <!--                </form>-->
