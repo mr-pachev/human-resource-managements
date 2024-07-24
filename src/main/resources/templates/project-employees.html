@@ -13,7 +13,7 @@
         <h2 class="text-center">Project Employees<span class="count" th:text="${projectEmployees.size()}"></span></h2>
     </div>
     <form class="container-form"
-            th:action="@{/project-employee/{idPr}(idPr=${projectId})}"
+          th:action="@{/project-employee/{idPr}(idPr=${projectId})}"
           th:object="${projectEmployeeDTO}"
           th:method="POST"
           id="addEmployeeForm"

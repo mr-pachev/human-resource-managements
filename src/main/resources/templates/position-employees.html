@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="bg"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<div th:replace="~{fragments/navigation}"></div>
+<div class="position-employees-form">
+
+    <div class="container-form bg-danger text-center" th:if="${isExist}">
+        <p class="d-block">The employee already exists</p>
+    </div>
+    <div th:unless="${isExist}">
+        <h2 class="text-center">Position Employees<span class="count" th:text="${positionEmployees.size}"></span></h2>
+    </div>
+    <form class="container-form"
+          th:action="@{/position-employee/{idPos}(idPos=${positionIdId})}"
+          th:object="${posi}"
+          th:method="POST"
+          id="addEmployeeForm"
+          sec:authorize="hasRole('ADMIN')">
+        <div class="form-group">
+            <label th:for="employee">Employee</label>
+            <select class="form-control"
+                    id="employee"
+                    name="employee"
+                    th:field="*{fullName}">
+                <option value=""> -- Add Another Employee -- </option>
+                <option th:each="employee: ${allEmployees}"
+                        th:value="${employee.fullName}"
+                        th:text="${employee.fullName}">Employee Full Name</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" sec:authorize="hasRole('ADMIN')">Add</button>
+    </form>
+
+    <table class="justify-content-center table table-striped">
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Middle Name</th>
+            <th>Last Name</th>
+            <th>Identification Number</th>
+            <th>Age</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Position</th>
+            <th>Department</th>
+            <th>Education</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="employee : ${projectEmployees}">
+            <td th:text="${employee.firstName}">First Name</td>
+            <td th:text="${employee.middleName}">Middle Name</td>
+            <td th:text="${employee.lastName}">Last Name</td>
+            <td th:text="${employee.identificationNumber}">Identification Number</td>
+            <td th:text="${employee.age}">Age</td>
+            <td th:text="${employee.startDate}">Start Date</td>
+            <td th:text="${employee.endDate}">End Date</td>
+            <td th:text="${employee.position}">Position</td>
+            <td th:text="${employee.department}">Department</td>
+            <td th:text="${employee.education}">Education</td>
+            <td>
+                <form th:method="POST"
+                      th:action="@{/delete-project-employee/{idEm}/{idPr}(idEm=${employee.id}, idPr=${projectId})}"
+                      class="d-inline"
+                      sec:authorize="hasRole('ADMIN')">
+                    <input class="btn btn-danger btn-sm" type="submit" value="Remove"/>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<footer th:replace="~{fragments/footer}"></footer>
+</body>
+</html>

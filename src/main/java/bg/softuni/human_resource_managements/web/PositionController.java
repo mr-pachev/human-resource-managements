@@ -2,7 +2,9 @@ package bg.softuni.human_resource_managements.web;
 
 import bg.softuni.human_resource_managements.model.dto.AddPositionDTO;
 import bg.softuni.human_resource_managements.model.dto.PositionDTO;
+import bg.softuni.human_resource_managements.model.dto.ProjectEmployeeDTO;
 import bg.softuni.human_resource_managements.service.PositionService;
+import bg.softuni.human_resource_managements.service.ProjectService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,14 +16,21 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class PositionController {
 
     private final PositionService positionService;
+    private final ProjectService projectService;
 
-    public PositionController(PositionService positionService) {
+    public PositionController(PositionService positionService, ProjectService projectService) {
         this.positionService = positionService;
+        this.projectService = projectService;
     }
 
     @ModelAttribute("addPositionDTO")
     public AddPositionDTO emptyAddPositionDTO() {
         return new AddPositionDTO();
+    }
+
+    @ModelAttribute("positionEmployeeDTO")
+    public ProjectEmployeeDTO emptyProjectEmployeeDTO() {
+        return new ProjectEmployeeDTO();
     }
 
     //view all positions
@@ -85,6 +94,7 @@ public class PositionController {
             return "redirect:/position-details/" + positionDTO.getId();
         }
 
+
         return "redirect:/positions";
     }
 
@@ -96,6 +106,23 @@ public class PositionController {
         }
 
         return "position-details";
+    }
+
+    //position-employees
+    @PostMapping("/position-employees/{id}")
+    public String fillAndViewAllPositionEmployees(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("positionId", id);
+
+        return "redirect:/position-employees/" + id;
+    }
+
+    @GetMapping("/position-employees/{id}")
+    public String viewProjectEmployees(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("positionEmployees", positionService.allPositionEmployees(id));
+        model.addAttribute("positionId", id);
+        model.addAttribute("allEmployees", projectService.getAllEmployees());
+
+        return "position-employees";
     }
 
 }

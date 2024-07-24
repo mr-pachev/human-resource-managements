@@ -11,4 +11,5 @@ public interface PositionService {
    boolean isExistPosition(String name);
    PositionDTO getPositionDTOByID(long id);
    List<EmployeeDTO> allPositionEmployees(long id);
+
 }

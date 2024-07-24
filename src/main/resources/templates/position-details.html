@@ -10,11 +10,9 @@
 </head>
 <body>
 <div th:replace="~{fragments/navigation}"></div>
-
-<div class="position-employees-form">
+<div class="container-form">
     <h2 class="text-center">Edit Position</h2>
-    <form class="container-form"
-          th:action="@{/position-details}"
+    <form th:action="@{/position-details}"
           th:object="${positionDTO}"
           th:method="POST"
           id="edithPositionForm">
@@ -40,57 +38,14 @@
             <p class="invalid-feedback errors alert alert-danger">Descriptions must contain 10 to 255 letters.</p>
         </div>
         <div class="form-group">
-            <label th:for="employees">Employees</label>
-            <input type="text" class="form-control" th:placeholder="*{employees.size()}"
-                   id="employees"
-                   name="employees"
-                   readonly>
-        </div>
-        <div class="form-group">
             <input type="submit" class="btn btn-primary btn-block" value="Save"/>
         </div>
     </form>
 
-
-    <table class="justify-content-center table table-striped">
-        <thead>
-        <tr>
-            <th>First Name</th>
-            <th>Middle Name</th>
-            <th>Last Name</th>
-            <th>Identification Number</th>
-            <th>Age</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Position</th>
-            <th>Department</th>
-            <th>Education</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="employee : ${positionEmployees}">
-            <td th:text="${employee.firstName}">First Name</td>
-            <td th:text="${employee.middleName}">Middle Name</td>
-            <td th:text="${employee.lastName}">Last Name</td>
-            <td th:text="${employee.identificationNumber}">Identification Number</td>
-            <td th:text="${employee.age}">Age</td>
-            <td th:text="${employee.startDate}">Start Date</td>
-            <td th:text="${employee.endDate}">End Date</td>
-            <td th:text="${employee.position}">Position</td>
-            <td th:text="${employee.department}">Department</td>
-            <td th:text="${employee.education}">Education</td>
-<!--            <td>-->
-<!--                <form th:method="POST"-->
-<!--                      th:action="@{/delete-project-employee/{idEm}/{idPr}(idEm=${employee.id}, idPr=${projectId})}"-->
-<!--                      class="d-inline"-->
-<!--                      sec:authorize="hasRole('ADMIN')">-->
-<!--                    <input class="btn btn-danger btn-sm" type="submit" value="Remove"/>-->
-<!--                </form>-->
-<!--            </td>-->
-        </tr>
-        </tbody>
-    </table>
-
+    <form th:method="POST" th:action="@{/position-employees/{id}(id=${positionDTO.id})}" class="d-inline">
+        <input class="btn btn-success btn-sm" type="submit" value="Edit Employees: "/>
+        <span class="count-pr-em" th:text="${positionDTO != null and positionDTO.employees != null ? positionDTO.employees.size() : 0}"></span>
+    </form>
 
 </div>
 <footer th:replace="~{fragments/footer}"></footer>
