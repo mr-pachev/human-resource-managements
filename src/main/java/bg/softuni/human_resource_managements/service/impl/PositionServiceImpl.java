@@ -95,4 +95,12 @@ public class PositionServiceImpl implements PositionService {
                 .body(positionEmployeesDTO)
                 .retrieve();
     }
+
+    @Override
+    public void removeEmployeeFromPosition(long idEm, long idPos) {
+        positionRestClient.delete()
+                .uri("http://localhost:8081/positions/employee/{idEm}/{idPos}",idEm ,idPos)
+                .retrieve()
+                .toBodilessEntity();
+    }
 }

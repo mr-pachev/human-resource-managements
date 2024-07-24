@@ -13,4 +13,5 @@ public interface PositionService {
    PositionDTO getPositionDTOByID(long id);
    List<EmployeeDTO> allPositionEmployees(long id);
    void addPositionEmployee(PositionEmployeesDTO positionEmployeesDTO, long idPos);
+   void removeEmployeeFromPosition(long idEm, long idPos);
 }

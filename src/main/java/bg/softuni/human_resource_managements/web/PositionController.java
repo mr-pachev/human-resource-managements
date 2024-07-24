@@ -148,4 +148,13 @@ public class PositionController {
 
         return "redirect:/position-employees/" + idPos;
     }
+
+    //delete current employee from current position
+    @PostMapping("/delete-position-employee/{idEm}/{idPos}")
+    public String deletePositionEmployee(@PathVariable("idEm") Long idEm, @PathVariable("idPos") Long idPos) {
+
+       positionService.removeEmployeeFromPosition(idEm, idPos);
+
+        return "redirect:/position-employees/" + idPos;
+    }
 }
