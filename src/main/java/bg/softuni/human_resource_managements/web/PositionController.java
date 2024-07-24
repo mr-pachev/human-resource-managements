@@ -157,4 +157,19 @@ public class PositionController {
 
         return "redirect:/position-employees/" + idPos;
     }
+
+    //delete position by id
+    @PostMapping("/delete-prosition/{id}")
+    public String deletePosition(@PathVariable("id") Long id) {
+        PositionDTO positionDTO = positionService.getPositionDTOByID(id);
+
+        //cannot delete this position because it is associated with employees with already deleted positions
+        if(positionDTO.getPositionName().equals("DEFAULT_POSITION")){
+            return "redirect:/positions";
+        }
+
+        positionService.removePosition(id);
+
+        return "redirect:/positions";
+    }
 }

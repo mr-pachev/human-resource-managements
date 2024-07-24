@@ -103,4 +103,12 @@ public class PositionServiceImpl implements PositionService {
                 .retrieve()
                 .toBodilessEntity();
     }
+
+    @Override
+    public void removePosition(long id) {
+        positionRestClient.delete()
+                .uri("http://localhost:8081/positions/{id}",id)
+                .retrieve()
+                .toBodilessEntity();
+    }
 }
