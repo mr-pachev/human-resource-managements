@@ -2,6 +2,7 @@ package bg.softuni.human_resource_managements.web;
 
 import bg.softuni.human_resource_managements.model.dto.AddPositionDTO;
 import bg.softuni.human_resource_managements.model.dto.PositionDTO;
+import bg.softuni.human_resource_managements.model.dto.PositionEmployeesDTO;
 import bg.softuni.human_resource_managements.model.dto.ProjectEmployeeDTO;
 import bg.softuni.human_resource_managements.service.PositionService;
 import bg.softuni.human_resource_managements.service.ProjectService;
@@ -11,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.swing.text.Position;
 
 @Controller
 public class PositionController {
@@ -29,8 +32,8 @@ public class PositionController {
     }
 
     @ModelAttribute("positionEmployeeDTO")
-    public ProjectEmployeeDTO emptyProjectEmployeeDTO() {
-        return new ProjectEmployeeDTO();
+    public PositionEmployeesDTO emptyPositionEmployeesDTO() {
+        return new PositionEmployeesDTO();
     }
 
     //view all positions
@@ -125,4 +128,24 @@ public class PositionController {
         return "position-employees";
     }
 
+    //add another employee in current position
+    @PostMapping("/position-employee/{idPos}")
+    public String addEmployee(@PathVariable("idPos") Long idPos,
+                              Model model,
+                              PositionEmployeesDTO positionEmployeesDTO,
+                              RedirectAttributes rAtt){
+
+        String employeeName = positionEmployeesDTO.getFullName();
+
+        boolean isExist = positionService.isExistEmployeeInPosition(employeeName, idPos);
+        if(isExist){
+            rAtt.addFlashAttribute("positionEmployees", positionService.allPositionEmployees(idPos));
+            rAtt.addFlashAttribute("isExist", true);
+            return "redirect:/position-employees/" + idPos;
+        }
+
+        positionService.addPositionEmployee(positionEmployeesDTO, idPos);
+
+        return "redirect:/position-employees/" + idPos;
+    }
 }

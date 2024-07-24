@@ -1,9 +1,6 @@
 package bg.softuni.human_resource_managements.service.impl;
 
-import bg.softuni.human_resource_managements.model.dto.AddPositionDTO;
-import bg.softuni.human_resource_managements.model.dto.EmployeeDTO;
-import bg.softuni.human_resource_managements.model.dto.PositionDTO;
-import bg.softuni.human_resource_managements.model.dto.ProjectDTO;
+import bg.softuni.human_resource_managements.model.dto.*;
 import bg.softuni.human_resource_managements.service.PositionService;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
@@ -62,6 +59,15 @@ public class PositionServiceImpl implements PositionService {
     }
 
     @Override
+    public boolean isExistEmployeeInPosition(String employeeName, long idPos) {
+        return allPositionEmployees(idPos).stream()
+                .map(employee -> employee.getFirstName() + " " +
+                        employee.getMiddleName() + " " +
+                        employee.getLastName())
+                .anyMatch(fullName -> fullName.equals(employeeName));
+    }
+
+    @Override
     public PositionDTO getPositionDTOByID(long id) {
         return positionRestClient
                 .get()
@@ -79,5 +85,14 @@ public class PositionServiceImpl implements PositionService {
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .body(new ParameterizedTypeReference<>(){});
+    }
+
+    @Override
+    public void addPositionEmployee(PositionEmployeesDTO positionEmployeesDTO, long idPos) {
+        positionRestClient
+                .post()
+                .uri("http://localhost:8081/positions/add-employee/{idPos}", idPos)
+                .body(positionEmployeesDTO)
+                .retrieve();
     }
 }

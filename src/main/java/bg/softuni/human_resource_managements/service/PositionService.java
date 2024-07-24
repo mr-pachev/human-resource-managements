@@ -9,7 +9,8 @@ public interface PositionService {
    List<PositionDTO> getAllPositionsDTOS();
    void addPosition(AddPositionDTO addPositionDTO);
    boolean isExistPosition(String name);
+   boolean isExistEmployeeInPosition(String employeeName, long idPos);
    PositionDTO getPositionDTOByID(long id);
    List<EmployeeDTO> allPositionEmployees(long id);
-
+   void addPositionEmployee(PositionEmployeesDTO positionEmployeesDTO, long idPos);
 }

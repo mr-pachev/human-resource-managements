@@ -13,8 +13,8 @@
         <h2 class="text-center">Position Employees<span class="count" th:text="${positionEmployees.size}"></span></h2>
     </div>
     <form class="container-form"
-          th:action="@{/position-employee/{idPos}(idPos=${positionIdId})}"
-          th:object="${posi}"
+          th:action="@{/position-employee/{idPos}(idPos=${positionId})}"
+          th:object="${positionEmployeeDTO}"
           th:method="POST"
           id="addEmployeeForm"
           sec:authorize="hasRole('ADMIN')">
@@ -49,7 +49,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="employee : ${projectEmployees}">
+        <tr th:each="employee : ${positionEmployees}">
             <td th:text="${employee.firstName}">First Name</td>
             <td th:text="${employee.middleName}">Middle Name</td>
             <td th:text="${employee.lastName}">Last Name</td>
@@ -62,7 +62,7 @@
             <td th:text="${employee.education}">Education</td>
             <td>
                 <form th:method="POST"
-                      th:action="@{/delete-project-employee/{idEm}/{idPr}(idEm=${employee.id}, idPr=${projectId})}"
+                      th:action="@{/delete-position-employee/{idEm}/{idPos}(idEm=${employee.id}, idPos=${positionId})}"
                       class="d-inline"
                       sec:authorize="hasRole('ADMIN')">
                     <input class="btn btn-danger btn-sm" type="submit" value="Remove"/>
