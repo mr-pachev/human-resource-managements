@@ -94,16 +94,17 @@ public class DepartmentController {
     public String edithDepartment(@RequestParam("id") Long id,
                                   @Valid DepartmentDTO departmentDTO,
                                   BindingResult bindingResult,
-                                  RedirectAttributes rAtt){
+                                  RedirectAttributes rAtt,
+                                  Model model){
 
         departmentDTO.setId(id);
 
         if(bindingResult.hasErrors()){
             rAtt.addFlashAttribute("departmentDTO", departmentDTO);
             rAtt.addFlashAttribute("org.springframework.validation.BindingResult.departmentDTO", bindingResult);
-            rAtt.addFlashAttribute("isNotExist", true);
 
-            return "redirect:/department-details/" + departmentDTO.getId();
+            model.addAttribute("allEmployees", projectService.getAllEmployees());
+            return "department-details";
         }
 
         departmentService.editDepartment(departmentDTO);

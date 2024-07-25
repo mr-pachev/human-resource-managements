@@ -56,14 +56,13 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .body(DepartmentDTO.class);
     }
 
+    //edit department
     @Override
     public void editDepartment(DepartmentDTO departmentDTO) {
-        AddDepartmentDTO addDepartmentDTO = mapper.map(departmentDTO, AddDepartmentDTO.class);
-
         departmentsRestClient
                 .post()
                 .uri("http://localhost:8081/departments/edit")
-                .body(addDepartmentDTO)
+                .body(departmentDTO)
                 .retrieve();
     }
 

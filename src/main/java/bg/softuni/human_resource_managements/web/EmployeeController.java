@@ -114,7 +114,6 @@ public class EmployeeController {
                                 RedirectAttributes rAtt,
                                 Model model){
 
-
         if(bindingResult.hasErrors()){
             rAtt.addFlashAttribute("employeeDTO", employeeDTO);
             rAtt.addFlashAttribute("org.springframework.validation.BindingResult.employeeDTO", bindingResult);

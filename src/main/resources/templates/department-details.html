@@ -26,7 +26,11 @@
             <input type="text" class="form-control" th:placeholder="${departmentDTO.departmentName}"
                    id="departmentName"
                    name="departmentName"
-                   th:field="*{departmentName}" readonly>
+                   th:field="*{departmentName}"
+                   th:errorclass="is-invalid">
+            <p class="invalid-feedback errors alert alert-danger">
+                Name must contain 3 to 50 letters.
+            </p>
         </div>
         <div class="form-group">
             <label th:for="descriptions">Descriptions</label>
