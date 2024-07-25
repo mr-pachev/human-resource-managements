@@ -35,6 +35,13 @@ public class EmployeeController {
         return new EmployeeDTO();
     }
 
+    //view all employees
+    @GetMapping("/employees")
+    public String allEmployees(Model model){
+        model.addAttribute("employees", employeeService.getAllEmployees());
+        return "employees";
+    }
+
     //add new employee
     @GetMapping("/add-employee")
     public String viewRegistrationForm(Model model) {
@@ -66,6 +73,11 @@ public class EmployeeController {
     @PostMapping("/employee-details/{id}")
     public String fillEdithEmployeeForm(@PathVariable("id") Long id, Model model){
 
+        return "redirect:/employee-details/" + id;
+    }
+
+    @GetMapping("/employee-details/{id}")
+    public String viewEditEmployeeForm(@PathVariable("id") Long id, Model model) {
         EmployeeDTO  employeeDTO = employeeService.getEmployeeByID(id);
         model.addAttribute(employeeDTO);
 
@@ -77,16 +89,13 @@ public class EmployeeController {
     }
 
     @PostMapping("/employee-details")
-    public String edithEmployee(@RequestParam("id") Long id,
-                                @Valid EmployeeDTO employeeDTO,
+    public String edithEmployee(@Valid EmployeeDTO employeeDTO,
                                 BindingResult bindingResult,
                                 RedirectAttributes rAtt){
 
-        employeeDTO.setId(id);
-
         if(bindingResult.hasErrors()){
-                rAtt.addFlashAttribute("employeeDTO", employeeDTO);
-                rAtt.addFlashAttribute("org.springframework.validation.BindingResult.employeeDTO", bindingResult);
+            rAtt.addFlashAttribute("employeeDTO", employeeDTO);
+            rAtt.addFlashAttribute("org.springframework.validation.BindingResult.employeeDTO", bindingResult);
 
             return "redirect:/employee-details/" + employeeDTO.getId();
         }
@@ -95,27 +104,7 @@ public class EmployeeController {
         return "redirect:/employees";
     }
 
-    @GetMapping("/employee-details/{id}")
-    public String viewEditEmployeeForm(@PathVariable("id") Long id, Model model) {
-        if (!model.containsAttribute("e")) {
-            EmployeeDTO  employeeDTO = employeeService.getEmployeeByID(id);
-            model.addAttribute("employeeDTO", employeeDTO);
-        }
-
-        model.addAttribute("positions", positionService.getAllPositionNames());
-        model.addAttribute("departments", departmentService.getAllDepartments());
-        model.addAttribute("educations", educationService.getAllEducations());
-
-        return "employee-details";
-    }
-
-    //all employees
-    @GetMapping("/employees")
-    public String allEmployees(Model model){
-        model.addAttribute("employees", employeeService.getAllEmployees());
-        return "employees";
-    }
-
+    //delete employee by id
     @PostMapping("/delete-employee/{id}")
     public String deleteEmployee(@PathVariable("id") Long id) {
 

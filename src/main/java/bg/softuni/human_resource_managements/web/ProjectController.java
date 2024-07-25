@@ -32,6 +32,14 @@ public class ProjectController {
         return new ProjectEmployeeDTO();
     }
 
+    //all projects
+    @GetMapping("/projects")
+    public String viewAllProjects(Model model) {
+        model.addAttribute("projects", projectService.getAllProjectsDTOS());
+
+        return "projects";
+    }
+
     //add new project
     @GetMapping("/add-project")
     public String viewAddProjectForm(Model model) {
@@ -96,14 +104,6 @@ public class ProjectController {
         model.addAttribute("departments", departmentService.getAllDepartments());
 
         return "project-details";
-    }
-
-    //all projects
-    @GetMapping("/projects")
-    public String viewAllProjects(Model model) {
-        model.addAttribute("projects", projectService.getAllProjectsDTOS());
-
-        return "projects";
     }
 
     //project-employees

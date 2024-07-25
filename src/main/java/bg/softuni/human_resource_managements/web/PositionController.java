@@ -3,7 +3,6 @@ package bg.softuni.human_resource_managements.web;
 import bg.softuni.human_resource_managements.model.dto.AddPositionDTO;
 import bg.softuni.human_resource_managements.model.dto.PositionDTO;
 import bg.softuni.human_resource_managements.model.dto.PositionEmployeesDTO;
-import bg.softuni.human_resource_managements.model.dto.ProjectEmployeeDTO;
 import bg.softuni.human_resource_managements.service.PositionService;
 import bg.softuni.human_resource_managements.service.ProjectService;
 import jakarta.validation.Valid;
@@ -12,8 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import javax.swing.text.Position;
 
 @Controller
 public class PositionController {
