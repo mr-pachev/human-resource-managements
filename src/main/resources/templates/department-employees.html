@@ -10,10 +10,10 @@
         <p class="d-block">The employee already exists</p>
     </div>
     <div th:unless="${isExist}">
-        <h2 class="text-center">Project Employees<span class="count" th:text="${projectEmployees.size()}"></span></h2>
+        <h2 class="text-center">Department Employees<span class="count" th:text="${departmentEmployees.size()}"></span></h2>
     </div>
     <form class="container-form"
-          th:action="@{/department-employee/{idDe}(idDe=${departmentId})}"
+          th:action="@{/department-employee/{idDep}(idDep=${departmentId})}"
           th:object="${departmentEmployeeDTO}"
           th:method="POST"
           id="addEmployeeForm"
@@ -62,7 +62,7 @@
             <td th:text="${employee.education}">Education</td>
             <td>
                 <form th:method="POST"
-                      th:action="@{/delete-project-employee/{idEm}/{idPr}(idEm=${employee.id}, idPr=${projectId})}"
+                      th:action="@{/delete-project-employee/{idEm}/{idDep}(idEm=${employee.id}, idDep=${departmentId})}"
                       class="d-inline"
                       sec:authorize="hasRole('ADMIN')">
                     <input class="btn btn-danger btn-sm" type="submit" value="Remove"/>

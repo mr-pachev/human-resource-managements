@@ -1,9 +1,6 @@
 package bg.softuni.human_resource_managements.service.impl;
 
-import bg.softuni.human_resource_managements.model.dto.AddDepartmentDTO;
-import bg.softuni.human_resource_managements.model.dto.DepartmentDTO;
-import bg.softuni.human_resource_managements.model.dto.EmployeeDTO;
-import bg.softuni.human_resource_managements.model.dto.ProjectDTO;
+import bg.softuni.human_resource_managements.model.dto.*;
 import bg.softuni.human_resource_managements.service.DepartmentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.core.ParameterizedTypeReference;
@@ -26,6 +23,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         this.mapper = mapper;
     }
 
+    //get all department names
     @Override
     public List<String> getAllDepartments() {
         return employeesRestClient
@@ -36,6 +34,7 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .body(new ParameterizedTypeReference<>(){});
     }
 
+    //get all departments
     @Override
     public List<DepartmentDTO> getAllDepartmentsDTOS() {
         return departmentsRestClient
@@ -46,6 +45,31 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .body(new ParameterizedTypeReference<>(){});
     }
 
+    //add department
+    @Override
+    public void addDepartment(AddDepartmentDTO addDepartmentDTO) {
+        departmentsRestClient
+                .post()
+                .uri("http://localhost:8081/departments")
+                .body(addDepartmentDTO)
+                .retrieve();
+    }
+
+    //check is exist department by name
+    @Override
+    public boolean isExistDepartment(String newDeaprtmentName) {
+        List<DepartmentDTO> departmentDTOS = departmentsRestClient
+                .get()
+                .uri("http://localhost:8081/departments")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(new ParameterizedTypeReference<>(){});
+
+        return departmentDTOS.stream()
+                .anyMatch(department -> department.getDepartmentName().equals(newDeaprtmentName));
+    }
+
+    //get department by id
     @Override
     public DepartmentDTO getDepartmentDTOByID(long id) {
         return departmentsRestClient
@@ -66,28 +90,7 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .retrieve();
     }
 
-    @Override
-    public void addDepartment(AddDepartmentDTO addDepartmentDTO) {
-        departmentsRestClient
-                .post()
-                .uri("http://localhost:8081/departments")
-                .body(addDepartmentDTO)
-                .retrieve();
-    }
-
-    @Override
-    public boolean isExistDepartment(String newDeaprtmentName) {
-        List<DepartmentDTO> departmentDTOS = departmentsRestClient
-                .get()
-                .uri("http://localhost:8081/departments")
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .body(new ParameterizedTypeReference<>(){});
-
-        return departmentDTOS.stream()
-                .anyMatch(department -> department.getDepartmentName().equals(newDeaprtmentName));
-    }
-
+    //delete department
     @Override
     public void removeDepartment(long id) {
         departmentsRestClient.delete()
@@ -95,4 +98,31 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .retrieve()
                 .toBodilessEntity();
     }
+
+    //get employee names from current department
+    @Override
+    public List<DepartmentEmployeeDTO> getAllEmployeesNames() {
+        return departmentsRestClient
+                .get()
+                .uri("http://localhost:8081/departments/all-employees")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(new ParameterizedTypeReference<>(){});
+    }
+
+    //get employees from current department
+    @Override
+    public List<EmployeeDTO> allDepartmentEmployees(long id) {
+        return departmentsRestClient
+                .get()
+                .uri("http://localhost:8081/departments/employees/{id}", id)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(new ParameterizedTypeReference<>(){});
+    }
+
+
+
+
+
 }

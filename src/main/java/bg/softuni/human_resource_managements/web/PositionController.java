@@ -116,7 +116,7 @@ public class PositionController {
     public String viewProjectEmployees(@PathVariable("id") Long id, Model model) {
         model.addAttribute("positionEmployees", positionService.allPositionEmployees(id));
         model.addAttribute("positionId", id);
-        model.addAttribute("allEmployees", projectService.getAllEmployees());
+        model.addAttribute("allEmployees", projectService.getAllEmployeesNames());
 
         return "position-employees";
     }

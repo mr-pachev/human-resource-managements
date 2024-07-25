@@ -1,8 +1,6 @@
 package bg.softuni.human_resource_managements.web;
 
-import bg.softuni.human_resource_managements.model.dto.AddDepartmentDTO;
-import bg.softuni.human_resource_managements.model.dto.AddProjectDTO;
-import bg.softuni.human_resource_managements.model.dto.DepartmentDTO;
+import bg.softuni.human_resource_managements.model.dto.*;
 import bg.softuni.human_resource_managements.service.DepartmentService;
 import bg.softuni.human_resource_managements.service.EmployeeService;
 import bg.softuni.human_resource_managements.service.ProjectService;
@@ -31,6 +29,11 @@ public class DepartmentController {
         return new AddDepartmentDTO();
     }
 
+    @ModelAttribute("departmentEmployeeDTO")
+    public DepartmentEmployeeDTO departmentEmployeeDTO() {
+        return new DepartmentEmployeeDTO();
+    }
+
     //view all departments
     @GetMapping("/departments")
     public String viewAllDepartments(Model model){
@@ -42,7 +45,7 @@ public class DepartmentController {
     //add new department
     @GetMapping("/add-department")
     public String viewAddDepartmentForm(Model model) {
-        model.addAttribute("allEmployees", projectService.getAllEmployees());
+        model.addAttribute("allEmployees", projectService.getAllEmployeesNames());
 
         return "add-department";
     }
@@ -73,7 +76,7 @@ public class DepartmentController {
         return "redirect:/departments";
     }
 
-    //edith current department
+    //edit current department
     @PostMapping("/department-details/{id}")
     public String referenceToEdithDepartmentForm(@PathVariable("id") Long id){
 
@@ -84,7 +87,7 @@ public class DepartmentController {
     public String fillDepartmentDetailsForm(@PathVariable("id") Long id, Model model) {
         DepartmentDTO departmentDTO = departmentService.getDepartmentDTOByID(id);
 
-        model.addAttribute("allEmployees", projectService.getAllEmployees());
+        model.addAttribute("allEmployees", projectService.getAllEmployeesNames());
         model.addAttribute(departmentDTO);
 
         return "department-details";
@@ -103,14 +106,13 @@ public class DepartmentController {
             rAtt.addFlashAttribute("departmentDTO", departmentDTO);
             rAtt.addFlashAttribute("org.springframework.validation.BindingResult.departmentDTO", bindingResult);
 
-            model.addAttribute("allEmployees", projectService.getAllEmployees());
+            model.addAttribute("allEmployees", projectService.getAllEmployeesNames());
             return "department-details";
         }
 
         departmentService.editDepartment(departmentDTO);
         return "redirect:/departments";
     }
-
 
     //delete department by id
     @PostMapping("/delete-department/{id}")
@@ -127,5 +129,20 @@ public class DepartmentController {
         return "redirect:/departments";
     }
 
+    //department employees
+    @PostMapping("/department-employees/{id}")
+    public String fillAndViewAllDepartmentEmployees(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("departmentId", id);
+
+        return "redirect:/department-employees/" + id;
+    }
+    @GetMapping("/department-employees/{id}")
+    public String viewDepartmentEmployees(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("departmentEmployees", departmentService.allDepartmentEmployees(id));
+        model.addAttribute("departmentId", id);
+        model.addAttribute("allEmployees", departmentService.getAllEmployeesNames());
+
+        return "department-employees";
+    }
 
 }

@@ -122,7 +122,7 @@ public class ProjectController {
     public String viewProjectEmployees(@PathVariable("id") Long id, Model model) {
         model.addAttribute("projectEmployees", projectService.allProjectEmployees(id));
         model.addAttribute("projectId", id);
-        model.addAttribute("allEmployees", projectService.getAllEmployees());
+        model.addAttribute("allEmployees", projectService.getAllEmployeesNames());
 
         return "project-employees";
     }

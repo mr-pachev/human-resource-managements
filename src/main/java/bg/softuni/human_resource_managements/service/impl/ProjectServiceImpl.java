@@ -56,7 +56,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<ProjectEmployeeDTO> getAllEmployees() {
+    public List<ProjectEmployeeDTO> getAllEmployeesNames() {
         return projectRestClient
                 .get()
                 .uri("http://localhost:8081/projects/all-employees")
