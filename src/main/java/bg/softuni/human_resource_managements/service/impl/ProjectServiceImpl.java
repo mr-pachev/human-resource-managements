@@ -103,7 +103,6 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void editProject(ProjectDTO projectDTO) {
-
         projectRestClient
                 .post()
                 .uri("http://localhost:8081/projects/edit")

@@ -35,7 +35,15 @@ public class PositionServiceImpl implements PositionService {
                 .retrieve()
                 .body(new ParameterizedTypeReference<>(){});
     }
-
+    @Override
+    public List<EmployeeDTO> allPositionEmployees(long id) {
+        return positionRestClient
+                .get()
+                .uri("http://localhost:8081/positions/all-employees/{id}", id)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(new ParameterizedTypeReference<>(){});
+    }
     @Override
     public void addPosition(AddPositionDTO addPositionDTO) {
         positionRestClient
@@ -44,7 +52,15 @@ public class PositionServiceImpl implements PositionService {
                 .body(addPositionDTO)
                 .retrieve();
     }
-
+    @Override
+    public PositionDTO getPositionDTOByID(long id) {
+        return positionRestClient
+                .get()
+                .uri("http://localhost:8081/positions/{id}", id)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(PositionDTO.class);
+    }
     @Override
     public boolean isExistPosition(String namePosition) {
         List<PositionDTO> positionDTOS = positionRestClient
@@ -57,36 +73,21 @@ public class PositionServiceImpl implements PositionService {
         return positionDTOS.stream()
                 .anyMatch(position -> position.getPositionName().equals(namePosition));
     }
-
     @Override
-    public boolean isExistEmployeeInPosition(String employeeName, long idPos) {
-        return allPositionEmployees(idPos).stream()
-                .map(employee -> employee.getFirstName() + " " +
-                        employee.getMiddleName() + " " +
-                        employee.getLastName())
-                .anyMatch(fullName -> fullName.equals(employeeName));
+    public void editPosition(PositionDTO positionDTO) {
+        positionRestClient
+                .post()
+                .uri("http://localhost:8081/positions/edit")
+                .body(positionDTO)
+                .retrieve();
     }
-
     @Override
-    public PositionDTO getPositionDTOByID(long id) {
-        return positionRestClient
-                .get()
-                .uri("http://localhost:8081/positions/{id}", id)
-                .accept(MediaType.APPLICATION_JSON)
+    public void removePosition(long id) {
+        positionRestClient.delete()
+                .uri("http://localhost:8081/positions/{id}",id)
                 .retrieve()
-                .body(PositionDTO.class);
+                .toBodilessEntity();
     }
-
-    @Override
-    public List<EmployeeDTO> allPositionEmployees(long id) {
-        return positionRestClient
-                .get()
-                .uri("http://localhost:8081/positions/all-employees/{id}", id)
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .body(new ParameterizedTypeReference<>(){});
-    }
-
     @Override
     public void addPositionEmployee(PositionEmployeesDTO positionEmployeesDTO, long idPos) {
         positionRestClient
@@ -95,19 +96,18 @@ public class PositionServiceImpl implements PositionService {
                 .body(positionEmployeesDTO)
                 .retrieve();
     }
-
+    @Override
+    public boolean isExistEmployeeInPosition(String employeeName, long idPos) {
+        return allPositionEmployees(idPos).stream()
+                .map(employee -> employee.getFirstName() + " " +
+                        employee.getMiddleName() + " " +
+                        employee.getLastName())
+                .anyMatch(fullName -> fullName.equals(employeeName));
+    }
     @Override
     public void removeEmployeeFromPosition(long idEm, long idPos) {
         positionRestClient.delete()
                 .uri("http://localhost:8081/positions/employee/{idEm}/{idPos}",idEm ,idPos)
-                .retrieve()
-                .toBodilessEntity();
-    }
-
-    @Override
-    public void removePosition(long id) {
-        positionRestClient.delete()
-                .uri("http://localhost:8081/positions/{id}",id)
                 .retrieve()
                 .toBodilessEntity();
     }

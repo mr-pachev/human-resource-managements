@@ -72,6 +72,16 @@ public class ProjectController {
         return "redirect:/project-details/" + id;
     }
 
+    @GetMapping("/project-details/{id}")
+    public String fillEditProjectForm(@PathVariable("id") Long id, Model model) {
+        ProjectDTO projectDTO = projectService.getProjectDTOByID(id);
+
+        model.addAttribute(projectDTO);
+        model.addAttribute("departments", departmentService.getAllDepartments());
+
+        return "project-details";
+    }
+
     @PostMapping("/project-details")
     public String editProject(@RequestParam("id") Long id,
                               @Valid ProjectDTO projectDTO,
@@ -90,16 +100,6 @@ public class ProjectController {
 
         projectService.editProject(projectDTO);
         return "redirect:/projects";
-    }
-
-    @GetMapping("/project-details/{id}")
-    public String viewEditProjectForm(@PathVariable("id") Long id, Model model) {
-        ProjectDTO projectDTO = projectService.getProjectDTOByID(id);
-
-        model.addAttribute(projectDTO);
-        model.addAttribute("departments", departmentService.getAllDepartments());
-
-        return "project-details";
     }
 
     //project-employees

@@ -73,6 +73,12 @@ public class PositionController {
 
     //edit current position
     @PostMapping("/position-details/{id}")
+    public String referenceToEditPositionForm(@PathVariable("id") Long id, Model model) {
+
+        return "redirect:/position-details/" + id;
+    }
+
+    @GetMapping("/position-details/{id}")
     public String fillEditPositionForm(@PathVariable("id") Long id, Model model) {
         PositionDTO positionDTO = positionService.getPositionDTOByID(id);
         model.addAttribute(positionDTO);
@@ -94,18 +100,8 @@ public class PositionController {
             return "redirect:/position-details/" + positionDTO.getId();
         }
 
-
+        positionService.editPosition(positionDTO);
         return "redirect:/positions";
-    }
-
-    @GetMapping("/position-details/{id}")
-    public String viewEditPositionForm(@PathVariable("id") Long id, Model model) {
-        if (!model.containsAttribute("positionDTO")) {
-            PositionDTO positionDTO = positionService.getPositionDTOByID(id);
-            model.addAttribute("positionDTO", positionDTO);
-        }
-
-        return "position-details";
     }
 
     //position-employees
