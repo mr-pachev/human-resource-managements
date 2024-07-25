@@ -48,7 +48,14 @@
                         th:text="${employee.fullName}">Employee Full Name</option>
             </select>
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Save</button>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Save</button>
+        </div>
+    </form>
+
+    <form th:method="POST" th:action="@{/department-employees/{id}(id=${departmentDTO.id})}" class="d-inline">
+        <input class="btn btn-success btn-sm" type="submit" value="Edit Employees: "/>
+        <span class="count-pr-em" th:text="${departmentDTO != null and departmentDTO.employees != null ? departmentDTO.employees.size() : 0}"></span>
     </form>
 </div>
 <footer th:replace="~{fragments/footer}"></footer>

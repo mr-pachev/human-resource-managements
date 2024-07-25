@@ -16,7 +16,7 @@ public class PositionServiceImpl implements PositionService {
     public PositionServiceImpl(RestClient positionRestClient) {
         this.positionRestClient = positionRestClient;
     }
-
+    //get all
     @Override
     public List<String> getAllPositionNames() {
         return positionRestClient
@@ -44,6 +44,7 @@ public class PositionServiceImpl implements PositionService {
                 .retrieve()
                 .body(new ParameterizedTypeReference<>(){});
     }
+    //position
     @Override
     public void addPosition(AddPositionDTO addPositionDTO) {
         positionRestClient
@@ -88,6 +89,7 @@ public class PositionServiceImpl implements PositionService {
                 .retrieve()
                 .toBodilessEntity();
     }
+    //position employees
     @Override
     public void addPositionEmployee(PositionEmployeesDTO positionEmployeesDTO, long idPos) {
         positionRestClient
