@@ -6,8 +6,8 @@ import bg.softuni.human_resource_managements.model.dto.EmployeeDTO;
 import java.util.List;
 
 public interface EmployeeService {
-    boolean addEmployee(AddEmployeeDTO addEmployeeDTO);
     List<EmployeeDTO> getAllEmployees();
+    void addEmployee(AddEmployeeDTO addEmployeeDTO);
     void removeEmployee(long id);
     EmployeeDTO getEmployeeByID(long id);
     boolean isExistEmployee(String managerFullName);

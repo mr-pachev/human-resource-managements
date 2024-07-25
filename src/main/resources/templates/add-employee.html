@@ -115,6 +115,9 @@
                         th:value="${department}"
                         th:text="${department}">Department</option>
             </select>
+            <p class="invalid-feedback errors alert alert-danger">
+                Department type is required.
+            </p>
         </div>
         <div class="form-group">
             <label th:for="education">Education</label>
@@ -129,7 +132,7 @@
                         th:text="${education}">Education</option>
             </select>
             <p class="invalid-feedback errors alert alert-danger">
-                Engine type is required.
+                Education type is required.
             </p>
         </div>
         <button type="submit" class="btn btn-primary btn-block">Add</button>

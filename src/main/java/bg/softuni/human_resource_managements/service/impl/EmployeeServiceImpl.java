@@ -23,22 +23,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public boolean addEmployee(AddEmployeeDTO addEmployeeDTO) {
-
-       if(isExistEmployee(addEmployeeDTO.getIdentificationNumber())){
-           return false;
-       }
-
-        employeesRestClient
-                .post()
-                .uri("http://localhost:8081/employees")
-                .body(addEmployeeDTO)
-                .retrieve();
-
-        return true;
-    }
-
-    @Override
     public List<EmployeeDTO> getAllEmployees() {
 
         return employeesRestClient
@@ -47,6 +31,15 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .body(new ParameterizedTypeReference<>(){});
+    }
+
+    @Override
+    public void addEmployee(AddEmployeeDTO addEmployeeDTO) {
+        employeesRestClient
+                .post()
+                .uri("http://localhost:8081/employees")
+                .body(addEmployeeDTO)
+                .retrieve();
     }
 
     @Override

@@ -19,6 +19,9 @@
           th:method="POST"
           id="addEmployeeForm">
 
+        <!--Sends employee id with a POST request-->
+        <input type="hidden" th:field="*{id}" />
+
         <div class="form-group">
             <label th:for="firstName">First Name</label>
             <input type="text" class="form-control" th:placeholder="${employeeDTO.firstName}"
@@ -91,29 +94,21 @@
             <select class="form-control" th:placeholder="${employeeDTO.position}"
                     id="position"
                     name="position"
-                    th:field="*{position}"
-                    th:errorclass="is-invalid"
-            >
-                <option value=""> -- Select Position -- </option>
+                    th:field="*{position}">
                 <option
                         th:each="position: ${positions}"
                         th:value="${position}"
                         th:text="${position}">Position
                 </option>
             </select>
-            <p class="invalid-feedback errors alert alert-danger">
-                Position is required.
-            </p>
         </div>
         <div class="form-group">
             <label th:for="department">Department</label>
             <select class="form-control" th:placeholder="${employeeDTO.department}"
                     id="department"
                     name="department"
-                    th:field="*{department}"
-                    th:errorclass="is-invalid">
-                <option value=""> -- Select Department -- </option>
-                <option
+                    th:field="*{department}">
+                    <option
                         th:each="department: ${departments}"
                         th:value="${department}"
                         th:text="${department}">Department</option>
@@ -124,16 +119,12 @@
             <select class="form-control" th:placeholder="${employeeDTO.education}"
                     id="education"
                     name="education"
-                    th:field="*{education}"
-                    th:errorclass="is-invalid">
-                <option value=""> -- Select Education -- </option>
+                    th:field="*{education}">
                 <option th:each="education: ${educations}"
                         th:value="${education}"
-                        th:text="${education}">Education</option>
+                        th:text="${education}">Education
+                </option>
             </select>
-            <p class="invalid-feedback errors alert alert-danger">
-                Engine type is required.
-            </p>
         </div>
         <button type="submit" class="btn btn-primary btn-block">Save</button>
     </form>

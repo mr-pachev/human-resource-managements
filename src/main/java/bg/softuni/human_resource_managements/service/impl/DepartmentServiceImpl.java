@@ -74,7 +74,6 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .uri("http://localhost:8081/departments")
                 .body(addDepartmentDTO)
                 .retrieve();
-
     }
 
     @Override

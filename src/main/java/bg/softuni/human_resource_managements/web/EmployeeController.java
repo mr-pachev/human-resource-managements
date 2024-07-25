@@ -57,10 +57,30 @@ public class EmployeeController {
             BindingResult bindingResult,
             RedirectAttributes rAtt) {
 
-        if (bindingResult.hasErrors() || !employeeService.addEmployee(addEmployeeDTO)) {
+        if (bindingResult.hasErrors()) {
+            rAtt.addFlashAttribute("addEmployeeDTO", addEmployeeDTO);
+            rAtt.addFlashAttribute("org.springframework.validation.BindingResult.addEmployeeDTO", bindingResult);
+
+            return "redirect:/add-employee";
+        }
+
+        String fullName = addEmployeeDTO.getFirstName() + " " +
+                            addEmployeeDTO.getMiddleName() + " " +
+                            addEmployeeDTO.getLastName();
+
+        if(employeeService.isExistEmployee(fullName)){
             rAtt.addFlashAttribute("addEmployeeDTO", addEmployeeDTO);
             rAtt.addFlashAttribute("org.springframework.validation.BindingResult.addEmployeeDTO", bindingResult);
             rAtt.addFlashAttribute("isExist", true);
+
+            return "redirect:/add-employee";
+        }
+
+        if(employeeService.isExistEmployeeByIN(addEmployeeDTO.getIdentificationNumber())){
+            rAtt.addFlashAttribute("addEmployeeDTO", addEmployeeDTO);
+            rAtt.addFlashAttribute("org.springframework.validation.BindingResult.addEmployeeDTO", bindingResult);
+            rAtt.addFlashAttribute("isExist", true);
+
             return "redirect:/add-employee";
         }
 
@@ -71,7 +91,7 @@ public class EmployeeController {
 
     //edit current employee
     @PostMapping("/employee-details/{id}")
-    public String referenceToEdithEmployeeForm(@PathVariable("id") Long id, Model model){
+    public String referenceToEdithEmployeeForm(@PathVariable("id") Long id){
 
         return "redirect:/employee-details/" + id;
     }
@@ -91,13 +111,19 @@ public class EmployeeController {
     @PostMapping("/employee-details")
     public String edithEmployee(@Valid EmployeeDTO employeeDTO,
                                 BindingResult bindingResult,
-                                RedirectAttributes rAtt){
+                                RedirectAttributes rAtt,
+                                Model model){
+
 
         if(bindingResult.hasErrors()){
             rAtt.addFlashAttribute("employeeDTO", employeeDTO);
             rAtt.addFlashAttribute("org.springframework.validation.BindingResult.employeeDTO", bindingResult);
 
-            return "redirect:/employee-details/" + employeeDTO.getId();
+            model.addAttribute("positions", positionService.getAllPositionNames());
+            model.addAttribute("departments", departmentService.getAllDepartments());
+            model.addAttribute("educations", educationService.getAllEducations());
+
+            return "employee-details";
         }
 
         employeeService.editEmployee(employeeDTO);

@@ -10,10 +10,7 @@ import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -34,7 +31,7 @@ public class DepartmentController {
         return new AddDepartmentDTO();
     }
 
-
+    //view all departments
     @GetMapping("/departments")
     public String viewAllDepartments(Model model){
         model.addAttribute("departments", departmentService.getAllDepartmentsDTOS());
@@ -42,40 +39,7 @@ public class DepartmentController {
         return "departments";
     }
 
-    //edith current department
-    @PostMapping("/department-details/{id}")
-    public String referenceToEdithDepartmentForm(@PathVariable("id") Long id){
-
-        return "redirect:/department-details/" + id;
-    }
-
-    @GetMapping("/department-details/{id}")
-    public String fillDepartmentDetailsForm(@PathVariable("id") Long id, Model model) {
-        DepartmentDTO departmentDTO = departmentService.getDepartmentDTOByID(id);
-
-        model.addAttribute("allEmployees", projectService.getAllEmployees());
-        model.addAttribute(departmentDTO);
-
-        return "department-details";
-    }
-
-    @PostMapping("/department-details")
-    public String edithDepartment(@Valid DepartmentDTO departmentDTO,
-                                BindingResult bindingResult,
-                                RedirectAttributes rAtt){
-
-        if(bindingResult.hasErrors()){
-            rAtt.addFlashAttribute("departmentDTO", departmentDTO);
-            rAtt.addFlashAttribute("org.springframework.validation.BindingResult.departmentDTO", bindingResult);
-            rAtt.addFlashAttribute("isNotExist", true);
-            return "redirect:/department-details";
-        }
-
-        departmentService.editDepartment(departmentDTO);
-        return "redirect:/departments";
-    }
-
-    //create department
+    //add new department
     @GetMapping("/add-department")
     public String viewAddDepartmentForm(Model model) {
         model.addAttribute("allEmployees", projectService.getAllEmployees());
@@ -109,6 +73,45 @@ public class DepartmentController {
         return "redirect:/departments";
     }
 
+    //edith current department
+    @PostMapping("/department-details/{id}")
+    public String referenceToEdithDepartmentForm(@PathVariable("id") Long id){
+
+        return "redirect:/department-details/" + id;
+    }
+
+    @GetMapping("/department-details/{id}")
+    public String fillDepartmentDetailsForm(@PathVariable("id") Long id, Model model) {
+        DepartmentDTO departmentDTO = departmentService.getDepartmentDTOByID(id);
+
+        model.addAttribute("allEmployees", projectService.getAllEmployees());
+        model.addAttribute(departmentDTO);
+
+        return "department-details";
+    }
+
+    @PostMapping("/department-details")
+    public String edithDepartment(@RequestParam("id") Long id,
+                                  @Valid DepartmentDTO departmentDTO,
+                                  BindingResult bindingResult,
+                                  RedirectAttributes rAtt){
+
+        departmentDTO.setId(id);
+
+        if(bindingResult.hasErrors()){
+            rAtt.addFlashAttribute("departmentDTO", departmentDTO);
+            rAtt.addFlashAttribute("org.springframework.validation.BindingResult.departmentDTO", bindingResult);
+            rAtt.addFlashAttribute("isNotExist", true);
+
+            return "redirect:/department-details/" + departmentDTO.getId();
+        }
+
+        departmentService.editDepartment(departmentDTO);
+        return "redirect:/departments";
+    }
+
+
+    //delete department by id
     @PostMapping("/delete-department/{id}")
     public String deleteDepartment(@PathVariable("id") Long id) {
         DepartmentDTO departmentDTO = departmentService.getDepartmentDTOByID(id);
@@ -122,4 +125,6 @@ public class DepartmentController {
 
         return "redirect:/departments";
     }
+
+
 }

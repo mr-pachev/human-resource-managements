@@ -102,6 +102,14 @@ public class ProjectController {
         return "redirect:/projects";
     }
 
+    //delete project by id
+    @PostMapping("/delete-project/{id}")
+    public String deleteProject(@PathVariable("id") Long id) {
+        projectService.removeProject(id);
+
+        return "redirect:/projects";
+    }
+
     //project-employees
     @PostMapping("/project-employees/{id}")
     public String fillAndViewAllProjectEmployees(@PathVariable("id") Long id, Model model) {
@@ -144,13 +152,5 @@ public class ProjectController {
     public String deleteProjectEmployee(@PathVariable("idEm") Long idEm, @PathVariable("idPr") Long idPr) {
         projectService.removeEmployeeFromProject(idEm, idPr);
         return "redirect:/project-employees/" + idPr;
-    }
-
-    //delete project by id
-    @PostMapping("/delete-project/{id}")
-    public String deleteProject(@PathVariable("id") Long id) {
-        projectService.removeProject(id);
-
-        return "redirect:/projects";
     }
 }
