@@ -32,7 +32,7 @@ public class ProjectController {
         return new ProjectEmployeeDTO();
     }
 
-    //all projects
+    //view all projects
     @GetMapping("/projects")
     public String viewAllProjects(Model model) {
         model.addAttribute("projects", projectService.getAllProjectsDTOS());
@@ -67,12 +67,9 @@ public class ProjectController {
 
     //edit current project
     @PostMapping("/project-details/{id}")
-    public String fillEditProjectForm(@PathVariable("id") Long id, Model model) {
-        ProjectDTO projectDTO = projectService.getProjectDTOByID(id);
+    public String referenceToEditProjectForm(@PathVariable("id") Long id) {
 
-        model.addAttribute(projectDTO);
-        model.addAttribute("departments", departmentService.getAllDepartments());
-        return "project-details";
+        return "redirect:/project-details/" + id;
     }
 
     @PostMapping("/project-details")
@@ -97,10 +94,9 @@ public class ProjectController {
 
     @GetMapping("/project-details/{id}")
     public String viewEditProjectForm(@PathVariable("id") Long id, Model model) {
-        if (!model.containsAttribute("projectDTO")) {
-            ProjectDTO projectDTO = projectService.getProjectDTOByID(id);
-            model.addAttribute("projectDTO", projectDTO);
-        }
+        ProjectDTO projectDTO = projectService.getProjectDTOByID(id);
+
+        model.addAttribute(projectDTO);
         model.addAttribute("departments", departmentService.getAllDepartments());
 
         return "project-details";
@@ -126,7 +122,6 @@ public class ProjectController {
     //add another employee in current project
     @PostMapping("/project-employee/{idPr}")
     public String addEmployee(@PathVariable("idPr") Long idPr,
-                              Model model,
                               ProjectEmployeeDTO projectEmployeeDTO,
                               RedirectAttributes rAtt){
 

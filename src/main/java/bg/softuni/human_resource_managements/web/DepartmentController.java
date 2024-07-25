@@ -44,13 +44,13 @@ public class DepartmentController {
 
     //edith current department
     @PostMapping("/department-details/{id}")
-    public String fillEdithDepartmentForm(@PathVariable("id") Long id){
+    public String referenceToEdithDepartmentForm(@PathVariable("id") Long id){
 
         return "redirect:/department-details/" + id;
     }
 
     @GetMapping("/department-details/{id}")
-    public String viewDepartmentDetailsForm(@PathVariable("id") Long id, Model model) {
+    public String fillDepartmentDetailsForm(@PathVariable("id") Long id, Model model) {
         DepartmentDTO departmentDTO = departmentService.getDepartmentDTOByID(id);
 
         model.addAttribute("allEmployees", projectService.getAllEmployees());

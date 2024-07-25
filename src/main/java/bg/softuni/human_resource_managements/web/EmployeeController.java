@@ -71,13 +71,13 @@ public class EmployeeController {
 
     //edit current employee
     @PostMapping("/employee-details/{id}")
-    public String fillEdithEmployeeForm(@PathVariable("id") Long id, Model model){
+    public String referenceToEdithEmployeeForm(@PathVariable("id") Long id, Model model){
 
         return "redirect:/employee-details/" + id;
     }
 
     @GetMapping("/employee-details/{id}")
-    public String viewEditEmployeeForm(@PathVariable("id") Long id, Model model) {
+    public String fillEditEmployeeForm(@PathVariable("id") Long id, Model model) {
         EmployeeDTO  employeeDTO = employeeService.getEmployeeByID(id);
         model.addAttribute(employeeDTO);
 
