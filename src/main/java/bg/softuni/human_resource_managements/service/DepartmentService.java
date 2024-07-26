@@ -18,6 +18,9 @@ public interface DepartmentService {
 
     void addDepartment(AddDepartmentDTO addDepartmentDTO);
     boolean isExistDepartment(String name);
+    boolean isExistEmployeeInDepartment(String employeeName, long idDep);
+
+    void addDepartmentEmployee(DepartmentEmployeeDTO departmentEmployeeDTO, long idDep);
 
     void removeDepartment(long id);
 }

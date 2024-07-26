@@ -136,6 +136,7 @@ public class DepartmentController {
 
         return "redirect:/department-employees/" + id;
     }
+
     @GetMapping("/department-employees/{id}")
     public String viewDepartmentEmployees(@PathVariable("id") Long id, Model model) {
         model.addAttribute("departmentEmployees", departmentService.allDepartmentEmployees(id));
@@ -143,6 +144,26 @@ public class DepartmentController {
         model.addAttribute("allEmployees", departmentService.getAllEmployeesNames());
 
         return "department-employees";
+    }
+
+    //add another employee in current department
+    @PostMapping("/department-employee/{idDep}")
+    public String addEmployee(@PathVariable("idDep") Long idDep,
+                              DepartmentEmployeeDTO departmentEmployeeDTO,
+                              RedirectAttributes rAtt){
+
+        String employeeName = departmentEmployeeDTO.getFullName();
+
+        boolean isExist = departmentService.isExistEmployeeInDepartment(employeeName, idDep);
+        if(isExist){
+            rAtt.addAttribute("departmentEmployees", departmentService.allDepartmentEmployees(idDep));
+            rAtt.addFlashAttribute("isExist", true);
+            return "redirect:/department-employees/" + idDep;
+        }
+
+        departmentService.addDepartmentEmployee(departmentEmployeeDTO, idDep);
+
+        return "redirect:/department-employees/" + idDep;
     }
 
 }

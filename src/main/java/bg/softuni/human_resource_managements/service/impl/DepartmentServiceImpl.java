@@ -69,6 +69,26 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .anyMatch(department -> department.getDepartmentName().equals(newDeaprtmentName));
     }
 
+    //check is exist current employee in current department
+    @Override
+    public boolean isExistEmployeeInDepartment(String employeeName, long idDep) {
+        return allDepartmentEmployees(idDep).stream()
+                .map(employee -> employee.getFirstName() + " " +
+                        employee.getMiddleName() + " " +
+                        employee.getLastName())
+                .anyMatch(fullName -> fullName.equals(employeeName));
+    }
+
+    //add current employee in current department
+    @Override
+    public void addDepartmentEmployee(DepartmentEmployeeDTO departmentEmployeeDTO, long idDep) {
+        departmentsRestClient
+                .post()
+                .uri("http://localhost:8081/departments/add-employee/{idDep}", idDep)
+                .body(departmentEmployeeDTO)
+                .retrieve();
+    }
+
     //get department by id
     @Override
     public DepartmentDTO getDepartmentDTOByID(long id) {
