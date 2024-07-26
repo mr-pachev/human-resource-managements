@@ -22,6 +22,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         this.employeesRestClient = employeesRestClient;
     }
 
+    //get all employees
     @Override
     public List<EmployeeDTO> getAllEmployees() {
 
