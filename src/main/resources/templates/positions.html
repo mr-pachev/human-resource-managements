@@ -35,6 +35,11 @@
                     <input class="btn btn-danger btn-sm" type="submit" value="Remove"/>
                 </form>
             </td>
+            <td sec:authorize="hasRole('USER')">
+                <form th:method="POST" th:action="@{/position-employees/{id}(id=${position.id})}" class="d-inline">
+                    <input class="btn btn-primary btn-sm" type="submit" value="Employees"/>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
