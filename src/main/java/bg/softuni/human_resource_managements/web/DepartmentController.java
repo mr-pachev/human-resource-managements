@@ -166,4 +166,10 @@ public class DepartmentController {
         return "redirect:/department-employees/" + idDep;
     }
 
+    //delete current employee from current department
+    @PostMapping("/delete-department-employee/{idEm}/{idDep}")
+    public String deleteDepartmentEmployee(@PathVariable("idEm") Long idEm, @PathVariable("idDep") Long idDep) {
+        departmentService.removeEmployeeFromDepartment(idEm, idDep);
+        return "redirect:/department-employees/" + idDep;
+    }
 }

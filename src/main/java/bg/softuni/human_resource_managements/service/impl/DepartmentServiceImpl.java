@@ -45,16 +45,6 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .body(new ParameterizedTypeReference<>(){});
     }
 
-    //add department
-    @Override
-    public void addDepartment(AddDepartmentDTO addDepartmentDTO) {
-        departmentsRestClient
-                .post()
-                .uri("http://localhost:8081/departments")
-                .body(addDepartmentDTO)
-                .retrieve();
-    }
-
     //check is exist department by name
     @Override
     public boolean isExistDepartment(String newDeaprtmentName) {
@@ -69,23 +59,13 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .anyMatch(department -> department.getDepartmentName().equals(newDeaprtmentName));
     }
 
-    //check is exist current employee in current department
+    //add new department
     @Override
-    public boolean isExistEmployeeInDepartment(String employeeName, long idDep) {
-        return allDepartmentEmployees(idDep).stream()
-                .map(employee -> employee.getFirstName() + " " +
-                        employee.getMiddleName() + " " +
-                        employee.getLastName())
-                .anyMatch(fullName -> fullName.equals(employeeName));
-    }
-
-    //add current employee in current department
-    @Override
-    public void addDepartmentEmployee(DepartmentEmployeeDTO departmentEmployeeDTO, long idDep) {
+    public void addDepartment(AddDepartmentDTO addDepartmentDTO) {
         departmentsRestClient
                 .post()
-                .uri("http://localhost:8081/departments/add-employee/{idDep}", idDep)
-                .body(departmentEmployeeDTO)
+                .uri("http://localhost:8081/departments")
+                .body(addDepartmentDTO)
                 .retrieve();
     }
 
@@ -141,8 +121,32 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .body(new ParameterizedTypeReference<>(){});
     }
 
+    //check is exist current employee in current department
+    @Override
+    public boolean isExistEmployeeInDepartment(String employeeName, long idDep) {
+        return allDepartmentEmployees(idDep).stream()
+                .map(employee -> employee.getFirstName() + " " +
+                        employee.getMiddleName() + " " +
+                        employee.getLastName())
+                .anyMatch(fullName -> fullName.equals(employeeName));
+    }
 
+    //add current employee in current department
+    @Override
+    public void addDepartmentEmployee(DepartmentEmployeeDTO departmentEmployeeDTO, long idDep) {
+        departmentsRestClient
+                .post()
+                .uri("http://localhost:8081/departments/add-employee/{idDep}", idDep)
+                .body(departmentEmployeeDTO)
+                .retrieve();
+    }
 
-
-
+    //delete current employee from current department
+    @Override
+    public void removeEmployeeFromDepartment(long idEm, long idDep) {
+        departmentsRestClient.delete()
+                .uri("http://localhost:8081/departments/employee/{idEm}/{idDep}",idEm ,idDep)
+                .retrieve()
+                .toBodilessEntity();
+    }
 }
