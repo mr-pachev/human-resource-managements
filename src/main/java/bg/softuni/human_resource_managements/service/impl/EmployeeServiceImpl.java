@@ -34,33 +34,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .body(new ParameterizedTypeReference<>(){});
     }
 
-    @Override
-    public void addEmployee(AddEmployeeDTO addEmployeeDTO) {
-        employeesRestClient
-                .post()
-                .uri("http://localhost:8081/employees")
-                .body(addEmployeeDTO)
-                .retrieve();
-    }
-
-    @Override
-    public void removeEmployee(long id) {
-        employeesRestClient.delete()
-                .uri("http://localhost:8081/employees/" + id)
-                .retrieve()
-                .toBodilessEntity();
-    }
-
-    @Override
-    public EmployeeDTO getEmployeeByID(long id) {
-        return employeesRestClient
-                .get()
-                .uri("http://localhost:8081/employees/{id}", id)
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .body(EmployeeDTO.class);
-    }
-
+    //checking is exist employee by full name
     @Override
     public boolean isExistEmployee(String managerFullName) {
         List<EmployeeDTO> employeeDTOS = employeesRestClient
@@ -73,12 +47,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeDTOS.stream()
                 .anyMatch(employee -> {
                     String managerName = employee.getFirstName() + " " +
-                                        employee.getMiddleName() + " " +
-                                        employee.getLastName();
+                            employee.getMiddleName() + " " +
+                            employee.getLastName();
                     return managerName.equals(managerFullName);
                 });
     }
 
+    //checking is exist employee by identification number
     @Override
     public boolean isExistEmployeeByIN(String identificationNumber) {
         List<EmployeeDTO> employeeDTOS = employeesRestClient
@@ -94,6 +69,28 @@ public class EmployeeServiceImpl implements EmployeeService {
                 });
     }
 
+    //add employee
+    @Override
+    public void addEmployee(AddEmployeeDTO addEmployeeDTO) {
+        employeesRestClient
+                .post()
+                .uri("http://localhost:8081/employees")
+                .body(addEmployeeDTO)
+                .retrieve();
+    }
+
+    //get employee by id
+    @Override
+    public EmployeeDTO getEmployeeByID(long id) {
+        return employeesRestClient
+                .get()
+                .uri("http://localhost:8081/employees/{id}", id)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(EmployeeDTO.class);
+    }
+
+    //edit employee
     @Override
     public void editEmployee(EmployeeDTO employeeDTO) {
         AddEmployeeDTO addEmployeeDTO = mapper.map(employeeDTO, AddEmployeeDTO.class);
@@ -102,5 +99,14 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .uri("http://localhost:8081/employees/edit")
                 .body(addEmployeeDTO)
                 .retrieve();
+    }
+
+    //delete employee
+    @Override
+    public void removeEmployee(long id) {
+        employeesRestClient.delete()
+                .uri("http://localhost:8081/employees/" + id)
+                .retrieve()
+                .toBodilessEntity();
     }
 }
