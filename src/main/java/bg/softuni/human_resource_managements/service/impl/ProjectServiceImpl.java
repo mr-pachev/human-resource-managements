@@ -17,6 +17,32 @@ public class ProjectServiceImpl implements ProjectService {
         this.projectRestClient = projectRestClient;
     }
 
+    //get all projects
+    @Override
+    public List<ProjectDTO> getAllProjectsDTOS() {
+        return projectRestClient
+                .get()
+                .uri("http://localhost:8081/projects")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(new ParameterizedTypeReference<>(){});
+    }
+
+    //checking is exist project by name
+    @Override
+    public boolean isExistProject(String newProjectName) {
+        List<ProjectDTO> projectDTOS = projectRestClient
+                .get()
+                .uri("http://localhost:8081/projects")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(new ParameterizedTypeReference<>(){});
+
+        return projectDTOS.stream()
+                .anyMatch(project -> project.getName().equals(newProjectName));
+    }
+
+    //add new project
     @Override
     public boolean addProject(AddProjectDTO addProjectDTO) {
         if(isExistProject(addProjectDTO.getName())){
@@ -32,39 +58,7 @@ public class ProjectServiceImpl implements ProjectService {
         return true;
     }
 
-    @Override
-    public boolean isExistProject(String newProjectName) {
-        List<ProjectDTO> projectDTOS = projectRestClient
-                .get()
-                .uri("http://localhost:8081/projects")
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .body(new ParameterizedTypeReference<>(){});
-
-        return projectDTOS.stream()
-                .anyMatch(project -> project.getName().equals(newProjectName));
-    }
-
-    @Override
-    public List<ProjectDTO> getAllProjectsDTOS() {
-        return projectRestClient
-                .get()
-                .uri("http://localhost:8081/projects")
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .body(new ParameterizedTypeReference<>(){});
-    }
-
-    @Override
-    public List<ProjectEmployeeDTO> getAllEmployeesNames() {
-        return projectRestClient
-                .get()
-                .uri("http://localhost:8081/projects/all-employees")
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .body(new ParameterizedTypeReference<>(){});
-    }
-
+    //get project by id
     @Override
     public ProjectDTO getProjectDTOByID(long id) {
         return projectRestClient
@@ -75,14 +69,17 @@ public class ProjectServiceImpl implements ProjectService {
                 .body(ProjectDTO.class);
     }
 
+    //edit project
     @Override
-    public void removeEmployeeFromProject(long idEm, long idPr) {
-        projectRestClient.delete()
-                .uri("http://localhost:8081/projects/employee/{idEm}/{idPr}",idEm ,idPr)
-                .retrieve()
-                .toBodilessEntity();
+    public void editProject(ProjectDTO projectDTO) {
+        projectRestClient
+                .post()
+                .uri("http://localhost:8081/projects/edit")
+                .body(projectDTO)
+                .retrieve();
     }
 
+    //delete project
     @Override
     public void removeProject(long id) {
         projectRestClient.delete()
@@ -91,6 +88,7 @@ public class ProjectServiceImpl implements ProjectService {
                 .toBodilessEntity();
     }
 
+    //get all employees from current project
     @Override
     public List<EmployeeDTO> allProjectEmployees(long id) {
         return projectRestClient
@@ -101,15 +99,28 @@ public class ProjectServiceImpl implements ProjectService {
                 .body(new ParameterizedTypeReference<>(){});
     }
 
+    //get all employees names
     @Override
-    public void editProject(ProjectDTO projectDTO) {
-        projectRestClient
-                .post()
-                .uri("http://localhost:8081/projects/edit")
-                .body(projectDTO)
-                .retrieve();
+    public List<ProjectEmployeeDTO> getAllEmployeesNames() {
+        return projectRestClient
+                .get()
+                .uri("http://localhost:8081/projects/all-employees")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(new ParameterizedTypeReference<>(){});
     }
 
+    //checking is exist current employee in current project
+    @Override
+    public boolean isExistEmployeeInProject(String employeeName, long idPr) {
+        return allProjectEmployees(idPr).stream()
+                .map(employee -> employee.getFirstName() + " " +
+                        employee.getMiddleName() + " " +
+                        employee.getLastName())
+                .anyMatch(fullName -> fullName.equals(employeeName));
+    }
+
+    //add current employee in current project
     @Override
     public void addProjectEmployee(ProjectEmployeeDTO projectEmployeeDTO, long idPr) {
         projectRestClient
@@ -120,13 +131,13 @@ public class ProjectServiceImpl implements ProjectService {
 
     }
 
+    //delete current employee from current project
     @Override
-    public boolean isExistEmployeeInProject(String employeeName, long idPr) {
-        return allProjectEmployees(idPr).stream()
-                .map(employee -> employee.getFirstName() + " " +
-                        employee.getMiddleName() + " " +
-                        employee.getLastName())
-                .anyMatch(fullName -> fullName.equals(employeeName));
+    public void removeEmployeeFromProject(long idEm, long idPr) {
+        projectRestClient.delete()
+                .uri("http://localhost:8081/projects/employee/{idEm}/{idPr}",idEm ,idPr)
+                .retrieve()
+                .toBodilessEntity();
     }
 }
 
