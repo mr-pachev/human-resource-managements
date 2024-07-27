@@ -15,12 +15,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class DepartmentController {
 
     private final DepartmentService departmentService;
-    private final EmployeeService employeeService;
     private final ProjectService projectService;
 
-    public DepartmentController(DepartmentService departmentService, EmployeeService employeeService, ProjectService projectService) {
+    public DepartmentController(DepartmentService departmentService, ProjectService projectService) {
         this.departmentService = departmentService;
-        this.employeeService = employeeService;
         this.projectService = projectService;
     }
 

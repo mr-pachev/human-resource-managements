@@ -16,6 +16,7 @@ public class EducationServiceImpl implements EducationService {
         this.employeesRestClient = employeesRestClient;
     }
 
+    //get all educations names
     @Override
     public List<String> getAllEducations() {
         return employeesRestClient
