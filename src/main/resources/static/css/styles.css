@@ -65,7 +65,7 @@ body {
     font-family: Arial, sans-serif;
     padding-top: 60px;
 }
-
+/*form section*/
 .container-form{
     width: auto;
     max-width: 400px;
@@ -108,8 +108,8 @@ body {
     color: white;
 }
 .birthday-table {
-    background-color: #50aaf3; /* Нюанс на червено за фона на таблицата */
-    margin-top: 20px; /* Отстояние от другите елементи */
+    background-color: #50aaf3;
+    margin-top: 20px;
     padding: 15px;
     font-size: 14px;
     color: white;
