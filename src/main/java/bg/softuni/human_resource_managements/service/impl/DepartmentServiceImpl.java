@@ -99,17 +99,6 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .toBodilessEntity();
     }
 
-    //get employee names from current department
-    @Override
-    public List<DepartmentEmployeeDTO> getAllEmployeesNames() {
-        return departmentsRestClient
-                .get()
-                .uri("http://localhost:8081/departments/all-employees")
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .body(new ParameterizedTypeReference<>(){});
-    }
-
     //get employees from current department
     @Override
     public List<EmployeeDTO> allDepartmentEmployees(long id) {
@@ -133,11 +122,11 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     //add current employee in current department
     @Override
-    public void addDepartmentEmployee(DepartmentEmployeeDTO departmentEmployeeDTO, long idDep) {
+    public void addDepartmentEmployee(EmployeeNameDTO employeeNameDTO, long idDep) {
         departmentsRestClient
                 .post()
                 .uri("http://localhost:8081/departments/add-employee/{idDep}", idDep)
-                .body(departmentEmployeeDTO)
+                .body(employeeNameDTO)
                 .retrieve();
     }
 

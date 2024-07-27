@@ -14,7 +14,7 @@
     </div>
     <form class="container-form"
           th:action="@{/position-employee/{idPos}(idPos=${positionId})}"
-          th:object="${positionEmployeeDTO}"
+          th:object="${employeeNameDTO}"
           th:method="POST"
           id="addEmployeeForm"
           sec:authorize="hasRole('ADMIN')">

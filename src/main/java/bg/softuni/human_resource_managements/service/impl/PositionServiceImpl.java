@@ -115,11 +115,11 @@ public class PositionServiceImpl implements PositionService {
 
     //add current employee in current position
     @Override
-    public void addPositionEmployee(PositionEmployeesDTO positionEmployeesDTO, long idPos) {
+    public void addPositionEmployee(EmployeeNameDTO employeeNameDTO, long idPos) {
         positionRestClient
                 .post()
                 .uri("http://localhost:8081/positions/add-employee/{idPos}", idPos)
-                .body(positionEmployeesDTO)
+                .body(employeeNameDTO)
                 .retrieve();
     }
 

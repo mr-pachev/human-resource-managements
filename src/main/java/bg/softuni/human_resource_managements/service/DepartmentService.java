@@ -26,10 +26,6 @@ public interface DepartmentService {
     //delete department
     void removeDepartment(long id);
 
-
-    //get all employees names from current department
-    List<DepartmentEmployeeDTO> getAllEmployeesNames();
-
     //get all employees from current department
     List<EmployeeDTO> allDepartmentEmployees(long id);
 
@@ -37,7 +33,7 @@ public interface DepartmentService {
     boolean isExistEmployeeInDepartment(String employeeName, long idDep);
 
     //add employee in current department
-    void addDepartmentEmployee(DepartmentEmployeeDTO departmentEmployeeDTO, long idDep);
+    void addDepartmentEmployee(EmployeeNameDTO employeeNameDTO, long idDep);
 
     //delete current employee from current department
     void removeEmployeeFromDepartment(long idEm, long idDep);

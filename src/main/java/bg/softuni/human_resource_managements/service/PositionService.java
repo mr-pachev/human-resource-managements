@@ -33,7 +33,7 @@ public interface PositionService {
    boolean isExistEmployeeInPosition(String employeeName, long idPos);
 
    //add current employee in current position
-   void addPositionEmployee(PositionEmployeesDTO positionEmployeesDTO, long idPos);
+   void addPositionEmployee(EmployeeNameDTO employeeNameDTO, long idPos);
 
    //delete current employee from current position
    void removeEmployeeFromPosition(long idEm, long idPos);

@@ -1,6 +1,6 @@
 package bg.softuni.human_resource_managements.model.dto;
 
-public class ProjectEmployeeDTO {
+public class EmployeeNameDTO {
     long id;
     String fullName;
 

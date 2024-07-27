@@ -99,17 +99,6 @@ public class ProjectServiceImpl implements ProjectService {
                 .body(new ParameterizedTypeReference<>(){});
     }
 
-    //get all employees names
-    @Override
-    public List<ProjectEmployeeDTO> getAllEmployeesNames() {
-        return projectRestClient
-                .get()
-                .uri("http://localhost:8081/projects/all-employees")
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .body(new ParameterizedTypeReference<>(){});
-    }
-
     //checking is exist current employee in current project
     @Override
     public boolean isExistEmployeeInProject(String employeeName, long idPr) {
@@ -122,11 +111,11 @@ public class ProjectServiceImpl implements ProjectService {
 
     //add current employee in current project
     @Override
-    public void addProjectEmployee(ProjectEmployeeDTO projectEmployeeDTO, long idPr) {
+    public void addProjectEmployee(EmployeeNameDTO employeeNameDTO, long idPr) {
         projectRestClient
                 .post()
                 .uri("http://localhost:8081/projects/add-employee/{idPr}", idPr)
-                .body(projectEmployeeDTO)
+                .body(employeeNameDTO)
                 .retrieve();
 
     }

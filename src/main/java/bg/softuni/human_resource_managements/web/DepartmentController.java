@@ -13,13 +13,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class DepartmentController {
-
     private final DepartmentService departmentService;
-    private final ProjectService projectService;
 
-    public DepartmentController(DepartmentService departmentService, ProjectService projectService) {
+    private final EmployeeService employeeService;
+
+    public DepartmentController(DepartmentService departmentService, EmployeeService employeeService) {
         this.departmentService = departmentService;
-        this.projectService = projectService;
+        this.employeeService = employeeService;
     }
 
     @ModelAttribute("addDepartmentDTO")
@@ -27,9 +27,9 @@ public class DepartmentController {
         return new AddDepartmentDTO();
     }
 
-    @ModelAttribute("departmentEmployeeDTO")
-    public DepartmentEmployeeDTO departmentEmployeeDTO() {
-        return new DepartmentEmployeeDTO();
+    @ModelAttribute("employeeNameDTO")
+    public EmployeeNameDTO emptyEmployeeNameDTO() {
+        return new EmployeeNameDTO();
     }
 
     //view all departments
@@ -43,7 +43,7 @@ public class DepartmentController {
     //add new department
     @GetMapping("/add-department")
     public String viewAddDepartmentForm(Model model) {
-        model.addAttribute("allEmployees", projectService.getAllEmployeesNames());
+        model.addAttribute("allEmployees", employeeService.getAllEmployeesNames());
 
         return "add-department";
     }
@@ -85,7 +85,7 @@ public class DepartmentController {
     public String fillDepartmentDetailsForm(@PathVariable("id") Long id, Model model) {
         DepartmentDTO departmentDTO = departmentService.getDepartmentDTOByID(id);
 
-        model.addAttribute("allEmployees", projectService.getAllEmployeesNames());
+        model.addAttribute("allEmployees", employeeService.getAllEmployeesNames());
         model.addAttribute(departmentDTO);
 
         return "department-details";
@@ -104,7 +104,7 @@ public class DepartmentController {
             rAtt.addFlashAttribute("departmentDTO", departmentDTO);
             rAtt.addFlashAttribute("org.springframework.validation.BindingResult.departmentDTO", bindingResult);
 
-            model.addAttribute("allEmployees", projectService.getAllEmployeesNames());
+            model.addAttribute("allEmployees", employeeService.getAllEmployeesNames());
             return "department-details";
         }
 
@@ -139,7 +139,7 @@ public class DepartmentController {
     public String viewDepartmentEmployees(@PathVariable("id") Long id, Model model) {
         model.addAttribute("departmentEmployees", departmentService.allDepartmentEmployees(id));
         model.addAttribute("departmentId", id);
-        model.addAttribute("allEmployees", departmentService.getAllEmployeesNames());
+        model.addAttribute("allEmployees", employeeService.getAllEmployeesNames());
 
         return "department-employees";
     }
@@ -147,10 +147,10 @@ public class DepartmentController {
     //add another employee in current department
     @PostMapping("/department-employee/{idDep}")
     public String addEmployee(@PathVariable("idDep") Long idDep,
-                              DepartmentEmployeeDTO departmentEmployeeDTO,
+                              EmployeeNameDTO employeeNameDTO,
                               RedirectAttributes rAtt){
 
-        String employeeName = departmentEmployeeDTO.getFullName();
+        String employeeName = employeeNameDTO.getFullName();
 
         boolean isExist = departmentService.isExistEmployeeInDepartment(employeeName, idDep);
         if(isExist){
@@ -159,7 +159,7 @@ public class DepartmentController {
             return "redirect:/department-employees/" + idDep;
         }
 
-        departmentService.addDepartmentEmployee(departmentEmployeeDTO, idDep);
+        departmentService.addDepartmentEmployee(employeeNameDTO, idDep);
 
         return "redirect:/department-employees/" + idDep;
     }

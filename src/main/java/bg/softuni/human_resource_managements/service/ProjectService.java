@@ -26,14 +26,11 @@ public interface ProjectService {
     //get all employees from current project
     List<EmployeeDTO> allProjectEmployees(long id);
 
-    //get all employees names
-    List<ProjectEmployeeDTO> getAllEmployeesNames();
-
     //checking is exist current employee in current project
     boolean isExistEmployeeInProject(String employeeName, long idPr);
 
     //add current employee in current project
-    void addProjectEmployee(ProjectEmployeeDTO projectEmployeeDTO, long idPr);
+    void addProjectEmployee(EmployeeNameDTO employeeNameDTO, long idPr);
 
     //delete current employee from current project
     void removeEmployeeFromProject(long idEm, long idPr);

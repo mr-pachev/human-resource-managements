@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
-    boolean addUser(AddUserDTO addUserDTO);
     List<UserDTO> getAllUsers();
-    void removeUser(long id);
     UserDTO getUserDetails(long id);
+    boolean addUser(AddUserDTO addUserDTO);
     void editUser(UserDTO userDTO);
+    void removeUser(long id);
 }

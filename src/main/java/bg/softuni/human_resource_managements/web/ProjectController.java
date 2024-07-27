@@ -1,9 +1,10 @@
 package bg.softuni.human_resource_managements.web;
 
 import bg.softuni.human_resource_managements.model.dto.AddProjectDTO;
+import bg.softuni.human_resource_managements.model.dto.EmployeeNameDTO;
 import bg.softuni.human_resource_managements.model.dto.ProjectDTO;
-import bg.softuni.human_resource_managements.model.dto.ProjectEmployeeDTO;
 import bg.softuni.human_resource_managements.service.DepartmentService;
+import bg.softuni.human_resource_managements.service.EmployeeService;
 import bg.softuni.human_resource_managements.service.ProjectService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -15,11 +16,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class ProjectController {
     private final ProjectService projectService;
-    private final DepartmentService departmentService;
 
-    public ProjectController(ProjectService projectService, DepartmentService departmentService) {
+    private final DepartmentService departmentService;
+    private final EmployeeService employeeService;
+
+    public ProjectController(ProjectService projectService, DepartmentService departmentService, EmployeeService employeeService) {
         this.projectService = projectService;
         this.departmentService = departmentService;
+        this.employeeService = employeeService;
     }
 
     @ModelAttribute("addProjectDTO")
@@ -27,9 +31,9 @@ public class ProjectController {
         return new AddProjectDTO();
     }
 
-    @ModelAttribute("projectEmployeeDTO")
-    public ProjectEmployeeDTO emptyProjectEmployeeDTO() {
-        return new ProjectEmployeeDTO();
+    @ModelAttribute("employeeNameDTO")
+    public EmployeeNameDTO emptyEmployeeNameDTO() {
+        return new EmployeeNameDTO();
     }
 
     //view all projects
@@ -122,7 +126,7 @@ public class ProjectController {
     public String viewProjectEmployees(@PathVariable("id") Long id, Model model) {
         model.addAttribute("projectEmployees", projectService.allProjectEmployees(id));
         model.addAttribute("projectId", id);
-        model.addAttribute("allEmployees", projectService.getAllEmployeesNames());
+        model.addAttribute("allEmployees", employeeService.getAllEmployeesNames());
 
         return "project-employees";
     }
@@ -130,10 +134,10 @@ public class ProjectController {
     //add another employee in current project
     @PostMapping("/project-employee/{idPr}")
     public String addEmployee(@PathVariable("idPr") Long idPr,
-                              ProjectEmployeeDTO projectEmployeeDTO,
+                              EmployeeNameDTO employeeNameDTO,
                               RedirectAttributes rAtt){
 
-        String employeeName = projectEmployeeDTO.getFullName();
+        String employeeName = employeeNameDTO.getFullName();
 
         boolean isExist = projectService.isExistEmployeeInProject(employeeName, idPr);
         if(isExist){
@@ -142,7 +146,7 @@ public class ProjectController {
             return "redirect:/project-employees/" + idPr;
         }
 
-        projectService.addProjectEmployee(projectEmployeeDTO, idPr);
+        projectService.addProjectEmployee(employeeNameDTO, idPr);
 
         return "redirect:/project-employees/" + idPr;
     }

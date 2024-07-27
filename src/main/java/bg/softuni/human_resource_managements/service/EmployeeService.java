@@ -2,10 +2,14 @@ package bg.softuni.human_resource_managements.service;
 
 import bg.softuni.human_resource_managements.model.dto.AddEmployeeDTO;
 import bg.softuni.human_resource_managements.model.dto.EmployeeDTO;
+import bg.softuni.human_resource_managements.model.dto.EmployeeNameDTO;
 
 import java.util.List;
 
 public interface EmployeeService {
+    //get all employees names
+    List<EmployeeNameDTO> getAllEmployeesNames();
+
     //get all employees
     List<EmployeeDTO> getAllEmployees();
 
@@ -24,6 +28,6 @@ public interface EmployeeService {
     //edit employee
     void editEmployee(EmployeeDTO employeeDTO);
 
-    //remove employee
+    //delete employee
     void removeEmployee(long id);
 }

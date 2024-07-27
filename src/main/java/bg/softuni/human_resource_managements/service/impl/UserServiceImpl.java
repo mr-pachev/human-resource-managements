@@ -34,6 +34,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserDTO> getAllUsers() {
+        List<UserDTO> users = new ArrayList<>();
+
+        for (User user : userRepository.findAll()) {
+            users.add(mapToDTO(user));
+        }
+        return users;
+    }
+
+    @Override
+    public UserDTO getUserDetails(long id) {
+        Optional<User> user = userRepository.findById(id);
+
+        return mapToDTO(user.get());
+    }
+
+    @Override
     public boolean addUser(AddUserDTO addUserDTO) {
         User user = mapper.map(addUserDTO, User.class);
         List<UserDTO> allUsers = getAllUsers();
@@ -56,13 +73,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDTO> getAllUsers() {
-        List<UserDTO> users = new ArrayList<>();
+    public void editUser(UserDTO userDTO) {
+        User user = mapToUser(userDTO);
 
-        for (User user : userRepository.findAll()) {
-            users.add(map(user));
-        }
-        return users;
+        userRepository.save(user);
     }
 
     @Override
@@ -70,27 +84,13 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
     }
 
-    @Override
-    public UserDTO getUserDetails(long id) {
-       Optional<User> user = userRepository.findById(id);
-
-        return map(user.get());
-    }
-
-    @Override
-    public void editUser(UserDTO userDTO) {
-        User user = reMapUser(userDTO);
-
-        userRepository.save(user);
-    }
-
-    public UserDTO map(User user){
+    private UserDTO mapToDTO(User user){
         UserDTO userDTO = mapper.map(user, UserDTO.class);
         userDTO.setRole(user.getRole().getRoleName().name());
         return userDTO;
     }
 
-    public User reMapUser(UserDTO userDTO){
+    private User mapToUser(UserDTO userDTO){
         User user = userRepository.findByUsername(userDTO.getUsername()).get();
 
         user.setUsername(userDTO.getUsername());

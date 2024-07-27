@@ -3,6 +3,7 @@ package bg.softuni.human_resource_managements.service.impl;
 import bg.softuni.human_resource_managements.model.dto.AddEmployeeDTO;
 import bg.softuni.human_resource_managements.model.dto.AddUserDTO;
 import bg.softuni.human_resource_managements.model.dto.EmployeeDTO;
+import bg.softuni.human_resource_managements.model.dto.EmployeeNameDTO;
 import bg.softuni.human_resource_managements.service.EmployeeService;
 import org.modelmapper.ModelMapper;
 import org.springframework.core.ParameterizedTypeReference;
@@ -20,6 +21,17 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeServiceImpl(ModelMapper mapper, RestClient employeesRestClient) {
         this.mapper = mapper;
         this.employeesRestClient = employeesRestClient;
+    }
+
+    //get all employees names
+    @Override
+    public List<EmployeeNameDTO> getAllEmployeesNames() {
+        return employeesRestClient
+                .get()
+                .uri("http://localhost:8081/employees/all-employees")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(new ParameterizedTypeReference<>(){});
     }
 
     //get all employees

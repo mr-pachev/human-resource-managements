@@ -1,10 +1,10 @@
 package bg.softuni.human_resource_managements.web;
 
 import bg.softuni.human_resource_managements.model.dto.AddPositionDTO;
+import bg.softuni.human_resource_managements.model.dto.EmployeeNameDTO;
 import bg.softuni.human_resource_managements.model.dto.PositionDTO;
-import bg.softuni.human_resource_managements.model.dto.PositionEmployeesDTO;
+import bg.softuni.human_resource_managements.service.EmployeeService;
 import bg.softuni.human_resource_managements.service.PositionService;
-import bg.softuni.human_resource_managements.service.ProjectService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +16,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class PositionController {
 
     private final PositionService positionService;
-    private final ProjectService projectService;
+    private final EmployeeService employeeService;
 
-    public PositionController(PositionService positionService, ProjectService projectService) {
+    public PositionController(PositionService positionService, EmployeeService employeeService) {
         this.positionService = positionService;
-        this.projectService = projectService;
+        this.employeeService = employeeService;
     }
 
     @ModelAttribute("addPositionDTO")
@@ -28,9 +28,9 @@ public class PositionController {
         return new AddPositionDTO();
     }
 
-    @ModelAttribute("positionEmployeeDTO")
-    public PositionEmployeesDTO emptyPositionEmployeesDTO() {
-        return new PositionEmployeesDTO();
+    @ModelAttribute("employeeNameDTO")
+    public EmployeeNameDTO emptyEmployeeNameDTO() {
+        return new EmployeeNameDTO();
     }
 
     //view all positions
@@ -116,7 +116,7 @@ public class PositionController {
     public String viewProjectEmployees(@PathVariable("id") Long id, Model model) {
         model.addAttribute("positionEmployees", positionService.allPositionEmployees(id));
         model.addAttribute("positionId", id);
-        model.addAttribute("allEmployees", projectService.getAllEmployeesNames());
+        model.addAttribute("allEmployees", employeeService.getAllEmployeesNames());
 
         return "position-employees";
     }
@@ -125,10 +125,10 @@ public class PositionController {
     @PostMapping("/position-employee/{idPos}")
     public String addEmployee(@PathVariable("idPos") Long idPos,
                               Model model,
-                              PositionEmployeesDTO positionEmployeesDTO,
+                              EmployeeNameDTO employeeNameDTO,
                               RedirectAttributes rAtt){
 
-        String employeeName = positionEmployeesDTO.getFullName();
+        String employeeName = employeeNameDTO.getFullName();
 
         boolean isExist = positionService.isExistEmployeeInPosition(employeeName, idPos);
         if(isExist){
@@ -137,7 +137,7 @@ public class PositionController {
             return "redirect:/position-employees/" + idPos;
         }
 
-        positionService.addPositionEmployee(positionEmployeesDTO, idPos);
+        positionService.addPositionEmployee(employeeNameDTO, idPos);
 
         return "redirect:/position-employees/" + idPos;
     }
