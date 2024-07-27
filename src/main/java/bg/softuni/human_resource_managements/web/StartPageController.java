@@ -19,6 +19,7 @@ public class StartPageController {
     @GetMapping("/")
     public String viewIndex(Model model) {
         List<EmployeeDTO> employeeDTOS = birthdayService.getBirthdayEmployees();
+
         model.addAttribute("birthdayEmployees", employeeDTOS);
         return "index";
     }

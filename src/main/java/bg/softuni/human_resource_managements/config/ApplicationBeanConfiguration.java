@@ -34,6 +34,15 @@ public class ApplicationBeanConfiguration {
                 }
             });
 
+            modelMapper.addConverter(new Converter<String, LocalDate>() {
+                @Override
+                public LocalDate convert(MappingContext<String, LocalDate> mappingContext) {
+                    return LocalDate
+                            .parse(mappingContext.getSource(),
+                                    DateTimeFormatter.ofPattern("yyMMdd"));
+                }
+            });
+
             modelMapper.addConverter(new Converter<String, LocalDateTime>() {
                 @Override
                 public LocalDateTime convert(MappingContext<String, LocalDateTime> mappingContext) {

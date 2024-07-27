@@ -13,11 +13,11 @@ import java.util.stream.Collectors;
 public class BirthdayService {
 
     private final EmployeeService employeeService;
-    private final ModelMapper modelMapper;
+    private final ModelMapper mapper;
 
-    public BirthdayService(EmployeeService employeeService, ModelMapper modelMapper) {
+    public BirthdayService(EmployeeService employeeService, ModelMapper mapper) {
         this.employeeService = employeeService;
-        this.modelMapper = modelMapper;
+        this.mapper = mapper;
     }
 
     public List<EmployeeDTO> getBirthdayEmployees() {
@@ -26,16 +26,19 @@ public class BirthdayService {
 
         return employees.stream()
                 .filter(employee -> {
-                    String identificationNumber = employee.getIdentificationNumber();
+                    String identificationNumber = employee.getIdentificationNumber().substring(0, 6);
                     LocalDate birthDate = parseDateFromIdentificationNumber(identificationNumber);
-                    return birthDate != null && birthDate.getMonth() == today.getMonth() && birthDate.getDayOfMonth() == today.getDayOfMonth();
+
+                    return birthDate != null &&
+                            birthDate.getMonth() == today.getMonth() &&
+                            birthDate.getDayOfMonth() == today.getDayOfMonth();
                 })
                 .collect(Collectors.toList());
     }
 
     private LocalDate parseDateFromIdentificationNumber(String identificationNumber) {
         try {
-            return LocalDate.parse(identificationNumber.substring(0, 6), DateTimeFormatter.ofPattern("yyMMdd"));
+            return mapper.map(identificationNumber, LocalDate.class);
         } catch (Exception e) {
             return null;
         }

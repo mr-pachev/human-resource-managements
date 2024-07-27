@@ -16,10 +16,11 @@ public class BirthdayScheduler {
         this.birthdayService = birthdayService;
     }
 
-//    @Scheduled(cron = "0 0 0 * * *")
-    @Scheduled(fixedRate = 10000) //for testing
+    @Scheduled(cron = "0 0 0 * * *") //daily check
+//    @Scheduled(fixedRate = 10000) //for testing
     public void checkBirthdays() {
         List<EmployeeDTO> birthdayEmployees = birthdayService.getBirthdayEmployees();
+
         if (!birthdayEmployees.isEmpty()) {
             System.out.println("Today's birthdays:");
             for (EmployeeDTO employee : birthdayEmployees) {

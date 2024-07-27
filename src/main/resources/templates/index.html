@@ -12,37 +12,22 @@
 <body>
 <div th:replace="~{fragments/navigation}"></div>
 <main>
-    <div class="birthday-form" >
-        <table class="justify-content-center table table-striped">
-        <thead>
-        <tr>
-            <th>First Name</th>
-            <th>Middle Name</th>
-            <th>Last Name</th>
-            <th>Identification Number</th>
-            <th>Age</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Position</th>
-            <th>Department</th>
-            <th>Education</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="employee : ${birthdayEmployees}">
-            <td th:text="${employee.firstName}">First Name</td>
-            <td th:text="${employee.middleName}">Middle Name</td>
-            <td th:text="${employee.lastName}">Last Name</td>
-            <td th:text="${employee.identificationNumber}">Identification Number</td>
-            <td th:text="${employee.age}">Age</td>
-            <td th:text="${employee.startDate}">Start Date</td>
-            <td th:text="${employee.endDate}">End Date</td>
-            <td th:text="${employee.position}">Position</td>
-            <td th:text="${employee.department}">Department</td>
-            <td th:text="${employee.education}">Education</td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="birthday-table-container" th:if="${birthdayEmployees.size() > 0}" sec:authorize="isAuthenticated()">
+        <h4 class="text-center">Today's birthdays</h4>
+        <table class="table table-striped birthday-table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="employee : ${birthdayEmployees}">
+                <td th:text="${employee.firstName + ' ' + employee.middleName + ' ' + employee.lastName}">Name</td>
+                <td th:text="${employee.position}">Position</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
     <div class="index-form">
         <h1 class="text-center" id="tile" th:text="#{index_title}">Welcome to Human Resource Managements</h1>
