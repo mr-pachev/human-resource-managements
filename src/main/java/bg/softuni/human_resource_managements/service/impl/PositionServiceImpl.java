@@ -16,7 +16,7 @@ public class PositionServiceImpl implements PositionService {
     public PositionServiceImpl(RestClient positionRestClient) {
         this.positionRestClient = positionRestClient;
     }
-    //get all
+    //get all positions names
     @Override
     public List<String> getAllPositionNames() {
         return positionRestClient
@@ -26,6 +26,8 @@ public class PositionServiceImpl implements PositionService {
                 .retrieve()
                 .body(new ParameterizedTypeReference<>(){});
     }
+
+    //get all positions
     @Override
     public List<PositionDTO> getAllPositionsDTOS() {
         return positionRestClient
@@ -35,33 +37,8 @@ public class PositionServiceImpl implements PositionService {
                 .retrieve()
                 .body(new ParameterizedTypeReference<>(){});
     }
-    @Override
-    public List<EmployeeDTO> allPositionEmployees(long id) {
-        return positionRestClient
-                .get()
-                .uri("http://localhost:8081/positions/all-employees/{id}", id)
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .body(new ParameterizedTypeReference<>(){});
-    }
-    //position
-    @Override
-    public void addPosition(AddPositionDTO addPositionDTO) {
-        positionRestClient
-                .post()
-                .uri("http://localhost:8081/positions")
-                .body(addPositionDTO)
-                .retrieve();
-    }
-    @Override
-    public PositionDTO getPositionDTOByID(long id) {
-        return positionRestClient
-                .get()
-                .uri("http://localhost:8081/positions/{id}", id)
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .body(PositionDTO.class);
-    }
+
+    //checking is exist position by name
     @Override
     public boolean isExistPosition(String namePosition) {
         List<PositionDTO> positionDTOS = positionRestClient
@@ -74,6 +51,29 @@ public class PositionServiceImpl implements PositionService {
         return positionDTOS.stream()
                 .anyMatch(position -> position.getPositionName().equals(namePosition));
     }
+
+    //add new position
+    @Override
+    public void addPosition(AddPositionDTO addPositionDTO) {
+        positionRestClient
+                .post()
+                .uri("http://localhost:8081/positions")
+                .body(addPositionDTO)
+                .retrieve();
+    }
+
+    //get position by id
+    @Override
+    public PositionDTO getPositionDTOByID(long id) {
+        return positionRestClient
+                .get()
+                .uri("http://localhost:8081/positions/{id}", id)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(PositionDTO.class);
+    }
+
+    //edit position
     @Override
     public void editPosition(PositionDTO positionDTO) {
         positionRestClient
@@ -82,6 +82,8 @@ public class PositionServiceImpl implements PositionService {
                 .body(positionDTO)
                 .retrieve();
     }
+
+    //delete position
     @Override
     public void removePosition(long id) {
         positionRestClient.delete()
@@ -89,15 +91,19 @@ public class PositionServiceImpl implements PositionService {
                 .retrieve()
                 .toBodilessEntity();
     }
-    //position employees
+
+    //get all employees from current position
     @Override
-    public void addPositionEmployee(PositionEmployeesDTO positionEmployeesDTO, long idPos) {
-        positionRestClient
-                .post()
-                .uri("http://localhost:8081/positions/add-employee/{idPos}", idPos)
-                .body(positionEmployeesDTO)
-                .retrieve();
+    public List<EmployeeDTO> allPositionEmployees(long id) {
+        return positionRestClient
+                .get()
+                .uri("http://localhost:8081/positions/all-employees/{id}", id)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(new ParameterizedTypeReference<>(){});
     }
+
+    //checking is exist employee in current position
     @Override
     public boolean isExistEmployeeInPosition(String employeeName, long idPos) {
         return allPositionEmployees(idPos).stream()
@@ -106,6 +112,18 @@ public class PositionServiceImpl implements PositionService {
                         employee.getLastName())
                 .anyMatch(fullName -> fullName.equals(employeeName));
     }
+
+    //add current employee in current position
+    @Override
+    public void addPositionEmployee(PositionEmployeesDTO positionEmployeesDTO, long idPos) {
+        positionRestClient
+                .post()
+                .uri("http://localhost:8081/positions/add-employee/{idPos}", idPos)
+                .body(positionEmployeesDTO)
+                .retrieve();
+    }
+
+    //delete current employee from current position
     @Override
     public void removeEmployeeFromPosition(long idEm, long idPos) {
         positionRestClient.delete()
