@@ -41,4 +41,13 @@ public class RestConfig {
                 .defaultHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
                 .build();
     }
+
+    @Bean
+    public RestClient taskRestClient(TasksApiConfig tasksApiConfig){
+        return RestClient
+                .builder()
+                .baseUrl(tasksApiConfig.getBaseTaskUrl())
+                .defaultHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
+                .build();
+    }
 }

@@ -48,3 +48,7 @@ projects:
 positions:
   api:
     basePositionUrl: "http://localhost:8081"
+
+tasks:
+  api:
+    baseTaskUrl: "http://localhost:8081"
