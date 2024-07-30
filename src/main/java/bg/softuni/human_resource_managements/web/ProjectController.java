@@ -16,7 +16,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class ProjectController {
     private final ProjectService projectService;
-
     private final DepartmentService departmentService;
     private final EmployeeService employeeService;
 

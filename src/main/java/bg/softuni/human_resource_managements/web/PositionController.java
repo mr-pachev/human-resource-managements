@@ -43,7 +43,7 @@ public class PositionController {
 
     //create new position
     @GetMapping("/add-position")
-    public String viewAddPositionForm(Model model) {
+    public String viewAddPositionForm() {
 
         return "add-position";
     }
