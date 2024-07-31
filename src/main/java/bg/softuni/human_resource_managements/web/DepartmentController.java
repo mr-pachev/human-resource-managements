@@ -1,9 +1,10 @@
 package bg.softuni.human_resource_managements.web;
 
-import bg.softuni.human_resource_managements.model.dto.*;
+import bg.softuni.human_resource_managements.model.dto.AddDepartmentDTO;
+import bg.softuni.human_resource_managements.model.dto.DepartmentDTO;
+import bg.softuni.human_resource_managements.model.dto.EmployeeNameDTO;
 import bg.softuni.human_resource_managements.service.DepartmentService;
 import bg.softuni.human_resource_managements.service.EmployeeService;
-import bg.softuni.human_resource_managements.service.ProjectService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -2,13 +2,18 @@ package bg.softuni.human_resource_managements.web;
 
 import bg.softuni.human_resource_managements.model.dto.AddEmployeeDTO;
 import bg.softuni.human_resource_managements.model.dto.EmployeeDTO;
-import bg.softuni.human_resource_managements.model.dto.ProjectDTO;
-import bg.softuni.human_resource_managements.service.*;
+import bg.softuni.human_resource_managements.service.DepartmentService;
+import bg.softuni.human_resource_managements.service.EducationService;
+import bg.softuni.human_resource_managements.service.EmployeeService;
+import bg.softuni.human_resource_managements.service.PositionService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller

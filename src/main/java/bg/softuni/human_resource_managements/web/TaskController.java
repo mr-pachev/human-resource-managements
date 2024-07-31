@@ -1,7 +1,6 @@
 package bg.softuni.human_resource_managements.web;
 
 import bg.softuni.human_resource_managements.model.dto.AddTaskDTO;
-import bg.softuni.human_resource_managements.model.dto.DepartmentDTO;
 import bg.softuni.human_resource_managements.model.dto.EmployeeNameDTO;
 import bg.softuni.human_resource_managements.model.dto.TaskDTO;
 import bg.softuni.human_resource_managements.service.EmployeeService;
