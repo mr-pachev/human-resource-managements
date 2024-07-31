@@ -14,6 +14,7 @@ public class AddProjectDTO {
 
     @NotBlank
     private String startDate;
+    @NotBlank
     private String endDate;
     @NotBlank
     @Size(min = 3, max = 50)
