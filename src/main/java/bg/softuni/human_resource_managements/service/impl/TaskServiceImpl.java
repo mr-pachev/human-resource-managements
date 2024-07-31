@@ -1,6 +1,7 @@
 package bg.softuni.human_resource_managements.service.impl;
 
 import bg.softuni.human_resource_managements.model.dto.AddPositionDTO;
+import bg.softuni.human_resource_managements.model.dto.AddTaskDTO;
 import bg.softuni.human_resource_managements.model.dto.PositionDTO;
 import bg.softuni.human_resource_managements.model.dto.TaskDTO;
 import bg.softuni.human_resource_managements.service.TaskService;
@@ -46,10 +47,31 @@ public class TaskServiceImpl implements TaskService {
 
     //add new task
     @Override
-    public void addTask(TaskDTO taskDTO) {
+    public void addTask(AddTaskDTO addTaskDTO) {
         taskRestClient
                 .post()
                 .uri("http://localhost:8081/tasks")
+                .body(addTaskDTO)
+                .retrieve();
+    }
+
+    //get position by id
+    @Override
+    public TaskDTO getTaskDTOByID(long id) {
+        return taskRestClient
+                .get()
+                .uri("http://localhost:8081/tasks/{id}", id)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(TaskDTO.class);
+    }
+
+    //edit task
+    @Override
+    public void editTask(TaskDTO taskDTO) {
+        taskRestClient
+                .post()
+                .uri("http://localhost:8081/tasks/edit")
                 .body(taskDTO)
                 .retrieve();
     }

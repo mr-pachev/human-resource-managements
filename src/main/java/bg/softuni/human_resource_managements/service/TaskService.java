@@ -1,5 +1,7 @@
 package bg.softuni.human_resource_managements.service;
 
+import bg.softuni.human_resource_managements.model.dto.AddTaskDTO;
+import bg.softuni.human_resource_managements.model.dto.PositionDTO;
 import bg.softuni.human_resource_managements.model.dto.ProjectDTO;
 import bg.softuni.human_resource_managements.model.dto.TaskDTO;
 
@@ -13,5 +15,11 @@ public interface TaskService {
     boolean isExistTask(String taskName);
 
     //add new task
-    void addTask(TaskDTO taskDTO);
+    void addTask(AddTaskDTO addTaskDTO);
+
+    //get task by id
+    TaskDTO getTaskDTOByID(long id);
+
+    //edit task
+    void editTask(TaskDTO taskDTO);
 }

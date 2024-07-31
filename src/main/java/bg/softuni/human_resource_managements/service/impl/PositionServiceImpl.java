@@ -73,7 +73,7 @@ public class PositionServiceImpl implements PositionService {
                 .body(PositionDTO.class);
     }
 
-    //edit position
+    //edit task
     @Override
     public void editPosition(PositionDTO positionDTO) {
         positionRestClient

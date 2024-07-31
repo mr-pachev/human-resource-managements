@@ -1,19 +1,15 @@
 package bg.softuni.human_resource_managements.web;
 
-import bg.softuni.human_resource_managements.model.dto.AddPositionDTO;
-import bg.softuni.human_resource_managements.model.dto.AddProjectDTO;
+import bg.softuni.human_resource_managements.model.dto.AddTaskDTO;
 import bg.softuni.human_resource_managements.model.dto.EmployeeNameDTO;
 import bg.softuni.human_resource_managements.model.dto.TaskDTO;
 import bg.softuni.human_resource_managements.service.EmployeeService;
 import bg.softuni.human_resource_managements.service.TaskService;
-import bg.softuni.human_resource_managements.service.impl.EmployeeServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -27,9 +23,9 @@ public class TaskController {
         this.employeeService = employeeService;
     }
 
-    @ModelAttribute("taskDTO")
-    public TaskDTO emptyTaskDTO() {
-        return new TaskDTO();
+    @ModelAttribute("addTaskDTO")
+    public AddTaskDTO emptyAddTaskDTO() {
+        return new AddTaskDTO();
     }
 
     @ModelAttribute("employeeNameDTO")
@@ -55,24 +51,59 @@ public class TaskController {
 
     @PostMapping("/add-task")
     public String creatTask(
-            @Valid TaskDTO taskDTO,
+            @Valid AddTaskDTO addTaskDTO,
             BindingResult bindingResult,
             RedirectAttributes rAtt) {
 
         if (bindingResult.hasErrors()) {
-            rAtt.addFlashAttribute("taskDTO", taskDTO);
-            rAtt.addFlashAttribute("org.springframework.validation.BindingResult.taskDTO", bindingResult);
+            rAtt.addFlashAttribute("addTaskDTO", addTaskDTO);
+            rAtt.addFlashAttribute("org.springframework.validation.BindingResult.addTaskDTO", bindingResult);
             return "redirect:/add-task";
         }
 
-        if(taskService.isExistTask(taskDTO.getName())){
-            rAtt.addFlashAttribute("taskDTO", taskDTO);
+        if (taskService.isExistTask(addTaskDTO.getName())) {
+            rAtt.addFlashAttribute("addTaskDTO", addTaskDTO);
             rAtt.addFlashAttribute("isExist", true);
             return "redirect:/add-task";
         }
 
-        taskService.addTask(taskDTO);
+        taskService.addTask(addTaskDTO);
 
+        return "redirect:/tasks";
+    }
+
+    //edit current task
+    @PostMapping("/task-details/{id}")
+    public String referenceToEditTaskForm(@PathVariable("id") Long id) {
+
+        return "redirect:/task-details/" + id;
+    }
+
+    @GetMapping("/task-details/{id}")
+    public String fillEditTaskForm(@PathVariable("id") Long id, Model model) {
+        TaskDTO taskDTO = taskService.getTaskDTOByID(id);
+        model.addAttribute(taskDTO);
+        model.addAttribute("allEmployees", employeeService.getAllEmployeesNames());
+
+        return "task-details";
+    }
+
+    @PostMapping("/task-details")
+    public String editTask(@RequestParam("id") Long id,
+                           @Valid TaskDTO taskDTO,
+                           BindingResult bindingResult,
+                           RedirectAttributes rAtt) {
+
+        taskDTO.setId(id);
+
+        if (bindingResult.hasErrors()) {
+            rAtt.addFlashAttribute("taskDTO", taskDTO);
+            rAtt.addFlashAttribute("org.springframework.validation.BindingResult.taskDTO", bindingResult);
+
+            return "redirect:/task-details/" + taskDTO.getId();
+        }
+
+        taskService.editTask(taskDTO);
         return "redirect:/tasks";
     }
 }

@@ -73,7 +73,7 @@ public class PositionController {
 
     //edit current position
     @PostMapping("/position-details/{id}")
-    public String referenceToEditPositionForm(@PathVariable("id") Long id, Model model) {
+    public String referenceToEditPositionForm(@PathVariable("id") Long id) {
 
         return "redirect:/position-details/" + id;
     }

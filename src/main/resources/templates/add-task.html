@@ -17,9 +17,10 @@
         <h2 class="text-center">Add Task</h2>
     </div>
     <form th:action="@{/add-task}"
-          th:object="${taskDTO}"
+          th:object="${addTaskDTO}"
           th:method="POST"
           id="addTaskForm">
+
         <div class="form-group">
             <label th:for="name">Name</label>
             <input type="text" class="form-control"
