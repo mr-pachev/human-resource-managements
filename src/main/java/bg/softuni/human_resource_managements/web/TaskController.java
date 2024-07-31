@@ -1,6 +1,7 @@
 package bg.softuni.human_resource_managements.web;
 
 import bg.softuni.human_resource_managements.model.dto.AddTaskDTO;
+import bg.softuni.human_resource_managements.model.dto.DepartmentDTO;
 import bg.softuni.human_resource_managements.model.dto.EmployeeNameDTO;
 import bg.softuni.human_resource_managements.model.dto.TaskDTO;
 import bg.softuni.human_resource_managements.service.EmployeeService;
@@ -104,6 +105,16 @@ public class TaskController {
         }
 
         taskService.editTask(taskDTO);
+        return "redirect:/tasks";
+    }
+
+    //delete task by id
+    @PostMapping("/delete-task/{id}")
+    public String deleteTask(@PathVariable("id") Long id) {
+        TaskDTO taskDTO = taskService.getTaskDTOByID(id);
+
+        taskService.removeTask(id);
+
         return "redirect:/tasks";
     }
 }

@@ -35,13 +35,8 @@
                 <form th:method="POST" th:action="@{/task-details/{id}(id=${task.id})}" class="d-inline">
                     <input class="btn btn-primary btn-sm" type="submit" value="Edit"/>
                 </form>
-                <form th:method="POST" th:action="@{/delete-prosition/{id}(id=${task.id})}" class="d-inline">
+                <form th:method="POST" th:action="@{/delete-task/{id}(id=${task.id})}" class="d-inline">
                     <input class="btn btn-danger btn-sm" type="submit" value="Remove"/>
-                </form>
-            </td>
-            <td sec:authorize="hasRole('USER')">
-                <form th:method="POST" th:action="@{/department-employees/{id}(id=${task.id})}" class="d-inline">
-                    <input class="btn btn-primary btn-sm" type="submit" value="Employees"/>
                 </form>
             </td>
         </tr>

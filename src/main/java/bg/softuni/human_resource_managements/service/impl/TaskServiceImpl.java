@@ -76,5 +76,12 @@ public class TaskServiceImpl implements TaskService {
                 .retrieve();
     }
 
-
+    //delete task
+    @Override
+    public void removeTask(long id) {
+        taskRestClient.delete()
+                .uri("http://localhost:8081/tasks/{id}",id)
+                .retrieve()
+                .toBodilessEntity();
+    }
 }

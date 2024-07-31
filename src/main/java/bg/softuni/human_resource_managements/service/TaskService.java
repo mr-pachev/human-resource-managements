@@ -22,4 +22,7 @@ public interface TaskService {
 
     //edit task
     void editTask(TaskDTO taskDTO);
+
+    //delete task
+    void removeTask(long id);
 }
