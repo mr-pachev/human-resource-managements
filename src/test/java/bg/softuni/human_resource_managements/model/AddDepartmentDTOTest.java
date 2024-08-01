@@ -1,6 +1,7 @@
 package bg.softuni.human_resource_managements.model;
 
 import bg.softuni.human_resource_managements.model.dto.AddDepartmentDTO;
+import bg.softuni.human_resource_managements.model.dto.DepartmentDTO;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -82,5 +83,19 @@ public class AddDepartmentDTOTest {
         Set<ConstraintViolation<AddDepartmentDTO>> violations = validator.validate(dto);
         assertEquals(1, violations.size(), "There should be one validation error");
         assertTrue(violations.iterator().next().getMessage().contains("size must be between 10 and 255"));
+    }
+
+    @Test
+    void testGettersAndSetters() {
+        DepartmentDTO dto = new DepartmentDTO();
+
+        dto.setDepartmentName("IT");
+        assertEquals("IT", dto.getDepartmentName());
+
+        dto.setManager("Mango Jerry");
+        assertEquals("Mango Jerry", dto.getManager());
+
+        dto.setDescriptions("Handles all IT related issues.");
+        assertEquals("Handles all IT related issues.", dto.getDescriptions());
     }
 }
