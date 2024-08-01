@@ -73,4 +73,75 @@ public class AddProjectDTOTest {
         Set<ConstraintViolation<AddProjectDTO>> violations = validator.validate(addProjectDTO);
         assertEquals(1, violations.size());
     }
+
+
+    @Test
+    public void testGetName() {
+        AddProjectDTO addProjectDTO = new AddProjectDTO();
+        addProjectDTO.setName("Project Name");
+        assertEquals("Project Name", addProjectDTO.getName());
+    }
+
+    @Test
+    public void testSetName() {
+        AddProjectDTO addProjectDTO = new AddProjectDTO();
+        addProjectDTO.setName("Project Name");
+        assertEquals("Project Name", addProjectDTO.getName());
+    }
+
+    @Test
+    public void testGetDescription() {
+        AddProjectDTO addProjectDTO = new AddProjectDTO();
+        addProjectDTO.setDescription("This is a description.");
+        assertEquals("This is a description.", addProjectDTO.getDescription());
+    }
+
+    @Test
+    public void testSetDescription() {
+        AddProjectDTO addProjectDTO = new AddProjectDTO();
+        addProjectDTO.setDescription("This is a description.");
+        assertEquals("This is a description.", addProjectDTO.getDescription());
+    }
+
+    @Test
+    public void testGetStartDate() {
+        AddProjectDTO addProjectDTO = new AddProjectDTO();
+        addProjectDTO.setStartDate("2023-08-01");
+        assertEquals("2023-08-01", addProjectDTO.getStartDate());
+    }
+
+    @Test
+    public void testSetStartDate() {
+        AddProjectDTO addProjectDTO = new AddProjectDTO();
+        addProjectDTO.setStartDate("2023-08-01");
+        assertEquals("2023-08-01", addProjectDTO.getStartDate());
+    }
+
+    @Test
+    public void testGetEndDate() {
+        AddProjectDTO addProjectDTO = new AddProjectDTO();
+        addProjectDTO.setEndDate("2023-12-31");
+        assertEquals("2023-12-31", addProjectDTO.getEndDate());
+    }
+
+    @Test
+    public void testSetEndDate() {
+        AddProjectDTO addProjectDTO = new AddProjectDTO();
+        addProjectDTO.setEndDate("2023-12-31");
+        assertEquals("2023-12-31", addProjectDTO.getEndDate());
+    }
+
+    @Test
+    public void testGetResponsibleDepartment() {
+        AddProjectDTO addProjectDTO = new AddProjectDTO();
+        addProjectDTO.setResponsibleDepartment("Development");
+        assertEquals("Development", addProjectDTO.getResponsibleDepartment());
+    }
+
+    @Test
+    public void testSetResponsibleDepartment() {
+        AddProjectDTO addProjectDTO = new AddProjectDTO();
+        addProjectDTO.setResponsibleDepartment("Development");
+        assertEquals("Development", addProjectDTO.getResponsibleDepartment());
+    }
 }
