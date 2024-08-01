@@ -1,6 +1,9 @@
 package bg.softuni.human_resource_managements.service.impl;
 
-import bg.softuni.human_resource_managements.model.dto.*;
+import bg.softuni.human_resource_managements.model.dto.AddDepartmentDTO;
+import bg.softuni.human_resource_managements.model.dto.DepartmentDTO;
+import bg.softuni.human_resource_managements.model.dto.EmployeeDTO;
+import bg.softuni.human_resource_managements.model.dto.EmployeeNameDTO;
 import bg.softuni.human_resource_managements.service.DepartmentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.core.ParameterizedTypeReference;
@@ -14,8 +17,8 @@ import java.util.List;
 public class DepartmentServiceImpl implements DepartmentService {
     private final RestClient employeesRestClient;
     private final RestClient departmentsRestClient;
-
     private final ModelMapper mapper;
+
 
     public DepartmentServiceImpl(RestClient employeesRestClient, RestClient departmentsRestClient, ModelMapper mapper) {
         this.employeesRestClient = employeesRestClient;

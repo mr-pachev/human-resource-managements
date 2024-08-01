@@ -71,7 +71,7 @@ public class UserServiceImplTest {
     void testMap() {
         when(mockModelMapper.map(testUser, UserDTO.class)).thenReturn(userDTO);
 
-        UserDTO resultUserDTO = userServiceImpl.map(testUser);
+        UserDTO resultUserDTO = userServiceImpl.mapToDTO(testUser);
 
         assertEquals(userDTO.getUsername(), resultUserDTO.getUsername());
         assertEquals(userDTO.getRole(), resultUserDTO.getRole());
@@ -82,7 +82,7 @@ public class UserServiceImplTest {
         when(mockUserRepository.findByUsername(userDTO.getUsername())).thenReturn(Optional.of(testUser));
         when(mockRoleRepository.findByRoleName(RoleName.ADMIN)).thenReturn(new Role(RoleName.ADMIN));
 
-        User resultUser = userServiceImpl.reMapUser(userDTO);
+        User resultUser = userServiceImpl.mapToUser(userDTO);
 
         assertEquals(userDTO.getUsername(), resultUser.getUsername());
         assertEquals(userDTO.getRole(), resultUser.getRole().getRoleName().name());
@@ -139,7 +139,7 @@ public class UserServiceImplTest {
     void testAddUser_Success() {
         when(mockModelMapper.map(addUserDTO, User.class)).thenReturn(testUser);
         when(mockUserRepository.findAll()).thenReturn(new ArrayList<>());
-        when(mockEmployeeService.isExistEmployeeByName(addUserDTO.getIdentificationNumber())).thenReturn(true);
+        when(mockEmployeeService.isExistEmployeeByIN (addUserDTO.getIdentificationNumber())).thenReturn(true);
         when(mockRoleRepository.findByRoleName(RoleName.ADMIN)).thenReturn(new Role(RoleName.ADMIN));
         when(mockPasswordEncoder.encode(addUserDTO.getPassword())).thenReturn("encodedPassword");
 
@@ -155,7 +155,7 @@ public class UserServiceImplTest {
     void testAddUser_EmployeeNotExists() {
         when(mockModelMapper.map(addUserDTO, User.class)).thenReturn(testUser);
         when(mockUserRepository.findAll()).thenReturn(new ArrayList<>());
-        when(mockEmployeeService.isExistEmployeeByName(addUserDTO.getIdentificationNumber())).thenReturn(false);
+        when(mockEmployeeService.isExistEmployeeByIN (addUserDTO.getIdentificationNumber())).thenReturn(false);
 
         boolean result = userServiceImpl.addUser(addUserDTO);
 
@@ -168,7 +168,7 @@ public class UserServiceImplTest {
         when(mockModelMapper.map(addUserDTO, User.class)).thenReturn(testUser);
         when(mockModelMapper.map(testUser, UserDTO.class)).thenReturn(userDTO);
         when(mockUserRepository.findAll()).thenReturn(List.of(testUser));
-        when(mockEmployeeService.isExistEmployeeByName(addUserDTO.getIdentificationNumber())).thenReturn(true);
+        when(mockEmployeeService.isExistEmployeeByIN (addUserDTO.getIdentificationNumber())).thenReturn(true);
 
         boolean result = userServiceImpl.addUser(addUserDTO);
 

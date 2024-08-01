@@ -84,13 +84,13 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
     }
 
-    private UserDTO mapToDTO(User user){
+    UserDTO mapToDTO(User user){
         UserDTO userDTO = mapper.map(user, UserDTO.class);
         userDTO.setRole(user.getRole().getRoleName().name());
         return userDTO;
     }
 
-    private User mapToUser(UserDTO userDTO){
+    User mapToUser(UserDTO userDTO){
         User user = userRepository.findByUsername(userDTO.getUsername()).get();
 
         user.setUsername(userDTO.getUsername());
