@@ -87,15 +87,16 @@ public class AddDepartmentDTOTest {
 
     @Test
     void testGettersAndSetters() {
-        DepartmentDTO dto = new DepartmentDTO();
 
-        dto.setDepartmentName("IT");
-        assertEquals("IT", dto.getDepartmentName());
+        AddDepartmentDTO department = new AddDepartmentDTO();
 
-        dto.setManager("Mango Jerry");
-        assertEquals("Mango Jerry", dto.getManager());
+        department.setDepartmentName("Human Resources");
+        assertEquals("Human Resources", department.getDepartmentName());
 
-        dto.setDescriptions("Handles all IT related issues.");
-        assertEquals("Handles all IT related issues.", dto.getDescriptions());
+        department.setManager("Ivan Ivanov");
+        assertEquals("Ivan Ivanov", department.getManager());
+
+        department.setDescriptions("This department handles all HR related tasks and employee welfare.");
+        assertEquals("This department handles all HR related tasks and employee welfare.", department.getDescriptions());
     }
 }
