@@ -39,7 +39,7 @@ public class AddDepartmentDTOTest {
         dto.setDescriptions("Human Resources Department");
 
         Set<ConstraintViolation<AddDepartmentDTO>> violations = validator.validate(dto);
-        assertTrue(violations.isEmpty(), "DTO should be valid");
+        assertTrue(violations.isEmpty());
     }
 
     @Test

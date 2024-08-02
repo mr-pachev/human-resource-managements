@@ -23,10 +23,10 @@ public class EmployeeDTOTest {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
     }
-
     @Test
     public void testValidEmployeeDTO() {
         EmployeeDTO employeeDTO = new EmployeeDTO();
+
         employeeDTO.setFirstName("Penio");
         employeeDTO.setMiddleName("Penkin");
         employeeDTO.setLastName("Penchov");
@@ -54,6 +54,7 @@ public class EmployeeDTOTest {
     @Test
     public void testNullFirstName() {
         EmployeeDTO employeeDTO = new EmployeeDTO();
+
         employeeDTO.setFirstName(null);
         employeeDTO.setMiddleName("Penkin");
         employeeDTO.setLastName("Penchov");

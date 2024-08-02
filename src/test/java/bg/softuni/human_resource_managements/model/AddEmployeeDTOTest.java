@@ -42,7 +42,6 @@ class AddEmployeeDTOTest {
     void testValidationConstraints() {
         AddEmployeeDTO dto = new AddEmployeeDTO();
 
-        // Testing valid values
         dto.setFirstName("John");
         dto.setMiddleName("A.");
         dto.setLastName("Doe");
@@ -55,7 +54,6 @@ class AddEmployeeDTOTest {
 
         assertTrue(isValid(dto), "DTO should be valid with correct data.");
 
-        // Testing invalid values
         dto.setFirstName(""); //blank
         assertFalse(isValid(dto), "DTO should be invalid with empty firstName.");
 
