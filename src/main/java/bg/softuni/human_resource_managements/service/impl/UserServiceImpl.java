@@ -6,13 +6,11 @@ import bg.softuni.human_resource_managements.model.entity.User;
 import bg.softuni.human_resource_managements.model.enums.RoleName;
 import bg.softuni.human_resource_managements.repository.RoleRepository;
 import bg.softuni.human_resource_managements.repository.UserRepository;
-import bg.softuni.human_resource_managements.service.EmployeeService;
 import bg.softuni.human_resource_managements.service.UserService;
 import bg.softuni.human_resource_managements.service.exception.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
 
 import java.util.ArrayList;
 import java.util.List;
