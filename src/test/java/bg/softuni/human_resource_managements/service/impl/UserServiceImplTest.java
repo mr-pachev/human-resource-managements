@@ -7,7 +7,6 @@ import bg.softuni.human_resource_managements.model.entity.User;
 import bg.softuni.human_resource_managements.model.enums.RoleName;
 import bg.softuni.human_resource_managements.repository.RoleRepository;
 import bg.softuni.human_resource_managements.repository.UserRepository;
-import bg.softuni.human_resource_managements.service.EmployeeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,9 +35,6 @@ public class UserServiceImplTest {
     private RoleRepository mockRoleRepository;
 
     @Mock
-    private EmployeeService mockEmployeeService;
-
-    @Mock
     private PasswordEncoder mockPasswordEncoder;
 
     @InjectMocks
@@ -62,51 +58,8 @@ public class UserServiceImplTest {
 
         addUserDTO = new AddUserDTO();
         addUserDTO.setUsername("Pachev");
-        addUserDTO.setRole("ADMIN");
         addUserDTO.setIdentificationNumber("1234567890");
         addUserDTO.setPassword("password");
-    }
-
-    @Test
-    void testMap() {
-        when(mockModelMapper.map(testUser, UserDTO.class)).thenReturn(userDTO);
-
-        UserDTO resultUserDTO = userServiceImpl.mapToDTO(testUser);
-
-        assertEquals(userDTO.getUsername(), resultUserDTO.getUsername());
-        assertEquals(userDTO.getRole(), resultUserDTO.getRole());
-    }
-
-    @Test
-    void testReMapUser() {
-        when(mockUserRepository.findByUsername(userDTO.getUsername())).thenReturn(Optional.of(testUser));
-        when(mockRoleRepository.findByRoleName(RoleName.ADMIN)).thenReturn(new Role(RoleName.ADMIN));
-
-        User resultUser = userServiceImpl.mapToUser(userDTO);
-
-        assertEquals(userDTO.getUsername(), resultUser.getUsername());
-        assertEquals(userDTO.getRole(), resultUser.getRole().getRoleName().name());
-    }
-
-    @Test
-    void testGetUserDetails() {
-        when(mockUserRepository.findById(1L)).thenReturn(Optional.of(testUser));
-
-        when(mockModelMapper.map(testUser, UserDTO.class)).thenReturn(userDTO);
-
-        UserDTO resultUserDTO = userServiceImpl.getUserDetails(1L);
-
-        assertEquals(userDTO.getUsername(), resultUserDTO.getUsername());
-        assertEquals(userDTO.getRole(), resultUserDTO.getRole());
-    }
-
-    @Test
-    void testRemoveUser() {
-        doNothing().when(mockUserRepository).deleteById(1L);
-
-        userServiceImpl.removeUser(1L);
-
-        verify(mockUserRepository, times(1)).deleteById(1L);
     }
 
     @Test
@@ -125,54 +78,68 @@ public class UserServiceImplTest {
     }
 
     @Test
-    void testEditUser() {
-        when(mockUserRepository.findByUsername(userDTO.getUsername())).thenReturn(Optional.of(testUser));
-        when(mockRoleRepository.findByRoleName(RoleName.ADMIN)).thenReturn(new Role(RoleName.ADMIN));
-        when(mockUserRepository.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
+    void testIsExistUser_UserExists() {
+        when(mockUserRepository.findAll()).thenReturn(List.of(testUser));
+        when(mockModelMapper.map(testUser, UserDTO.class)).thenReturn(userDTO);
 
-        userServiceImpl.editUser(userDTO);
+        boolean result = userServiceImpl.isExistUser(userDTO.getUsername());
 
-        verify(mockUserRepository, times(1)).save(any(User.class));
+        assertTrue(result);
     }
 
     @Test
-    void testAddUser_Success() {
-        when(mockModelMapper.map(addUserDTO, User.class)).thenReturn(testUser);
+    void testIsExistUser_UserDoesNotExist() {
         when(mockUserRepository.findAll()).thenReturn(new ArrayList<>());
-        when(mockEmployeeService.isExistEmployeeByIN (addUserDTO.getIdentificationNumber())).thenReturn(true);
+
+        boolean result = userServiceImpl.isExistUser(userDTO.getUsername());
+
+        assertFalse(result);
+    }
+
+    @Test
+    void testAddUser() {
+        when(mockModelMapper.map(addUserDTO, User.class)).thenReturn(testUser);
+        when(mockUserRepository.count()).thenReturn(0L);
         when(mockRoleRepository.findByRoleName(RoleName.ADMIN)).thenReturn(new Role(RoleName.ADMIN));
         when(mockPasswordEncoder.encode(addUserDTO.getPassword())).thenReturn("encodedPassword");
 
-        boolean result = userServiceImpl.isExistUser(addUserDTO.getUsername());
+        userServiceImpl.addUser(addUserDTO);
 
-        assertTrue(result);
         verify(mockUserRepository, times(1)).save(testUser);
         assertEquals("encodedPassword", testUser.getPassword());
         assertEquals(RoleName.ADMIN, testUser.getRole().getRoleName());
     }
 
     @Test
-    void testAddUser_EmployeeNotExists() {
-        when(mockModelMapper.map(addUserDTO, User.class)).thenReturn(testUser);
-        when(mockUserRepository.findAll()).thenReturn(new ArrayList<>());
-        when(mockEmployeeService.isExistEmployeeByIN (addUserDTO.getIdentificationNumber())).thenReturn(false);
+    void testGetUserDetails() {
+        when(mockUserRepository.findById(1L)).thenReturn(Optional.of(testUser));
+        when(mockModelMapper.map(testUser, UserDTO.class)).thenReturn(userDTO);
 
-        boolean result = userServiceImpl.isExistUser(addUserDTO.getUsername());
+        UserDTO resultUserDTO = userServiceImpl.getUserDetails(1L);
 
-        assertFalse(result);
-        verify(mockUserRepository, never()).save(any(User.class));
+        assertEquals(userDTO.getUsername(), resultUserDTO.getUsername());
+        assertEquals(userDTO.getRole(), resultUserDTO.getRole());
     }
 
     @Test
-    void testAddUser_UserExists() {
-        when(mockModelMapper.map(addUserDTO, User.class)).thenReturn(testUser);
-        when(mockModelMapper.map(testUser, UserDTO.class)).thenReturn(userDTO);
-        when(mockUserRepository.findAll()).thenReturn(List.of(testUser));
-        when(mockEmployeeService.isExistEmployeeByIN (addUserDTO.getIdentificationNumber())).thenReturn(true);
+    void testEditUser() {
+        when(mockUserRepository.findByIdentificationNumber(userDTO.getIdentificationNumber()))
+                .thenReturn(Optional.of(testUser));
+        when(mockRoleRepository.findByRoleName(RoleName.ADMIN)).thenReturn(new Role(RoleName.ADMIN));
+        when(mockUserRepository.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
 
-        boolean result = userServiceImpl.isExistUser(addUserDTO.getUsername());
+        userServiceImpl.editUser(userDTO);
 
-        assertFalse(result);
-        verify(mockUserRepository, never()).save(any(User.class));
+        verify(mockUserRepository, times(1)).save(testUser);
+        assertEquals(RoleName.ADMIN, testUser.getRole().getRoleName());
+    }
+
+    @Test
+    void testRemoveUser() {
+        doNothing().when(mockUserRepository).deleteById(1L);
+
+        userServiceImpl.removeUser(1L);
+
+        verify(mockUserRepository, times(1)).deleteById(1L);
     }
 }
