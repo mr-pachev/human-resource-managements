@@ -22,14 +22,12 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper mapper;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-    private final EmployeeService employeeService;
     private final RoleRepository roleRepository;
 
-    public UserServiceImpl(ModelMapper mapper, PasswordEncoder passwordEncoder, UserRepository userRepository, EmployeeService employeeService, RoleRepository roleRepository) {
+    public UserServiceImpl(ModelMapper mapper, PasswordEncoder passwordEncoder, UserRepository userRepository, RoleRepository roleRepository) {
         this.mapper = mapper;
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
-        this.employeeService = employeeService;
         this.roleRepository = roleRepository;
     }
 
@@ -44,6 +42,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean isExistUser(String username) {
+        return  getAllUsers()
+                .stream()
+                .anyMatch(userDTO -> userDTO.getUsername().equals(username));
+    }
+
+    @Override
+    public void addUser(AddUserDTO addUserDTO) {
+        User user = mapper.map(addUserDTO, User.class);
+
+        if(userRepository.count() == 0){
+            user.setRole(roleRepository.findByRoleName(RoleName.ADMIN));
+        }
+
+        user.setRole(roleRepository.findByRoleName(RoleName.USER));
+        user.setPassword(passwordEncoder.encode(addUserDTO.getPassword()));
+
+        userRepository.save(user);
+    }
+
+    @Override
     public UserDTO getUserDetails(long id) {
         Optional<User> user = userRepository.findById(id);
 
@@ -51,30 +70,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean addUser(AddUserDTO addUserDTO) {
-        User user = mapper.map(addUserDTO, User.class);
-        List<UserDTO> allUsers = getAllUsers();
-
-        boolean isExistUser = allUsers
-                .stream()
-                .anyMatch(userDTO -> userDTO.getUsername().equals(addUserDTO.getUsername()));
-
-        boolean isExistEmployeeByIN = employeeService.isExistEmployeeByIN(addUserDTO.getIdentificationNumber());
-
-        if (isExistUser || !isExistEmployeeByIN) {
-            return false;
-        }
-
-        user.setRole(roleRepository.findByRoleName(RoleName.valueOf(addUserDTO.getRole())));
-        user.setPassword(passwordEncoder.encode(addUserDTO.getPassword()));
-
-        userRepository.save(user);
-        return true;
-    }
-
-    @Override
     public void editUser(UserDTO userDTO) {
-        User user = mapToUser(userDTO);
+        User user = userRepository.findByUsername(userDTO.getUsername()).get();
+
+        user.setUsername(userDTO.getUsername());
+        user.setRole(roleRepository.findByRoleName(RoleName.valueOf(userDTO.getRole())));
 
         userRepository.save(user);
     }
@@ -88,14 +88,5 @@ public class UserServiceImpl implements UserService {
         UserDTO userDTO = mapper.map(user, UserDTO.class);
         userDTO.setRole(user.getRole().getRoleName().name());
         return userDTO;
-    }
-
-    User mapToUser(UserDTO userDTO){
-        User user = userRepository.findByUsername(userDTO.getUsername()).get();
-
-        user.setUsername(userDTO.getUsername());
-        user.setRole(roleRepository.findByRoleName(RoleName.valueOf(userDTO.getRole())));
-
-        return user;
     }
 }

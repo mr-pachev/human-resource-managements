@@ -32,7 +32,7 @@ class LoginUserDTOTest {
 
         Set<ConstraintViolation<LoginUserDTO>> violations = validator.validate(loginUserDTO);
 
-        assertTrue(violations.isEmpty(), "Expected no constraint violations");
+        assertTrue(violations.isEmpty());
     }
 
     @Test
@@ -44,7 +44,7 @@ class LoginUserDTOTest {
 
         Set<ConstraintViolation<LoginUserDTO>> violations = validator.validate(loginUserDTO);
 
-        assertFalse(violations.isEmpty(), "Expected constraint violations for username");
+        assertFalse(violations.isEmpty());
     }
 
     @Test
@@ -56,7 +56,7 @@ class LoginUserDTOTest {
 
         Set<ConstraintViolation<LoginUserDTO>> violations = validator.validate(loginUserDTO);
 
-        assertFalse(violations.isEmpty(), "Expected constraint violations for username");
+        assertFalse(violations.isEmpty());
     }
 
     @Test
@@ -68,7 +68,7 @@ class LoginUserDTOTest {
 
         Set<ConstraintViolation<LoginUserDTO>> violations = validator.validate(loginUserDTO);
 
-        assertFalse(violations.isEmpty(), "Expected constraint violations for password");
+        assertFalse(violations.isEmpty());
     }
 
     @Test
@@ -80,6 +80,6 @@ class LoginUserDTOTest {
 
         Set<ConstraintViolation<LoginUserDTO>> violations = validator.validate(loginUserDTO);
 
-        assertFalse(violations.isEmpty(), "Expected constraint violations for password");
+        assertFalse(violations.isEmpty());
     }
 }

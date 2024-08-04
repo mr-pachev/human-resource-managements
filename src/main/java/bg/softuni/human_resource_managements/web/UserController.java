@@ -4,6 +4,7 @@ import bg.softuni.human_resource_managements.model.dto.AddUserDTO;
 import bg.softuni.human_resource_managements.model.dto.LoginUserDTO;
 import bg.softuni.human_resource_managements.model.dto.UserDTO;
 import bg.softuni.human_resource_managements.model.enums.RoleName;
+import bg.softuni.human_resource_managements.service.EmployeeService;
 import bg.softuni.human_resource_managements.service.UserHelperService;
 import bg.softuni.human_resource_managements.service.UserService;
 import jakarta.validation.Valid;
@@ -21,10 +22,12 @@ import java.util.List;
 @Controller
 public class UserController {
     private final UserService userService;
+    private final EmployeeService employeeService;
     private final UserHelperService userHelperService;
 
-    public UserController(UserService userService, UserHelperService userHelperService) {
+    public UserController(UserService userService, EmployeeService employeeService, UserHelperService userHelperService) {
         this.userService = userService;
+        this.employeeService = employeeService;
         this.userHelperService = userHelperService;
     }
 
@@ -43,9 +46,19 @@ public class UserController {
         return new UserDTO();
     }
 
+    //view all users
+    @GetMapping("/users")
+    public String getAllUsers(Model model){
+        List<UserDTO> userDTOS = userService.getAllUsers();
+        model.addAttribute("userDTOS", userDTOS);
+
+        return "users";
+    }
+
+    //create new user
     @GetMapping("/registration")
-    public String viewAddUser(Model model){
-               model.addAttribute("roles", RoleName.values());
+    public String viewAddUserForm(Model model){
+//        model.addAttribute("roles", RoleName.values());
         return "registration";
     }
 
@@ -65,8 +78,8 @@ public class UserController {
             return "redirect:/registration";
         }
 
-        boolean isCreatedUser =  userService.addUser(addUserDTO);
-        if (!isCreatedUser) {
+        if (userService.isExistUser(addUserDTO.getUsername()) ||
+                employeeService.isExistEmployeeByIN(addUserDTO.getIdentificationNumber())) {
             rAtt.addFlashAttribute("addUserDTO", addUserDTO);
             rAtt.addFlashAttribute("noAddedUser", true);
             return "redirect:/registration";
@@ -74,37 +87,9 @@ public class UserController {
         return "redirect:/login";
     }
 
-    @GetMapping("/login")
-    public String viewLogin(){
-
-        return "login";
-    }
-
-    @GetMapping("/login-error")
-    public String viewLoginError(Model model) {
-        model.addAttribute("showErrorMessage", true);
-
-        return "login";
-    }
-
-    @GetMapping("/users")
-    public String getUsers(Model model){
-        List<UserDTO> userDTOS = userService.getAllUsers();
-        model.addAttribute("userDTOS", userDTOS);
-
-        return "users";
-    }
-
-    @PostMapping("/delete-user/{id}")
-    public String deleteWord(@PathVariable("id") Long id) {
-
-        userService.removeUser(id);
-
-        return "redirect:/users";
-    }
-
+    //edit current user
     @PostMapping("/user-details/{id}")
-    public String pullEdithEmployee(@PathVariable("id") Long id, Model model){
+    public String referenceToEditUserForm(@PathVariable("id") Long id, Model model){
 
         UserDTO userDTO = userService.getUserDetails(id);
         model.addAttribute(userDTO);
@@ -115,7 +100,7 @@ public class UserController {
     }
 
     @GetMapping("/user-details/{id}")
-    public String showUserDetails(@PathVariable("id") Long id, Model model) {
+    public String fillEditUserForm(@PathVariable("id") Long id, Model model) {
 
         UserDTO userDTO = userService.getUserDetails(id);
         model.addAttribute(userDTO);
@@ -126,7 +111,7 @@ public class UserController {
     }
 
     @PostMapping("/edit-user-details")
-    public String edithEmployee(@Valid UserDTO userDTO,
+    public String edithUser(@Valid UserDTO userDTO,
                                 BindingResult bindingResult,
                                 RedirectAttributes rAtt){
 
@@ -139,5 +124,28 @@ public class UserController {
 
         userService.editUser(userDTO);
         return "redirect:/users";
+    }
+
+    //delete user by id
+    @PostMapping("/delete-user/{id}")
+    public String deleteWord(@PathVariable("id") Long id) {
+
+        userService.removeUser(id);
+
+        return "redirect:/users";
+    }
+
+    //login
+    @GetMapping("/login")
+    public String viewLogin(){
+
+        return "login";
+    }
+
+    @GetMapping("/login-error")
+    public String viewLoginError(Model model) {
+        model.addAttribute("showErrorMessage", true);
+
+        return "login";
     }
 }

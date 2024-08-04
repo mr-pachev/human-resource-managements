@@ -9,9 +9,19 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
+    //get all users
     List<UserDTO> getAllUsers();
+
+    //checking is exist user by username
+    boolean isExistUser(String username);
+
+    //add new user
+    void addUser(AddUserDTO addUserDTO);
+
+    //get user
     UserDTO getUserDetails(long id);
-    boolean addUser(AddUserDTO addUserDTO);
+
+
     void editUser(UserDTO userDTO);
     void removeUser(long id);
 }

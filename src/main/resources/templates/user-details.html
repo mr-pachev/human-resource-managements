@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="bg" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec='http://www.thymeleaf.org/extras/spring-security'>
+<html lang="bg" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +43,7 @@
                     name="role"
                     th:field="*{role}"
                     th:errorclass="is-invalid">
-                <option value=""> -- Select Role -- </option>
+                <option value="">-- Select Role --</option>
                 <option
                         th:each="role: ${roles}"
                         th:value="${role}"

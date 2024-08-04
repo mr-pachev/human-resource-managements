@@ -143,7 +143,7 @@ public class UserServiceImplTest {
         when(mockRoleRepository.findByRoleName(RoleName.ADMIN)).thenReturn(new Role(RoleName.ADMIN));
         when(mockPasswordEncoder.encode(addUserDTO.getPassword())).thenReturn("encodedPassword");
 
-        boolean result = userServiceImpl.addUser(addUserDTO);
+        boolean result = userServiceImpl.isExistUser(addUserDTO.getUsername());
 
         assertTrue(result);
         verify(mockUserRepository, times(1)).save(testUser);
@@ -157,7 +157,7 @@ public class UserServiceImplTest {
         when(mockUserRepository.findAll()).thenReturn(new ArrayList<>());
         when(mockEmployeeService.isExistEmployeeByIN (addUserDTO.getIdentificationNumber())).thenReturn(false);
 
-        boolean result = userServiceImpl.addUser(addUserDTO);
+        boolean result = userServiceImpl.isExistUser(addUserDTO.getUsername());
 
         assertFalse(result);
         verify(mockUserRepository, never()).save(any(User.class));
@@ -170,7 +170,7 @@ public class UserServiceImplTest {
         when(mockUserRepository.findAll()).thenReturn(List.of(testUser));
         when(mockEmployeeService.isExistEmployeeByIN (addUserDTO.getIdentificationNumber())).thenReturn(true);
 
-        boolean result = userServiceImpl.addUser(addUserDTO);
+        boolean result = userServiceImpl.isExistUser(addUserDTO.getUsername());
 
         assertFalse(result);
         verify(mockUserRepository, never()).save(any(User.class));
