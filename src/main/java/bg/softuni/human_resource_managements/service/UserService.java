@@ -21,7 +21,9 @@ public interface UserService {
     //get user
     UserDTO getUserDetails(long id);
 
-
+    //edit user
     void editUser(UserDTO userDTO);
+
+    //delete user
     void removeUser(long id);
 }

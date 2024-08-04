@@ -31,6 +31,7 @@ public class UserServiceImpl implements UserService {
         this.roleRepository = roleRepository;
     }
 
+    //get all users
     @Override
     public List<UserDTO> getAllUsers() {
         List<UserDTO> users = new ArrayList<>();
@@ -41,6 +42,7 @@ public class UserServiceImpl implements UserService {
         return users;
     }
 
+    //checking is exist user by username
     @Override
     public boolean isExistUser(String username) {
         return  getAllUsers()
@@ -48,6 +50,7 @@ public class UserServiceImpl implements UserService {
                 .anyMatch(userDTO -> userDTO.getUsername().equals(username));
     }
 
+    //add new user
     @Override
     public void addUser(AddUserDTO addUserDTO) {
         User user = mapper.map(addUserDTO, User.class);
@@ -62,6 +65,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    //get user by id
     @Override
     public UserDTO getUserDetails(long id) {
         Optional<User> user = userRepository.findById(id);
@@ -69,6 +73,7 @@ public class UserServiceImpl implements UserService {
         return mapToDTO(user.get());
     }
 
+    //edit user
     @Override
     public void editUser(UserDTO userDTO) {
         User user = userRepository.findByUsername(userDTO.getUsername()).get();
@@ -79,6 +84,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    //delete user
     @Override
     public void removeUser(long id) {
         userRepository.deleteById(id);
