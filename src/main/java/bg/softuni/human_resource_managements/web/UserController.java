@@ -4,17 +4,16 @@ import bg.softuni.human_resource_managements.model.dto.AddUserDTO;
 import bg.softuni.human_resource_managements.model.dto.LoginUserDTO;
 import bg.softuni.human_resource_managements.model.dto.UserDTO;
 import bg.softuni.human_resource_managements.model.enums.RoleName;
+import bg.softuni.human_resource_managements.repository.UserRepository;
 import bg.softuni.human_resource_managements.service.EmployeeService;
 import bg.softuni.human_resource_managements.service.UserHelperService;
 import bg.softuni.human_resource_managements.service.UserService;
+import bg.softuni.human_resource_managements.service.exception.ObjectNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -23,12 +22,13 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
     private final EmployeeService employeeService;
-    private final UserHelperService userHelperService;
 
-    public UserController(UserService userService, EmployeeService employeeService, UserHelperService userHelperService) {
+    private final UserRepository userRepository;
+
+    public UserController(UserService userService, EmployeeService employeeService, UserRepository userRepository) {
         this.userService = userService;
         this.employeeService = employeeService;
-        this.userHelperService = userHelperService;
+        this.userRepository = userRepository;
     }
 
     @ModelAttribute("addUserDTO")
@@ -58,7 +58,7 @@ public class UserController {
     //create new user
     @GetMapping("/registration")
     public String viewAddUserForm(Model model){
-//        model.addAttribute("roles", RoleName.values());
+
         return "registration";
     }
 
@@ -68,9 +68,25 @@ public class UserController {
             BindingResult bindingResult,
             RedirectAttributes rAtt) {
 
+        if (bindingResult.hasErrors()) {
+            rAtt.addFlashAttribute("addUserDTO", addUserDTO);
+            rAtt.addFlashAttribute("org.springframework.validation.BindingResult.addUserDTO", bindingResult);
+
+            return "redirect:/registration";
+        }
+
+        if (userService.isExistUser(addUserDTO.getUsername()) ||
+                !employeeService.isExistEmployeeByIN(addUserDTO.getIdentificationNumber())) {
+            rAtt.addFlashAttribute("addUserDTO", addUserDTO);
+            rAtt.addFlashAttribute("noAddedUser", true);
+            rAtt.addFlashAttribute("org.springframework.validation.BindingResult.addUserDTO", bindingResult);
+
+            return "redirect:/registration";
+        }
+
         boolean confirmPassword = addUserDTO.getPassword().equals(addUserDTO.getConfirmPassword());
 
-        if (bindingResult.hasErrors() || !confirmPassword) {
+        if (!confirmPassword) {
             rAtt.addFlashAttribute("addUserDTO", addUserDTO);
             rAtt.addFlashAttribute("unconfirmed", true);
             rAtt.addFlashAttribute("org.springframework.validation.BindingResult.addUserDTO", bindingResult);
@@ -78,48 +94,60 @@ public class UserController {
             return "redirect:/registration";
         }
 
-        if (userService.isExistUser(addUserDTO.getUsername()) ||
-                employeeService.isExistEmployeeByIN(addUserDTO.getIdentificationNumber())) {
-            rAtt.addFlashAttribute("addUserDTO", addUserDTO);
-            rAtt.addFlashAttribute("noAddedUser", true);
-            return "redirect:/registration";
-        }
+        userService.addUser(addUserDTO);
+
         return "redirect:/login";
     }
 
     //edit current user
     @PostMapping("/user-details/{id}")
-    public String referenceToEditUserForm(@PathVariable("id") Long id, Model model){
+    public String referenceToEditUserForm(@PathVariable("id") Long id){
 
-        UserDTO userDTO = userService.getUserDetails(id);
-        model.addAttribute(userDTO);
-
-        model.addAttribute("roles", RoleName.values());
-
-        return "user-details";
+        return "redirect:/user-details/" + id;
     }
 
     @GetMapping("/user-details/{id}")
     public String fillEditUserForm(@PathVariable("id") Long id, Model model) {
-
         UserDTO userDTO = userService.getUserDetails(id);
-        model.addAttribute(userDTO);
 
+        model.addAttribute(userDTO);
         model.addAttribute("roles", RoleName.values());
 
         return "user-details";
     }
 
-    @PostMapping("/edit-user-details")
-    public String edithUser(@Valid UserDTO userDTO,
-                                BindingResult bindingResult,
-                                RedirectAttributes rAtt){
+    @PostMapping("/user-details")
+    public String editUser(@RequestParam("userId") Long userId,
+                            @Valid UserDTO userDTO,
+                            BindingResult bindingResult,
+                            RedirectAttributes rAtt,
+                            Model model){
+
+        userDTO.setUserId(userId);
 
         if(bindingResult.hasErrors()){
             rAtt.addFlashAttribute("userDTO", userDTO);
             rAtt.addFlashAttribute("org.springframework.validation.BindingResult.userDTO", bindingResult);
 
-            return "redirect:/user-details";
+            model.addAttribute("roles", RoleName.values());
+
+            return "user-details";
+        }
+
+        String currentUsernameForEdit = userRepository.findById(userId)
+                .orElseThrow(ObjectNotFoundException::new)
+                .getUsername();
+
+        boolean isChangedUsername = !currentUsernameForEdit.equals(userDTO.getUsername());
+
+        if(userService.isExistUser(userDTO.getUsername()) && isChangedUsername){
+            rAtt.addFlashAttribute("userDTO", userDTO);
+            rAtt.addFlashAttribute("org.springframework.validation.BindingResult.userDTO", bindingResult);
+            model.addAttribute("isExistUsername", true);
+
+            model.addAttribute("roles", RoleName.values());
+
+            return "user-details";
         }
 
         userService.editUser(userDTO);
@@ -128,7 +156,7 @@ public class UserController {
 
     //delete user by id
     @PostMapping("/delete-user/{id}")
-    public String deleteWord(@PathVariable("id") Long id) {
+    public String removeUser(@PathVariable("id") Long id) {
 
         userService.removeUser(id);
 

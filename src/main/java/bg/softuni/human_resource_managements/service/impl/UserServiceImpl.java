@@ -8,6 +8,7 @@ import bg.softuni.human_resource_managements.repository.RoleRepository;
 import bg.softuni.human_resource_managements.repository.UserRepository;
 import bg.softuni.human_resource_managements.service.EmployeeService;
 import bg.softuni.human_resource_managements.service.UserService;
+import bg.softuni.human_resource_managements.service.exception.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -57,9 +58,10 @@ public class UserServiceImpl implements UserService {
 
         if(userRepository.count() == 0){
             user.setRole(roleRepository.findByRoleName(RoleName.ADMIN));
+        }else {
+            user.setRole(roleRepository.findByRoleName(RoleName.USER));
         }
 
-        user.setRole(roleRepository.findByRoleName(RoleName.USER));
         user.setPassword(passwordEncoder.encode(addUserDTO.getPassword()));
 
         userRepository.save(user);
@@ -76,7 +78,7 @@ public class UserServiceImpl implements UserService {
     //edit user
     @Override
     public void editUser(UserDTO userDTO) {
-        User user = userRepository.findByUsername(userDTO.getUsername()).get();
+        User user = userRepository.findByIdentificationNumber(userDTO.getIdentificationNumber()).orElseThrow(ObjectNotFoundException::new);
 
         user.setUsername(userDTO.getUsername());
         user.setRole(roleRepository.findByRoleName(RoleName.valueOf(userDTO.getRole())));

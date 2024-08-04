@@ -17,8 +17,7 @@ public class AddUserDTO {
     private String password;
     @NotBlank
     private String confirmPassword;
-    @NotBlank
-    private String role;
+
     public long getUserId() {
         return userId;
     }
@@ -57,13 +56,5 @@ public class AddUserDTO {
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 }
