@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/styles.css"/>
 </head>
 <body>
-<div th:replace="~{fragments/navigation}"></div>
+<div th:replace="~{fragments/navigation::navigation(activeLink=${'employees'})}"></div>
 <div class="container-form">
     <h2 class="text-center">Edit Employee</h2>
 

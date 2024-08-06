@@ -5,12 +5,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
+    <title>Projects</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/styles.css"/>
 </head>
 <body>
-<div th:replace="~{fragments/navigation}"></div>
+<div th:replace="~{fragments/navigation::navigation(activeLink=${'projects'})}"></div>
 <div class="projects-form">
     <h2 class="text-center">Projects:<span class="count" th:text="${projects.size()}"></span></h2>
     <a href="/add-project" class="btn btn-success add-employee-btn" sec:authorize="hasRole('ADMIN')">Add</a>

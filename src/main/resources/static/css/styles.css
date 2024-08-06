@@ -40,6 +40,12 @@
     background-color: #ddd;
     padding: 14px 20px;
 }
+
+a.active {
+    color: dimgray;
+    background-color: #ddd;
+    padding: 14px 20px;
+}
 /*language section*/
 .language-form, .logout-form {
     display: inline-block;

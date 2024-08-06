@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/styles.css"/>
 </head>
 <body>
-<div th:replace="~{fragments/navigation}"></div>
+<div th:replace="~{fragments/navigation::navigation(activeLink=${'users'})}"></div>
 <div class="container-form">
     <div class="bg-danger text-center" th:if="${isExistUsername}">
         <p class="d-block">Username already exists</p>
@@ -50,18 +50,13 @@
             <select class="form-control" th:placeholder="${userDTO.role}"
                     id="role"
                     name="role"
-                    th:field="*{role}"
-                    th:errorclass="is-invalid">
-                <option value="">-- Select Role --</option>
+                    th:field="*{role}">
                 <option
                         th:each="role: ${roles}"
                         th:value="${role}"
                         th:text="${role}">Role
                 </option>
             </select>
-            <p class="invalid-feedback errors alert alert-danger">
-                Engine type is required.
-            </p>
         </div>
         <button type="submit" class="btn btn-primary btn-block" id="edit_button" th:text="#{edit_button}">Save</button>
     </form>

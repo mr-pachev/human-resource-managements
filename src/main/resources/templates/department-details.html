@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/styles.css"/>
 </head>
 <body>
-<div th:replace="~{fragments/navigation}"></div>
+<div th:replace="~{fragments/navigation::navigation(activeLink=${'departments'})}"></div>
 <div class="container-form">
         <h2 class="text-center">Edit Department</h2>
     <form
@@ -48,7 +48,6 @@
                     id="employee"
                     name="employee"
                     th:field="*{manager}">
-                <option value="">-- Select Manager --</option>
                 <option th:each="employee: ${allEmployees}"
                         th:value="${employee.fullName}"
                         th:text="${employee.fullName}">Employee Full Name</option>

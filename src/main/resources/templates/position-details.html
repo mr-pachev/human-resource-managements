@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/styles.css"/>
 </head>
 <body>
-<div th:replace="~{fragments/navigation}"></div>
+<div th:replace="~{fragments/navigation::navigation(activeLink=${'positions'})}"></div>
 <div class="container-form">
     <h2 class="text-center">Edit Position</h2>
     <form th:action="@{/position-details}"
@@ -26,7 +26,9 @@
                    name="name"
                    th:field="*{positionName}"
                    th:errorclass="is-invalid">
-            <p class="invalid-feedback errors alert alert-danger">Name must contain 3 to 50 letters.</p>
+            <p class="invalid-feedback errors alert alert-danger">
+                Name must contain 3 to 50 letters.
+            </p>
         </div>
         <div class="form-group">
             <label th:for="descriptions">Descriptions</label>
@@ -35,7 +37,9 @@
                    name="descriptions"
                    th:field="*{description}"
                    th:errorclass="is-invalid">
-            <p class="invalid-feedback errors alert alert-danger">Descriptions must contain 10 to 255 letters.</p>
+            <p class="invalid-feedback errors alert alert-danger">
+                Descriptions must contain 10 to 255 letters.
+            </p>
         </div>
         <div class="form-group">
             <input type="submit" class="btn btn-primary btn-block" value="Save"/>

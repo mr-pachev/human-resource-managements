@@ -9,13 +9,13 @@
     <link rel="stylesheet" href="/css/styles.css"/>
 </head>
     <body>
-    <div th:fragment="navigation">
+    <div th:fragment="navigation(activeLink)">
     <div class="navbar">
         <div class="nav-left">
             <a th:href="@{/}" th:text="#{nav_bar_home}">Home</a>
             <th:block sec:authorize="!isAuthenticated()">
-                <a th:href="@{/login}" th:text="#{nav_bar_login}">Login</a>
-                <a th:href="@{/registration}" th:text="#{nav_bar_registration}">Registration</a>
+                <a th:href="@{/login}" th:text="#{nav_bar_login}" th:classappend="${activeLink == 'login'}? 'active'">Login</a>
+                <a th:href="@{/registration}" th:text="#{nav_bar_registration}" th:classappend="${activeLink == 'registration'}? 'active'">Registration</a>
             </th:block>
             <th:block sec:authorize="isAuthenticated()">
                 <form class="logout-form"
@@ -30,12 +30,12 @@
         </div>
         <div class="nav-right">
             <th:block sec:authorize="isAuthenticated()">
-                <a th:href="@{/users}" th:text="#{nav_bar_users}" sec:authorize="hasRole('ADMIN')">Users</a>
-                <a th:href="@{/employees}" th:text="#{nav_bar_employees}">Employees</a>
-                <a th:href="@{/departments}" th:text="#{nav_bar_departments}">Departments</a>
-                <a th:href="@{/projects}" th:text="#{nav_bar_projects}">Projects</a>
-                <a th:href="@{/positions}" th:text="#{nav_bar_positions}">Positions</a>
-                <a th:href="@{/tasks}" th:text="#{nav_bar_tasks}">Tasks</a>
+                <a th:href="@{/users}" th:text="#{nav_bar_users}" sec:authorize="hasRole('ADMIN')" th:classappend="${activeLink == 'users'}? 'active'">Users</a>
+                <a th:href="@{/employees}" th:text="#{nav_bar_employees}" th:classappend="${activeLink == 'employees'}? 'active'">Employees</a>
+                <a th:href="@{/departments}" th:text="#{nav_bar_departments}" th:classappend="${activeLink == 'departments'}? 'active'">Departments</a>
+                <a th:href="@{/projects}" th:text="#{nav_bar_projects}" th:classappend="${activeLink == 'projects'}? 'active'">Projects</a>
+                <a th:href="@{/positions}" th:text="#{nav_bar_positions}" th:classappend="${activeLink == 'positions'}? 'active'">Positions</a>
+                <a th:href="@{/tasks}" th:text="#{nav_bar_tasks}" th:classappend="${activeLink == 'tasks'}? 'active'">Tasks</a>
             </th:block>
             <form class="language-form" th:method="GET">
                 <label class="nav-right" for="lang" th:text="#{nav_bar_language}">Language</label>

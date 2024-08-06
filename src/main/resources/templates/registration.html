@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec='http://www.thymeleaf.org/extras/spring-security'>
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,13 +9,13 @@
     <link rel="stylesheet" href="/css/styles.css"/>
 </head>
 <body>
-    <div th:replace="~{fragments/navigation}"></div>
+    <div th:replace="~{fragments/navigation::navigation(activeLink=${'registration'})}"></div>
     <div class="container-form">
         <div class="bg-danger text-center" th:if="${noAddedUser}">
             <p class="d-block">Non-existent identification number or the user already exists</p>
         </div>
         <div th:unless="${noAddedUser}">
-            <h2 class="text-center" id="registration_user" th:text="#{registration_user}">Add User</h2>
+            <h2 class="text-center" id="registrationUser" th:text="#{registration_user}">Add User</h2>
         </div>
         <form
             th:action="@{/registration}"

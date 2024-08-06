@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/styles.css"/>
 </head>
 <body>
-<div th:replace="~{fragments/navigation}"></div>
+<div th:replace="~{fragments/navigation::navigation(activeLink=${'departments'})}"></div>
 <div class="container-form">
     <div class="bg-danger text-center" th:if="${isExist}">
         <p class="d-block">The department already exists</p>
@@ -38,7 +38,7 @@
                     name="employee"
                     th:field="*{manager}"
                     th:errorclass="is-invalid">
-                <option value=""> -- Select Manager -- </option>
+                <option value="">-- Select Manager --</option>
                 <option th:each="employee: ${allEmployees}"
                         th:value="${employee.fullName}"
                         th:text="${employee.fullName}">Employee Full Name</option>

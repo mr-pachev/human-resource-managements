@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/styles.css"/>
 </head>
 <body>
-<div th:replace="~{fragments/navigation}"></div>
+<div th:replace="~{fragments/navigation::navigation(activeLink=${'positions'})}"></div>
 <div class="container-form">
     <div class="bg-danger text-center" th:if="${isExist}">
         <p class="d-block">The position already exists</p>
