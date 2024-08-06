@@ -2,9 +2,16 @@
 <html lang="bg"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Employees</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css"/>
+</head>
 <body>
-<div th:replace="~{fragments/navigation}"></div>
-<div class="projects-form">
+<div th:replace="~{fragments/navigation::navigation(activeLink=${'projects'})}"></div>
+<div class="entity-form">
 
     <div class="container-form bg-danger text-center" th:if="${isExist}">
         <p class="d-block">The employee already exists</p>
@@ -24,7 +31,7 @@
                     id="employee"
                     name="employee"
                     th:field="*{fullName}">
-                <option value=""> -- Add Another Employee -- </option>
+                <option value="">-- Add Another Employee --</option>
                 <option th:each="employee: ${allEmployees}"
                         th:value="${employee.fullName}"
                         th:text="${employee.fullName}">Employee Full Name</option>
