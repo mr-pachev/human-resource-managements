@@ -4,7 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 <div th:replace="~{fragments/navigation}"></div>
-<div class="project-employees-form">
+<div class="department-employees-form">
 
     <div class="container-form bg-danger text-center" th:if="${isExist}">
         <p class="d-block">The employee already exists</p>
@@ -16,7 +16,7 @@
           th:action="@{/department-employee/{idDep}(idDep=${departmentId})}"
           th:object="${employeeNameDTO}"
           th:method="POST"
-          id="addEmployeeForm"
+          id="departmentEmployeeForm"
           sec:authorize="hasRole('ADMIN')">
         <div class="form-group">
             <label th:for="employee">Employee</label>

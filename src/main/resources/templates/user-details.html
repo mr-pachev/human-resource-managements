@@ -14,14 +14,14 @@
         <p class="d-block">Username already exists</p>
     </div>
     <div th:unless="${isExistUsername}">
-        <h2 class="text-center">Edith User</h2>
+        <h2 class="text-center">Edit User</h2>
     </div>
 
     <form
           th:action="@{/user-details}"
           th:object="${userDTO}"
           th:method="POST"
-          id="userEdithForm">
+          id="userEditForm">
 
         <div class="form-group">
             <label th:for="username" id="edit_username" th:text="#{edith_username}">Username</label>

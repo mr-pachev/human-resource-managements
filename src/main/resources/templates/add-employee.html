@@ -90,7 +90,7 @@
                     name="position"
                     th:field="*{position}"
                     th:errorclass="is-invalid">
-                <option value=""> -- Select Position -- </option>
+                <option value="">-- Select Position --</option>
                 <option
                         th:each="position: ${positions}"
                         th:value="${position}"
@@ -108,7 +108,7 @@
                     name="department"
                     th:field="*{department}"
                     th:errorclass="is-invalid">
-                <option value=""> -- Select Department -- </option>
+                <option value="">-- Select Department --</option>
                 <option
                         th:each="department: ${departments}"
                         th:value="${department}"
@@ -125,7 +125,7 @@
                     name="education"
                     th:field="*{education}"
                     th:errorclass="is-invalid">
-                <option value=""> -- Select Education -- </option>
+                <option value="">-- Select Education --</option>
                 <option th:each="education: ${educations}"
                         th:value="${education}"
                         th:text="${education}">Education</option>

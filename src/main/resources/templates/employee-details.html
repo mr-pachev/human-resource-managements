@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Employee</title>
+    <title>Employee details</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/styles.css"/>
 </head>
 <body>
 <div th:replace="~{fragments/navigation}"></div>
 <div class="container-form">
-    <h2 class="text-center">Edith Employee</h2>
+    <h2 class="text-center">Edit Employee</h2>
 
     <form
           th:action="@{/employee-details}"
           th:object="${employeeDTO}"
           th:method="POST"
-          id="addEmployeeForm">
+          id="employeeDetailsForm">
 
         <!--Sends employee id with a POST request-->
         <input type="hidden" th:field="*{id}" />

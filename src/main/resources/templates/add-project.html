@@ -65,7 +65,7 @@
                     name="department"
                     th:field="*{responsibleDepartment}"
                     th:errorclass="is-invalid">
-                <option value=""> -- Select Department -- </option>
+                <option value="">-- Select Department --</option>
                 <option
                         th:each="department: ${departments}"
                         th:value="${department}"

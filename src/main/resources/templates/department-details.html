@@ -10,7 +10,7 @@
 <body>
 <div th:replace="~{fragments/navigation}"></div>
 <div class="container-form">
-        <h2 class="text-center">Edith Department</h2>
+        <h2 class="text-center">Edit Department</h2>
     <form
             th:action="@{/department-details}"
             th:object="${departmentDTO}"
@@ -48,7 +48,7 @@
                     id="employee"
                     name="employee"
                     th:field="*{manager}">
-                <option value=""> -- Select Manager -- </option>
+                <option value="">-- Select Manager --</option>
                 <option th:each="employee: ${allEmployees}"
                         th:value="${employee.fullName}"
                         th:text="${employee.fullName}">Employee Full Name</option>

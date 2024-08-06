@@ -16,7 +16,7 @@
           th:action="@{/position-employee/{idPos}(idPos=${positionId})}"
           th:object="${employeeNameDTO}"
           th:method="POST"
-          id="addEmployeeForm"
+          id="positionEmployeesForm"
           sec:authorize="hasRole('ADMIN')">
         <div class="form-group">
             <label th:for="employee">Employee</label>
@@ -24,7 +24,7 @@
                     id="employee"
                     name="employee"
                     th:field="*{fullName}">
-                <option value=""> -- Add Another Employee -- </option>
+                <option value="">-- Add Another Employee --</option>
                 <option th:each="employee: ${allEmployees}"
                         th:value="${employee.fullName}"
                         th:text="${employee.fullName}">Employee Full Name</option>

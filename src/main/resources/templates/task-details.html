@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Task</title>
+    <title>Task Details</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/styles.css"/>
 </head>
@@ -15,7 +15,7 @@
             th:action="@{/task-details}"
             th:object="${taskDTO}"
             th:method="POST"
-            id="edithTaskForm">
+            id="editTaskForm">
 
         <!--Sends task id with a POST request-->
         <input type="hidden" th:field="*{id}" />
