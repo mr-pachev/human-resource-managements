@@ -11,7 +11,7 @@
 </head>
 <body>
 <div th:replace="~{fragments/navigation::navigation(activeLink=${'tasks'})}"></div>
-<div class="tasks-form">
+<div class="entity-form tasks-form">
     <h2 class="text-center">Tasks:<span class="count" th:text="${tasks.size()}"></span></h2>
     <a href="/add-task" class="btn btn-success add-employee-btn" sec:authorize="hasRole('ADMIN')">Add</a>
     <table class="departments-form justify-content-center table table-striped">

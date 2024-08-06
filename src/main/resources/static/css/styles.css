@@ -46,6 +46,7 @@ a.active {
     background-color: #ddd;
     padding: 14px 20px;
 }
+
 /*language section*/
 .language-form, .logout-form {
     display: inline-block;
@@ -71,7 +72,8 @@ body {
     font-family: Arial, sans-serif;
     padding-top: 60px;
 }
-/*form section*/
+
+/*forms section*/
 .container-form{
     width: auto;
     max-width: 400px;
@@ -92,9 +94,7 @@ body {
     margin: auto;
 }
 
- .users-form, .employees-form, .departments-form,
- .projects-form, .project-employees-form, .department-employees-form,
- .positions-form, .position-employees-form, .tasks-form{
+.entity-form{
     width: max-content;
     padding: 15px;
     background: rgba(255, 255, 255, 0.9);
@@ -113,6 +113,7 @@ body {
     margin-bottom: 20px;
     color: #0c0c0c;
 }
+
 .birthday-table {
     background-color: #50aaf3;
     margin-top: 20px;
@@ -121,12 +122,15 @@ body {
     color: rgba(255, 255, 255, 0.9);
     border-radius: 8px;
 }
+
 .birthday-table thead {
     background-color: rgba(239, 68, 68, 0.9);
 }
+
 .birthday-table th, .birthday-table td {
     text-align: center;
 }
+
 /*count section*/
 .count {
     font-size: 0.8em;
@@ -139,6 +143,7 @@ body {
     color: gray;
     margin-left: 10px;
 }
+
 /*button section*/
 .add-employee-btn {
     display: block;
@@ -160,6 +165,7 @@ body {
     border-color: #1e7e34;
     color: white;
 }
+
 /*description section*/
 .description-cell {
     width: 800px;
