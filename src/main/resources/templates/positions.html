@@ -27,7 +27,7 @@
             <td th:text="${position.positionName}">Name</td>
             <td class="description-cell" th:text="${position.description}">Description</td>
             <td th:text="${position.employees.size()}">Employees</td>
-            <td sec:authorize="hasRole('ADMIN')">
+            <td sec:authorize="hasRole('ADMIN')" th:if="${position.positionName != 'DEFAULT_POSITION'}">
                 <form th:method="POST" th:action="@{/position-details/{id}(id=${position.id})}" class="d-inline">
                     <input class="btn btn-primary btn-sm" type="submit" value="Edit"/>
                 </form>
