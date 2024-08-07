@@ -1,3 +1,4 @@
+#spring section
 spring:
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
@@ -14,13 +15,13 @@ spring:
         enabled: 'true'
   sql:
     init:
-       mode: never
-
+      mode: never
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     username: root
     password: 1234
     url: jdbc:mysql://localhost:3306/hrm_db?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+#loggin section
 logging:
   level:
     org:
@@ -30,9 +31,10 @@ logging:
         SQL: DEBUG
       nodeValue: WARN
     blog: WARN
+#server section
 server:
   port: 8080
-
+#API configuration
 employees:
   api:
     baseUrl: "http://localhost:8081"
