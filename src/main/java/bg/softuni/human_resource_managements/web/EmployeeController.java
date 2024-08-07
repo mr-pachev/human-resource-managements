@@ -137,12 +137,6 @@ public class EmployeeController {
     //delete employee by id
     @PostMapping("/delete-employee/{id}")
     public String deleteEmployee(@PathVariable("id") Long id) {
-        EmployeeDTO employeeDTO = employeeService.getEmployeeByID(id);
-
-        //cannot delete this employee because it is associated with tasks with already deleted employees
-        if(employeeDTO.getFirstName().equals("DEFAULT_EMP")){
-            return "redirect:/employees";
-        }
 
         employeeService.removeEmployee(id);
 
