@@ -41,7 +41,7 @@
                     <td th:text="${employee.position}">Position</td>
                     <td th:text="${employee.department}">Department</td>
                     <td th:text="${employee.education}">Education</td>
-                    <td th:href="@{/add-employee}" sec:authorize="hasRole('ADMIN')">
+                    <td th:href="@{/add-employee}" sec:authorize="hasRole('ADMIN')" th:if="${employee.firstName != 'DEFAULT_EMP'}">
                         <form th:method="POST" th:action="@{/employee-details/{id}(id=${employee.id})}" class="d-inline">
                             <input class="btn btn-primary btn-sm" type="submit" value="Edit"/>
                         </form>
