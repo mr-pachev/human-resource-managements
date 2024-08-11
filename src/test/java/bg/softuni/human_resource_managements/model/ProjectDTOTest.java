@@ -27,6 +27,7 @@ public class ProjectDTOTest {
     @Test
     public void testValidProjectDTO() {
         ProjectDTO projectDTO = new ProjectDTO();
+
         projectDTO.setId(1);
         projectDTO.setName("Test Project");
         projectDTO.setDescription("This is a valid project description.");
@@ -36,6 +37,7 @@ public class ProjectDTOTest {
         projectDTO.setEmployees(List.of("Ivan Ivanov", "Nikolai Nikolov"));
 
         Set<ConstraintViolation<ProjectDTO>> violations = validator.validate(projectDTO);
+
         assertTrue(violations.isEmpty());
     }
 
@@ -45,6 +47,7 @@ public class ProjectDTOTest {
         projectDTO.setName("Te");
 
         Set<ConstraintViolation<ProjectDTO>> violations = validator.validate(projectDTO);
+
         assertFalse(violations.isEmpty());
         assertTrue(violations.stream().anyMatch(v -> v.getMessage().contains("size must be between 3 and 30")));
     }
@@ -52,9 +55,11 @@ public class ProjectDTOTest {
     @Test
     public void testDescriptionTooShort() {
         ProjectDTO projectDTO = new ProjectDTO();
+
         projectDTO.setDescription("Too short");
 
         Set<ConstraintViolation<ProjectDTO>> violations = validator.validate(projectDTO);
+
         assertFalse(violations.isEmpty());
         assertTrue(violations.stream().anyMatch(v -> v.getMessage().contains("size must be between 10 and 255")));
     }
@@ -62,9 +67,11 @@ public class ProjectDTOTest {
     @Test
     public void testStartDateNotBlank() {
         ProjectDTO projectDTO = new ProjectDTO();
+
         projectDTO.setStartDate("");
 
         Set<ConstraintViolation<ProjectDTO>> violations = validator.validate(projectDTO);
+
         assertFalse(violations.isEmpty());
         assertTrue(violations.stream().anyMatch(v -> v.getMessage().contains("must not be blank")));
     }
@@ -72,9 +79,11 @@ public class ProjectDTOTest {
     @Test
     public void testResponsibleDepartmentTooShort() {
         ProjectDTO projectDTO = new ProjectDTO();
+
         projectDTO.setResponsibleDepartment("RD");
 
         Set<ConstraintViolation<ProjectDTO>> violations = validator.validate(projectDTO);
+
         assertFalse(violations.isEmpty());
         assertTrue(violations.stream().anyMatch(v -> v.getMessage().contains("size must be between 3 and 50")));
     }
@@ -82,6 +91,7 @@ public class ProjectDTOTest {
     @Test
     public void testGettersAndSetters() {
         ProjectDTO projectDTO = new ProjectDTO();
+
         projectDTO.setId(1);
         projectDTO.setName("Project Name");
         projectDTO.setDescription("Project Description");

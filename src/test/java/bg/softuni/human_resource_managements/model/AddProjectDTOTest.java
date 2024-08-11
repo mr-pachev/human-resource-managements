@@ -25,6 +25,7 @@ public class AddProjectDTOTest {
     @Test
     public void testValidAddProjectDTO() {
         AddProjectDTO addProjectDTO = new AddProjectDTO();
+
         addProjectDTO.setName("Valid Project");
         addProjectDTO.setDescription("This is a valid description.");
         addProjectDTO.setStartDate("2023-08-11");
@@ -32,12 +33,14 @@ public class AddProjectDTOTest {
         addProjectDTO.setResponsibleDepartment("IT_DEPARTMENT");
 
         Set<ConstraintViolation<AddProjectDTO>> violations = validator.validate(addProjectDTO);
+
         assertEquals(0, violations.size());
     }
 
     @Test
     public void testInvalidName() {
         AddProjectDTO addProjectDTO = new AddProjectDTO();
+
         addProjectDTO.setName("Yo");
         addProjectDTO.setDescription("This is a valid description.");
         addProjectDTO.setStartDate("2023-08-11");
@@ -45,12 +48,14 @@ public class AddProjectDTOTest {
         addProjectDTO.setResponsibleDepartment("IT_DEPARTMENT");
 
         Set<ConstraintViolation<AddProjectDTO>> violations = validator.validate(addProjectDTO);
+
         assertEquals(1, violations.size());
     }
 
     @Test
     public void testInvalidDescription() {
         AddProjectDTO addProjectDTO = new AddProjectDTO();
+
         addProjectDTO.setName("Valid Project");
         addProjectDTO.setDescription("Short");
         addProjectDTO.setStartDate("2023-08-11");
@@ -58,12 +63,14 @@ public class AddProjectDTOTest {
         addProjectDTO.setResponsibleDepartment("IT_DEPARTMENT");
 
         Set<ConstraintViolation<AddProjectDTO>> violations = validator.validate(addProjectDTO);
+
         assertEquals(1, violations.size());
     }
 
     @Test
     public void testBlankStartDate() {
         AddProjectDTO addProjectDTO = new AddProjectDTO();
+
         addProjectDTO.setName("Valid Project");
         addProjectDTO.setDescription("This is a valid description.");
         addProjectDTO.setStartDate("");
@@ -71,6 +78,7 @@ public class AddProjectDTOTest {
         addProjectDTO.setResponsibleDepartment("IT_DEPARTMENT");
 
         Set<ConstraintViolation<AddProjectDTO>> violations = validator.validate(addProjectDTO);
+
         assertEquals(1, violations.size());
     }
 
@@ -78,6 +86,7 @@ public class AddProjectDTOTest {
     @Test
     public void testGetName() {
         AddProjectDTO addProjectDTO = new AddProjectDTO();
+
         addProjectDTO.setName("Project Name");
         assertEquals("Project Name", addProjectDTO.getName());
     }
@@ -85,6 +94,7 @@ public class AddProjectDTOTest {
     @Test
     public void testSetName() {
         AddProjectDTO addProjectDTO = new AddProjectDTO();
+
         addProjectDTO.setName("Project Name");
         assertEquals("Project Name", addProjectDTO.getName());
     }
@@ -92,6 +102,7 @@ public class AddProjectDTOTest {
     @Test
     public void testGetDescription() {
         AddProjectDTO addProjectDTO = new AddProjectDTO();
+
         addProjectDTO.setDescription("This is a description.");
         assertEquals("This is a description.", addProjectDTO.getDescription());
     }
@@ -99,6 +110,7 @@ public class AddProjectDTOTest {
     @Test
     public void testSetDescription() {
         AddProjectDTO addProjectDTO = new AddProjectDTO();
+
         addProjectDTO.setDescription("This is a description.");
         assertEquals("This is a description.", addProjectDTO.getDescription());
     }
@@ -106,6 +118,7 @@ public class AddProjectDTOTest {
     @Test
     public void testGetStartDate() {
         AddProjectDTO addProjectDTO = new AddProjectDTO();
+
         addProjectDTO.setStartDate("2023-08-01");
         assertEquals("2023-08-01", addProjectDTO.getStartDate());
     }
@@ -113,6 +126,7 @@ public class AddProjectDTOTest {
     @Test
     public void testSetStartDate() {
         AddProjectDTO addProjectDTO = new AddProjectDTO();
+
         addProjectDTO.setStartDate("2023-08-01");
         assertEquals("2023-08-01", addProjectDTO.getStartDate());
     }
@@ -120,6 +134,7 @@ public class AddProjectDTOTest {
     @Test
     public void testGetEndDate() {
         AddProjectDTO addProjectDTO = new AddProjectDTO();
+
         addProjectDTO.setEndDate("2023-12-31");
         assertEquals("2023-12-31", addProjectDTO.getEndDate());
     }
@@ -127,6 +142,7 @@ public class AddProjectDTOTest {
     @Test
     public void testSetEndDate() {
         AddProjectDTO addProjectDTO = new AddProjectDTO();
+
         addProjectDTO.setEndDate("2023-12-31");
         assertEquals("2023-12-31", addProjectDTO.getEndDate());
     }
@@ -134,6 +150,7 @@ public class AddProjectDTOTest {
     @Test
     public void testGetResponsibleDepartment() {
         AddProjectDTO addProjectDTO = new AddProjectDTO();
+
         addProjectDTO.setResponsibleDepartment("Development");
         assertEquals("Development", addProjectDTO.getResponsibleDepartment());
     }
@@ -141,6 +158,7 @@ public class AddProjectDTOTest {
     @Test
     public void testSetResponsibleDepartment() {
         AddProjectDTO addProjectDTO = new AddProjectDTO();
+
         addProjectDTO.setResponsibleDepartment("Development");
         assertEquals("Development", addProjectDTO.getResponsibleDepartment());
     }

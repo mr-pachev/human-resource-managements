@@ -3,7 +3,6 @@ package bg.softuni.human_resource_managements.service.session;
 import bg.softuni.human_resource_managements.model.entity.Role;
 import bg.softuni.human_resource_managements.model.entity.User;
 import bg.softuni.human_resource_managements.repository.UserRepository;
-import bg.softuni.human_resource_managements.service.UserService;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

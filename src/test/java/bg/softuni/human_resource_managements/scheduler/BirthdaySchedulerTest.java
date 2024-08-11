@@ -38,6 +38,7 @@ class BirthdaySchedulerTest {
     @Test
     void testCheckBirthdaysWithBirthdays() {
         EmployeeDTO employee = new EmployeeDTO();
+
         employee.setFirstName("Penio");
         employee.setMiddleName("Penkin");
         employee.setLastName("Penchov");

@@ -39,7 +39,6 @@ public class UserServiceImplTest {
 
     @InjectMocks
     private UserServiceImpl userServiceImpl;
-
     private User testUser;
     private UserDTO userDTO;
     private AddUserDTO addUserDTO;
@@ -106,6 +105,7 @@ public class UserServiceImplTest {
         userServiceImpl.addUser(addUserDTO);
 
         verify(mockUserRepository, times(1)).save(testUser);
+
         assertEquals("encodedPassword", testUser.getPassword());
         assertEquals(RoleName.ADMIN, testUser.getRole().getRoleName());
     }
@@ -131,6 +131,7 @@ public class UserServiceImplTest {
         userServiceImpl.editUser(userDTO);
 
         verify(mockUserRepository, times(1)).save(testUser);
+
         assertEquals(RoleName.ADMIN, testUser.getRole().getRoleName());
     }
 

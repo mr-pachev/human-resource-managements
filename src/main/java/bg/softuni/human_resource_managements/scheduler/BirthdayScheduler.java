@@ -23,10 +23,9 @@ public class BirthdayScheduler {
 
         if (!birthdayEmployees.isEmpty()) {
             System.out.println("Today's birthdays:");
+
             for (EmployeeDTO employee : birthdayEmployees) {
-                System.out.println("Happy Birthday to: " + employee.getFirstName() + " " +
-                                                            employee.getMiddleName() + " " +
-                                                            employee.getLastName());
+                System.out.println("Happy Birthday to: " + employee.toString());
             }
         } else {
             System.out.println("No birthdays today.");

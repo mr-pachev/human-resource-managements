@@ -26,6 +26,7 @@ public class PositionDTOTest {
     @Test
     public void testPositionNameValidation() {
         PositionDTO positionDTO = new PositionDTO();
+
         positionDTO.setPositionName("HR");
         positionDTO.setDescription("This is a description with more than 10 characters.");
 
@@ -33,6 +34,7 @@ public class PositionDTOTest {
         assertEquals(1, violations.size());
 
         ConstraintViolation<PositionDTO> violation = violations.iterator().next();
+
         assertEquals("size must be between 3 and 50", violation.getMessage());
         assertEquals("positionName", violation.getPropertyPath().toString());
     }
@@ -40,13 +42,16 @@ public class PositionDTOTest {
     @Test
     public void testDescriptionValidation() {
         PositionDTO positionDTO = new PositionDTO();
+
         positionDTO.setPositionName("Human Resources");
         positionDTO.setDescription("Short");
 
         Set<ConstraintViolation<PositionDTO>> violations = validator.validate(positionDTO);
+
         assertEquals(1, violations.size());
 
         ConstraintViolation<PositionDTO> violation = violations.iterator().next();
+
         assertEquals("size must be between 10 and 255", violation.getMessage());
         assertEquals("description", violation.getPropertyPath().toString());
     }
@@ -54,17 +59,20 @@ public class PositionDTOTest {
     @Test
     public void testValidPositionDTO() {
         PositionDTO positionDTO = new PositionDTO();
+
         positionDTO.setPositionName("Human Resources");
         positionDTO.setDescription("This is a valid description with more than 10 characters.");
         positionDTO.setEmployees(List.of("Employee1", "Employee2"));
 
         Set<ConstraintViolation<PositionDTO>> violations = validator.validate(positionDTO);
+
         assertTrue(violations.isEmpty());
     }
 
     @Test
     public void testSettersAndGetters() {
         PositionDTO positionDTO = new PositionDTO();
+
         positionDTO.setId(1L);
         positionDTO.setPositionName("Human Resources");
         positionDTO.setDescription("This is a valid description with more than 10 characters.");

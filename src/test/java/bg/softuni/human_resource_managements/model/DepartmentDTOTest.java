@@ -25,6 +25,7 @@ public class DepartmentDTOTest {
     public void setUp() {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
+
         departmentDTO = new DepartmentDTO();
     }
 
@@ -38,10 +39,13 @@ public class DepartmentDTOTest {
         departmentDTO.setProjects(List.of("Project1", "Project2"));
 
         Set<ConstraintViolation<DepartmentDTO>> violations = validator.validate(departmentDTO);
+
         assertEquals(2, violations.size());
+
         Set<String> violationMessages = violations.stream()
                 .map(v -> v.getMessage())
                 .collect(Collectors.toSet());
+
         assertTrue(violationMessages.contains("must not be blank"));
         assertTrue(violationMessages.contains("size must be between 3 and 50"));
     }
@@ -56,11 +60,13 @@ public class DepartmentDTOTest {
         departmentDTO.setProjects(List.of("Project1", "Project2"));
 
         Set<ConstraintViolation<DepartmentDTO>> violations = validator.validate(departmentDTO);
+
         assertEquals(1, violations.size());
         assertEquals("size must be between 3 and 50", violations.iterator().next().getMessage());
 
         departmentDTO.setDepartmentName("A".repeat(51)); //too long
         violations = validator.validate(departmentDTO);
+
         assertEquals(1, violations.size());
         assertEquals("size must be between 3 and 50", violations.iterator().next().getMessage());
     }
@@ -75,9 +81,11 @@ public class DepartmentDTOTest {
         departmentDTO.setProjects(List.of("Project1", "Project2"));
 
         Set<ConstraintViolation<DepartmentDTO>> violations = validator.validate(departmentDTO);
+
         Set<String> violationMessages = violations.stream()
                 .map(v -> v.getMessage())
                 .collect(Collectors.toSet());
+
         assertTrue(violationMessages.contains("must not be blank"));
         assertTrue(violationMessages.contains("size must be between 9 and 50"));
     }
@@ -92,11 +100,13 @@ public class DepartmentDTOTest {
         departmentDTO.setProjects(List.of("Project1", "Project2"));
 
         Set<ConstraintViolation<DepartmentDTO>> violations = validator.validate(departmentDTO);
+
         assertEquals(1, violations.size());
         assertEquals("size must be between 9 and 50", violations.iterator().next().getMessage());
 
         departmentDTO.setManager("A".repeat(51)); //too long
         violations = validator.validate(departmentDTO);
+
         assertEquals(1, violations.size());
         assertEquals("size must be between 9 and 50", violations.iterator().next().getMessage());
     }
@@ -110,13 +120,14 @@ public class DepartmentDTOTest {
         departmentDTO.setEmployees(List.of("Employee1", "Employee2"));
         departmentDTO.setProjects(List.of("Project1", "Project2"));
 
-
         Set<ConstraintViolation<DepartmentDTO>> violations = validator.validate(departmentDTO);
+
         assertEquals(1, violations.size());
         assertEquals("size must be between 10 and 10", violations.iterator().next().getMessage());
 
         departmentDTO.setIdentificationNumber("12345678901"); //too long
         violations = validator.validate(departmentDTO);
+
         assertEquals(1, violations.size());
         assertEquals("size must be between 10 and 10", violations.iterator().next().getMessage());
     }
@@ -131,7 +142,9 @@ public class DepartmentDTOTest {
         departmentDTO.setProjects(List.of("Project1", "Project2"));
 
         Set<ConstraintViolation<DepartmentDTO>> violations = validator.validate(departmentDTO);
+
         assertEquals(2, violations.size());
+
         Set<String> violationMessages = violations.stream()
                 .map(v -> v.getMessage())
                 .collect(Collectors.toSet());
@@ -150,11 +163,13 @@ public class DepartmentDTOTest {
         departmentDTO.setProjects(List.of("Project1", "Project2"));
 
         Set<ConstraintViolation<DepartmentDTO>> violations = validator.validate(departmentDTO);
+
         assertEquals(1, violations.size());
         assertEquals("size must be between 10 and 255", violations.iterator().next().getMessage());
 
         departmentDTO.setDescriptions("A".repeat(256)); //to long
         violations = validator.validate(departmentDTO);
+
         assertEquals(1, violations.size());
         assertEquals("size must be between 10 and 255", violations.iterator().next().getMessage());
     }

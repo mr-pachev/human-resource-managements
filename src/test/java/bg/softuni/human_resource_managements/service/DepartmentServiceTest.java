@@ -49,6 +49,7 @@ public class DepartmentServiceTest {
         DepartmentDTO dept2 = new DepartmentDTO();
         dept2.setId(2L);
         dept2.setDepartmentName("IT");
+
         List<DepartmentDTO> departmentDTOs = Arrays.asList(dept1, dept2);
         when(departmentService.getAllDepartmentsDTOS()).thenReturn(departmentDTOs);
 
@@ -121,6 +122,7 @@ public class DepartmentServiceTest {
         emp2.setId(1L);
         emp2.setFirstName("Pesho");
         emp2.setLastName("Peshev");
+
         List<EmployeeDTO> employees = Arrays.asList(emp1, emp2);
         when(departmentService.allDepartmentEmployees(1L)).thenReturn(employees);
 

@@ -1,11 +1,10 @@
 package bg.softuni.human_resource_managements.model;
 
 import bg.softuni.human_resource_managements.model.dto.TaskDTO;
+import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -90,7 +89,7 @@ public class TaskDTOTest {
         task.setEndDate("2024-12-31");
         task.setEmployeeName("Ivan Pachev");
 
-        Set<jakarta.validation.ConstraintViolation<TaskDTO>> violations = validator.validate(task);
+        Set<ConstraintViolation<TaskDTO>> violations = validator.validate(task);
 
         assertEquals(1, violations.size());
         assertEquals("must not be blank", violations.iterator().next().getMessage());
@@ -107,7 +106,7 @@ public class TaskDTOTest {
         task.setEndDate("2024-12-31");
         task.setEmployeeName("");  //blank employee name
 
-        Set<jakarta.validation.ConstraintViolation<TaskDTO>> violations = validator.validate(task);
+        Set<ConstraintViolation<TaskDTO>> violations = validator.validate(task);
 
         assertEquals(1, violations.size());
         assertEquals("must not be blank", violations.iterator().next().getMessage());

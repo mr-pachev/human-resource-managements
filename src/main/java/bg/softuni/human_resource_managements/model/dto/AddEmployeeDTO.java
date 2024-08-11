@@ -1,12 +1,8 @@
 package bg.softuni.human_resource_managements.model.dto;
 
-import bg.softuni.human_resource_managements.model.entity.*;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.*;
-import org.hibernate.validator.constraints.Length;
-
-import java.time.LocalDate;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public class AddEmployeeDTO {
     @NotBlank

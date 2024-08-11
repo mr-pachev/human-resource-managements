@@ -3,8 +3,6 @@ package bg.softuni.human_resource_managements.model;
 import bg.softuni.human_resource_managements.model.dto.AddTaskDTO;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Field;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AddTaskDTOTest {

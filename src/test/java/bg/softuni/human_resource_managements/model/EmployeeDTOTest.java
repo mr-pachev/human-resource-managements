@@ -34,6 +34,7 @@ public class EmployeeDTOTest {
         employeeDTO.setStartDate("2023-08-11");
 
         Set<ConstraintViolation<EmployeeDTO>> violations = validator.validate(employeeDTO);
+
         assertTrue(violations.isEmpty());
     }
 
@@ -47,6 +48,7 @@ public class EmployeeDTOTest {
         employeeDTO.setStartDate("2023-08-11");
 
         Set<ConstraintViolation<EmployeeDTO>> violations = validator.validate(employeeDTO);
+
         assertEquals(1, violations.size());
         assertEquals("size must be between 3 and 15", violations.iterator().next().getMessage());
     }
@@ -62,6 +64,7 @@ public class EmployeeDTOTest {
         employeeDTO.setStartDate("2023-08-11");
 
         Set<ConstraintViolation<EmployeeDTO>> violations = validator.validate(employeeDTO);
+
         assertEquals(1, violations.size());
         assertEquals("must not be blank", violations.iterator().next().getMessage());
     }

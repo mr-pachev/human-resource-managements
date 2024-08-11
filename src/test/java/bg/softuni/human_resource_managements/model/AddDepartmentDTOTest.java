@@ -1,7 +1,6 @@
 package bg.softuni.human_resource_managements.model;
 
 import bg.softuni.human_resource_managements.model.dto.AddDepartmentDTO;
-import bg.softuni.human_resource_managements.model.dto.DepartmentDTO;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -50,6 +49,7 @@ public class AddDepartmentDTOTest {
         dto.setDescriptions("Human Resources Department");
 
         Set<ConstraintViolation<AddDepartmentDTO>> violations = validator.validate(dto);
+
         assertEquals(1, violations.size(), "There should be one validation error");
         assertTrue(violations.iterator().next().getMessage().contains("size must be between 3 and 50"));
     }
@@ -57,6 +57,7 @@ public class AddDepartmentDTOTest {
     @Test
     public void testInvalidManager() {
         AddDepartmentDTO dto = new AddDepartmentDTO();
+
         dto.setDepartmentName("IT_DEPARTMENT");
         dto.setManager(""); //blank manager
         dto.setDescriptions("Human Resources Department");
@@ -76,11 +77,13 @@ public class AddDepartmentDTOTest {
     @Test
     public void testInvalidDescriptions() {
         AddDepartmentDTO dto = new AddDepartmentDTO();
+
         dto.setDepartmentName("Human Resources");
         dto.setManager("Zdravko Jeliazkov");
         dto.setDescriptions("Short"); //too short
 
         Set<ConstraintViolation<AddDepartmentDTO>> violations = validator.validate(dto);
+
         assertEquals(1, violations.size(), "There should be one validation error");
         assertTrue(violations.iterator().next().getMessage().contains("size must be between 10 and 255"));
     }
