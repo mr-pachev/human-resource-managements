@@ -9,6 +9,7 @@ import bg.softuni.human_resource_managements.service.EmployeeService;
 import bg.softuni.human_resource_managements.service.UserHelperService;
 import bg.softuni.human_resource_managements.service.UserService;
 import bg.softuni.human_resource_managements.service.exception.ObjectNotFoundException;
+import bg.softuni.human_resource_managements.service.session.AppUserDetailsService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,12 +22,14 @@ import java.util.List;
 @Controller
 public class UserController {
     private final UserService userService;
-    private final EmployeeService employeeService;
 
+    private final UserHelperService userHelperService;
+    private final EmployeeService employeeService;
     private final UserRepository userRepository;
 
-    public UserController(UserService userService, EmployeeService employeeService, UserRepository userRepository) {
+    public UserController(UserService userService, UserHelperService userHelperService, EmployeeService employeeService, UserRepository userRepository) {
         this.userService = userService;
+        this.userHelperService = userHelperService;
         this.employeeService = employeeService;
         this.userRepository = userRepository;
     }
@@ -50,7 +53,10 @@ public class UserController {
     @GetMapping("/users")
     public String getAllUsers(Model model){
         List<UserDTO> userDTOS = userService.getAllUsers();
+        String username = userHelperService.getUser().getUsername();
+
         model.addAttribute("userDTOS", userDTOS);
+        model.addAttribute("loginUsername", username);
 
         return "users";
     }
