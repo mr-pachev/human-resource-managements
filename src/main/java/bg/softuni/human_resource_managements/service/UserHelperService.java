@@ -39,22 +39,22 @@ public class UserHelperService {
             throw new IllegalArgumentException("Username cannot be null or empty");
         }
 
-        // Намери текущия потребител в базата данни
+        //Finding current user from database
         User currentUser = userRepository.findByUsername(newUsername)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Създай нов обект UserDetails с новото потребителско име
+        //Creating new UserDetails with new username
         UserDetails updatedUserDetails = new org.springframework.security.core.userdetails.User(
                 newUsername,
                 currentUser.getPassword(),
                 userDetails.getAuthorities()
         );
 
-        // Създай нов Authentication токен
+        //Creating new Authentication token
         Authentication newAuth = new UsernamePasswordAuthenticationToken(
                 updatedUserDetails, null, updatedUserDetails.getAuthorities());
 
-        // Настрой новия Authentication в SecurityContext
+        //Set new Authentication in SecurityContext
         SecurityContextHolder.getContext().setAuthentication(newAuth);
     }
 

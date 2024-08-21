@@ -133,7 +133,10 @@ public class UserController {
                             Model model){
 
         userDTO.setUserId(userId);
-        userDTO.setRole(userHelperService.getUser().getRole().getRoleName().name());
+
+        if(userDTO.getRole() == null){
+            userDTO.setRole(userHelperService.getUser().getRole().getRoleName().name());
+        }
 
         if(bindingResult.hasErrors()){
             rAtt.addFlashAttribute("userDTO", userDTO);
