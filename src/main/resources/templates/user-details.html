@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="bg" xmlns:th="http://www.thymeleaf.org">
+<html lang="bg" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,9 +49,10 @@
         <div class="form-group">
             <label th:for="role" id="edit_role" th:text="#{edit_role}">Role</label>
             <select class="form-control" th:placeholder="${userDTO.role}"
-                    id="role"
+                    id="role_ad"
                     name="role"
-                    th:field="*{role}">
+                    th:field="*{role}"
+                    th:disabled="${not #authorization.expression('hasRole(''ADMIN'')')}">
                 <option
                         th:each="role: ${roles}"
                         th:value="${role}"
