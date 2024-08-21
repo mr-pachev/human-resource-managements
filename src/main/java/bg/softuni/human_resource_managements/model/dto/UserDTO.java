@@ -11,7 +11,6 @@ public class UserDTO {
     @Size(min = 3, max = 15)
     private String username;
 
-    @NotBlank
     private String role;
 
     public long getUserId() {

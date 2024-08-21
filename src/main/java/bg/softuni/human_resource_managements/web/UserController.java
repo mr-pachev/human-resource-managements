@@ -133,6 +133,7 @@ public class UserController {
                             Model model){
 
         userDTO.setUserId(userId);
+        userDTO.setRole(userHelperService.getUser().getRole().getRoleName().name());
 
         if(bindingResult.hasErrors()){
             rAtt.addFlashAttribute("userDTO", userDTO);
@@ -161,7 +162,11 @@ public class UserController {
 
         userService.editUser(userDTO);
 
-        String username = userHelperService.getUser().getUsername();
+        String loginUser = userHelperService.getUserDetails().getUsername();
+
+        if(currentUsernameForEdit.equals(loginUser)){
+            userHelperService.updateCurrentUserUsername(userDTO.getUsername());
+        }
 
         return "redirect:/users";
     }
