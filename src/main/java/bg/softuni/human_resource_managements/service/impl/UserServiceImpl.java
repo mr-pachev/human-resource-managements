@@ -2,6 +2,7 @@ package bg.softuni.human_resource_managements.service.impl;
 
 import bg.softuni.human_resource_managements.model.dto.AddUserDTO;
 import bg.softuni.human_resource_managements.model.dto.UserDTO;
+import bg.softuni.human_resource_managements.model.entity.Role;
 import bg.softuni.human_resource_managements.model.entity.User;
 import bg.softuni.human_resource_managements.model.enums.RoleName;
 import bg.softuni.human_resource_managements.repository.RoleRepository;
@@ -9,10 +10,15 @@ import bg.softuni.human_resource_managements.repository.UserRepository;
 import bg.softuni.human_resource_managements.service.UserService;
 import bg.softuni.human_resource_managements.service.exception.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 

@@ -26,11 +26,11 @@
                     <td th:text="${user.username}">Username</td>
                     <td th:text="${user.identificationNumber}">Identification Number</td>
                     <td th:text="${user.role}">Role</td>
-                    <td th:href="@{/add-employee}" sec:authorize="hasRole('ADMIN')" th:if="${user.username} != ${loginUsername}">
+                    <td th:href="@{/add-employee}" sec:authorize="hasRole('ADMIN')">
                         <form th:method="POST" th:action="@{/user-details/{id}(id=${user.userId})}" class="d-inline">
                             <input class="btn btn-primary btn-sm" type="submit" value="Edit"/>
                         </form>
-                        <form th:method="POST" th:action="@{/delete-user/{id}(id=${user.userId})}" class="d-inline">
+                        <form th:method="POST" th:action="@{/delete-user/{id}(id=${user.userId})}" th:if="${user.username} != ${loginUsername}" class="d-inline">
                             <input class="btn btn-danger btn-sm" type="submit" value="Remove"/>
                         </form>
                     </td>

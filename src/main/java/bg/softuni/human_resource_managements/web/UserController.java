@@ -11,6 +11,10 @@ import bg.softuni.human_resource_managements.service.UserService;
 import bg.softuni.human_resource_managements.service.exception.ObjectNotFoundException;
 import bg.softuni.human_resource_managements.service.session.AppUserDetailsService;
 import jakarta.validation.Valid;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,7 +26,6 @@ import java.util.List;
 @Controller
 public class UserController {
     private final UserService userService;
-
     private final UserHelperService userHelperService;
     private final EmployeeService employeeService;
     private final UserRepository userRepository;
@@ -149,14 +152,17 @@ public class UserController {
         if(userService.isExistUser(userDTO.getUsername()) && isChangedUsername){
             rAtt.addFlashAttribute("userDTO", userDTO);
             rAtt.addFlashAttribute("org.springframework.validation.BindingResult.userDTO", bindingResult);
-            model.addAttribute("isExistUsername", true);
 
+            model.addAttribute("isExistUsername", true);
             model.addAttribute("roles", RoleName.values());
 
             return "user-details";
         }
 
         userService.editUser(userDTO);
+
+        String username = userHelperService.getUser().getUsername();
+
         return "redirect:/users";
     }
 

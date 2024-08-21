@@ -4,6 +4,7 @@ import bg.softuni.human_resource_managements.model.dto.AddUserDTO;
 import bg.softuni.human_resource_managements.model.dto.EmployeeDTO;
 import bg.softuni.human_resource_managements.model.dto.UserDTO;
 import bg.softuni.human_resource_managements.model.entity.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 import java.util.Optional;

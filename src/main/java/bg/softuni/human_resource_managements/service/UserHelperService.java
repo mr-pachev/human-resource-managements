@@ -2,6 +2,7 @@ package bg.softuni.human_resource_managements.service;
 
 import bg.softuni.human_resource_managements.model.entity.User;
 import bg.softuni.human_resource_managements.repository.UserRepository;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,6 +31,32 @@ public class UserHelperService {
     public UserDetails getUserDetails() {
     return (UserDetails) getAuthentication().getPrincipal();
     }
+
+//    public void updateCurrentUserUsername(String newUsername) {
+//        UserDetails userDetails = getUserDetails();
+//
+//        if (newUsername == null || newUsername.isEmpty()) {
+//            throw new IllegalArgumentException("Username cannot be null or empty");
+//        }
+//
+//        // Намери текущия потребител в базата данни
+//        User currentUser = userRepository.findByUsername(newUsername)
+//                .orElseThrow(() -> new RuntimeException("User not found"));
+//
+//        // Създай нов обект UserDetails с новото потребителско име
+//        UserDetails updatedUserDetails = new org.springframework.security.core.userdetails.User(
+//                newUsername,
+//                currentUser.getPassword(),
+//                userDetails.getAuthorities()
+//        );
+//
+//        // Създай нов Authentication токен
+//        Authentication newAuth = new UsernamePasswordAuthenticationToken(
+//                updatedUserDetails, null, updatedUserDetails.getAuthorities());
+//
+//        // Настрой новия Authentication в SecurityContext
+//        SecurityContextHolder.getContext().setAuthentication(newAuth);
+//    }
 
     public boolean isAuthenticated() {
     //Spring security sets default user with Role ANONYMOUS when no user is authenticated.
