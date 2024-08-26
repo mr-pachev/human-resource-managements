@@ -12,17 +12,20 @@
 <body>
 <div th:replace="~{fragments/navigation::navigation(activeLink=${'projects'})}"></div>
 <div class="entity-form projects-form">
-    <h2 class="text-center">Projects:<span class="count" th:text="${projects.size()}"></span></h2>
+    <h2 class="text-center">
+        <span th:text="#{projects_header}"> Projects:</span>
+        <span class="count" th:text="${projects.size()}"></span>
+    </h2>
     <a href="/add-project" class="btn btn-success add-employee-btn" sec:authorize="hasRole('ADMIN')">Add</a>
     <table class="projects-form justify-content-center table table-striped">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Responsible Department</th>
-            <th>Employees</th>
+            <th th:text="#{projects_name}">Name</th>
+            <th th:text="#{projects_description}">Description</th>
+            <th th:text="#{projects_start_date}">Start Date</th>
+            <th th:text="#{projects_end_date}">End Date</th>
+            <th th:text="#{projects_department}">Responsible Department</th>
+            <th th:text="#{projects_employees}">Employees</th>
         </tr>
         </thead>
         <tbody>
@@ -35,15 +38,15 @@
             <td th:text="${project.employees.size()}">Employees</td>
             <td th:href="@{/add-department}" sec:authorize="hasRole('ADMIN')">
                 <form th:method="POST" th:action="@{/project-details/{id}(id=${project.id})}" class="d-inline">
-                    <input class="btn btn-primary btn-sm" type="submit" value="Edit"/>
+                    <input class="btn btn-primary btn-sm" type="submit" th:value="#{edit}"/>
                 </form>
                 <form th:method="POST" th:action="@{/delete-project/{id}(id=${project.id})}" class="d-inline">
-                    <input class="btn btn-danger btn-sm" type="submit" value="Remove"/>
+                    <input class="btn btn-danger btn-sm" type="submit" th:value="#{remove}"/>
                 </form>
             </td>
             <td sec:authorize="hasRole('USER')">
                 <form th:method="POST" th:action="@{/project-employees/{id}(id=${project.id})}" class="d-inline">
-                    <input class="btn btn-primary btn-sm" type="submit" value="Employees"/>
+                    <input class="btn btn-primary btn-sm" type="submit" th:value="#{employees}"/>
                 </form>
             </td>
         </tr>

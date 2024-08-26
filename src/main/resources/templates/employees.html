@@ -12,7 +12,10 @@
 <body>
 <div th:replace="~{fragments/navigation::navigation(activeLink=${'employees'})}"></div>
     <div class="entity-form employees-form">
-        <h2 class="text-center" th:text="#{employees_header}">Employees:<span class="count" th:text="${employees.size()}"></span></h2>
+        <h2 class="text-center">
+            <span th:text="#{employees_header}">Employees:</span>
+            <span class="count" th:text="${employees.size()}"></span>
+        </h2>
         <a href="/add-employee" class="btn btn-success add-employee-btn"
            sec:authorize="hasRole('ADMIN')"
            th:text="#{add}">Add</a>
