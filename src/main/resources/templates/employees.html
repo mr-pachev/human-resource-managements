@@ -12,21 +12,23 @@
 <body>
 <div th:replace="~{fragments/navigation::navigation(activeLink=${'employees'})}"></div>
     <div class="entity-form employees-form">
-        <h2 class="text-center">Employees:<span class="count" th:text="${employees.size()}"></span></h2>
-        <a href="/add-employee" class="btn btn-success add-employee-btn" sec:authorize="hasRole('ADMIN')">Add</a>
+        <h2 class="text-center" th:text="#{employees_header}">Employees:<span class="count" th:text="${employees.size()}"></span></h2>
+        <a href="/add-employee" class="btn btn-success add-employee-btn"
+           sec:authorize="hasRole('ADMIN')"
+           th:text="#{add}">Add</a>
         <table class="justify-content-center table table-striped">
             <thead>
                 <tr>
-                    <th>First Name</th>
-                    <th>Middle Name</th>
-                    <th>Last Name</th>
-                    <th>Identification Number</th>
-                    <th>Age</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Position</th>
-                    <th>Department</th>
-                    <th>Education</th>
+                    <th th:text="#{employees_first_name}">First Name</th>
+                    <th th:text="#{employees_middle_name}">Middle Name</th>
+                    <th th:text="#{employees_last_name}">Last Name</th>
+                    <th th:text="#{employees_IN}">Identification Number</th>
+                    <th th:text="#{employees_age}">Age</th>
+                    <th th:text="#{employees_start_date}">Start Date</th>
+                    <th th:text="#{employees_end_date}">End Date</th>
+                    <th th:text="#{employees_position}">Position</th>
+                    <th th:text="#{employees_department}">Department</th>
+                    <th th:text="#{employees_education}">Education</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,10 +45,10 @@
                     <td th:text="${employee.education}">Education</td>
                     <td th:href="@{/add-employee}" sec:authorize="hasRole('ADMIN')" th:if="${employee.firstName != 'DEFAULT_EMP'}">
                         <form th:method="POST" th:action="@{/employee-details/{id}(id=${employee.id})}" class="d-inline">
-                            <input class="btn btn-primary btn-sm" type="submit" value="Edit"/>
+                            <input class="btn btn-primary btn-sm" type="submit" th:value="#{edit}"/>
                         </form>
                         <form th:method="POST" th:action="@{/delete-employee/{id}(id=${employee.id})}" class="d-inline">
-                            <input class="btn btn-danger btn-sm" type="submit" value="Remove"/>
+                            <input class="btn btn-danger btn-sm" type="submit" th:value="#{remove}"/>
                         </form>
                     </td>
                 </tr>
