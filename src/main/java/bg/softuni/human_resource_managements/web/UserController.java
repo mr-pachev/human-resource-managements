@@ -171,7 +171,11 @@ public class UserController {
             userHelperService.updateCurrentUserUsername(userDTO.getUsername());
         }
 
-        return "redirect:/users";
+        if(userHelperService.hasRole("ADMIN")){
+            return "redirect:/users";
+        }
+
+        return "redirect:/";
     }
 
     //delete user by id
