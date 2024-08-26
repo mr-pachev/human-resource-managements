@@ -12,15 +12,17 @@
 <body>
 <div th:replace="~{fragments/navigation::navigation(activeLink=${'departments'})}"></div>
 <div class="entity-form departments-form">
-    <h2 class="text-center">Departments:<span class="count" th:text="${departments.size()}"></span></h2>
-    <a href="/add-department" class="btn btn-success add-employee-btn" sec:authorize="hasRole('ADMIN')">Add</a>
+    <h2 class="text-center"th:text="#{departments_header}">Departments:<span class="count" th:text="${departments.size()}"></span></h2>
+    <a href="/add-department" class="btn btn-success add-employee-btn"
+       sec:authorize="hasRole('ADMIN')"
+       th:text="#{add}">Add</a>
     <table class="departments-form justify-content-center table table-striped">
         <thead>
             <tr>
-            <th>Name</th>
-            <th>Manager Name</th>
-            <th>Employees</th>
-            <th>Projects</th>
+            <th th:text="#{departments_name}">Name</th>
+            <th th:text="#{departments_manager}">Manager Name</th>
+            <th th:text="#{departments_employees}">Employees</th>
+            <th th:text="#{departments_projects}">Projects</th>
             </tr>
         </thead>
         <tbody>
@@ -31,15 +33,15 @@
             <td th:text="${department.projects.size()}">Projects</td>
             <td sec:authorize="hasRole('ADMIN')" th:if="${department.departmentName != 'DEFAULT_DEPARTMENT'}">
                 <form th:method="POST" th:action="@{/department-details/{id}(id=${department.id})}" class="d-inline">
-                    <input class="btn btn-primary btn-sm" type="submit" value="Edit"/>
+                    <input class="btn btn-primary btn-sm" type="submit" th:value="#{edit}"/>
                 </form>
                 <form th:method="POST" th:action="@{/delete-department/{id}(id=${department.id})}" class="d-inline">
-                    <input class="btn btn-danger btn-sm" type="submit" value="Remove"/>
+                    <input class="btn btn-danger btn-sm" type="submit" th:value="#{remove}"/>
                 </form>
             </td>
                 <td sec:authorize="hasRole('USER')">
                     <form th:method="POST" th:action="@{/department-employees/{id}(id=${department.id})}" class="d-inline">
-                        <input class="btn btn-primary btn-sm" type="submit" value="Employees"/>
+                        <input class="btn btn-primary btn-sm" type="submit" th:value="#{employees}"/>
                     </form>
                 </td>
             </tr>
