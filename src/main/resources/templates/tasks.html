@@ -12,16 +12,21 @@
 <body>
 <div th:replace="~{fragments/navigation::navigation(activeLink=${'tasks'})}"></div>
 <div class="entity-form tasks-form">
-    <h2 class="text-center">Tasks:<span class="count" th:text="${tasks.size()}"></span></h2>
-    <a href="/add-task" class="btn btn-success add-employee-btn" sec:authorize="hasRole('ADMIN')">Add</a>
+    <h2 class="text-center">
+        <span th:text="#{tasks_header}">Tasks:</span>
+        <span class="count" th:text="${tasks.size()}"></span>
+    </h2>
+    <a href="/add-task" class="btn btn-success add-employee-btn"
+        sec:authorize="hasRole('ADMIN')"
+        th:text="#{add}">Add</a>
     <table class="departments-form justify-content-center table table-striped">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Employee Name</th>
-            <th>Start Date</th>
-            <th>End Date</th>
+            <th th:text="#{name}">Name</th>
+            <th th:text="#{description}">Description</th>
+            <th th:text="#{tasks_employee_name}">Employee Name</th>
+            <th th:text="#{start_date}">Start Date</th>
+            <th th:text="#{end_date}">End Date</th>
         </tr>
         </thead>
         <tbody>
@@ -33,10 +38,10 @@
             <td th:text="${task.endDate}">End Date</td>
             <td sec:authorize="hasRole('ADMIN')">
                 <form th:method="POST" th:action="@{/task-details/{id}(id=${task.id})}" class="d-inline">
-                    <input class="btn btn-primary btn-sm" type="submit" value="Edit"/>
+                    <input class="btn btn-primary btn-sm" type="submit" th:value="#{edit}"/>
                 </form>
                 <form th:method="POST" th:action="@{/delete-task/{id}(id=${task.id})}" class="d-inline">
-                    <input class="btn btn-danger btn-sm" type="submit" value="Remove"/>
+                    <input class="btn btn-danger btn-sm" type="submit" th:value="#{remove}"/>
                 </form>
             </td>
         </tr>
