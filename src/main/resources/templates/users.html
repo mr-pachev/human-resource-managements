@@ -12,13 +12,16 @@
 <body>
 <div th:replace="~{fragments/navigation::navigation(activeLink=${'users'})}"></div>
     <div class="entity-form users-form">
-        <h2 class="text-center">Users:<span class="count" th:text="${userDTOS.size()}"></span></h2>
+        <h2 class="text-center">
+            <span th:text="#{users_header}">Users:</span>
+            <span class="count" th:text="${userDTOS.size()}"></span>
+        </h2>
         <table class="departments-form justify-content-center table table-striped">
             <thead>
                 <tr>
-                    <th>Username</th>
-                    <th>Identification Number</th>
-                    <th>Role</th>
+                    <th th:text="#{username}">Username</th>
+                    <th th:text="#{identification_number}">Identification Number</th>
+                    <th th:text="#{role}">Role</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,10 +31,10 @@
                     <td th:text="${user.role}">Role</td>
                     <td th:href="@{/add-employee}" sec:authorize="hasRole('ADMIN')" th:if="${user.username} != ${loginUsername}">
                         <form th:method="POST" th:action="@{/user-details/{id}(id=${user.userId})}" class="d-inline">
-                            <input class="btn btn-primary btn-sm" type="submit" value="Edit"/>
+                            <input class="btn btn-primary btn-sm" type="submit" th:value="#{edit}"/>
                         </form>
                         <form th:method="POST" th:action="@{/delete-user/{id}(id=${user.userId})}" class="d-inline">
-                            <input class="btn btn-danger btn-sm" type="submit" value="Remove"/>
+                            <input class="btn btn-danger btn-sm" type="submit" th:value="#{remove}"/>
                         </form>
                     </td>
                 </tr>
