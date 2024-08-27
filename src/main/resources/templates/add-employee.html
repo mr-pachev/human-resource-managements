@@ -14,14 +14,14 @@
             <p class="d-block">The employee already exists</p>
         </div>
         <div th:unless="${isExist}">
-            <h2 class="text-center">Add Employee</h2>
+            <h2 class="text-center" th:text="#{add_employee_header}">Add Employee</h2>
         </div>
         <form th:action="@{/add-employee}"
           th:object="${addEmployeeDTO}"
           th:method="POST"
           id="addEmployeeForm">
             <div class="form-group">
-                <label th:for="firstName">First Name</label>
+                <label th:for="firstName" th:text="#{employees_first_name}">First Name</label>
                 <input type="text" class="form-control"
                        id="firstName"
                        name="firstName"
@@ -32,7 +32,7 @@
                 </p>
             </div>
         <div class="form-group">
-            <label th:for="middleName">Middle Name</label>
+            <label th:for="middleName"th:text="#{employees_middle_name}">Middle Name</label>
             <input type="text" class="form-control"
                    id="middleName"
                    name="middleName"
@@ -43,7 +43,7 @@
             </p>
         </div>
         <div class="form-group">
-            <label th:for="lastName">Last Name</label>
+            <label th:for="lastName"th:text="#{employees_last_name}">Last Name</label>
             <input type="text" class="form-control"
                    id="lastName"
                    name="lastName"
@@ -54,7 +54,7 @@
             </p>
         </div>
         <div class="form-group">
-            <label th:for="identificationNumber">Identification Number</label>
+            <label th:for="identificationNumber"th:text="#{employees_IN}">Identification Number</label>
             <input type="text" class="form-control"
                    id="identificationNumber"
                    name="identificationNumber"
@@ -65,7 +65,7 @@
             </p>
         </div>
         <div class="form-group">
-            <label th:for="age">Age</label>
+            <label th:for="age"th:text="#{employees_age}">Age</label>
             <input type="text" class="form-control"
                    id="age"
                    name="age"
@@ -76,7 +76,7 @@
             </p>
         </div>
         <div class="form-group">
-            <label th:for="startDate">Start Date</label>
+            <label th:for="startDate"th:text="#{employees_start_date}">Start Date</label>
             <input type="date" class="form-control"
                    id="startDate"
                    name="startDate"
@@ -84,7 +84,7 @@
                    th:errorclass="is-invalid">
         </div>
         <div class="form-group">
-            <label th:for="position">Position</label>
+            <label th:for="position"th:text="#{employees_position}">Position</label>
             <select class="form-control"
                     id="position"
                     name="position"
@@ -102,7 +102,7 @@
             </p>
         </div>
         <div class="form-group">
-            <label th:for="department">Department</label>
+            <label th:for="department"th:text="#{employees_department}">Department</label>
             <select class="form-control"
                     id="department"
                     name="department"
@@ -119,7 +119,7 @@
             </p>
         </div>
         <div class="form-group">
-            <label th:for="education">Education</label>
+            <label th:for="education" th:text="#{employees_education}">Education</label>
             <select class="form-control"
                     id="education"
                     name="education"
@@ -134,7 +134,7 @@
                 Education type is required.
             </p>
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Add</button>
+        <button type="submit" class="btn btn-primary btn-block" th:text="#{add}">Add</button>
     </form>
 </div>
     <footer th:replace="~{fragments/footer}"></footer>
