@@ -14,14 +14,14 @@
         <p class="d-block">The project already exists</p>
     </div>
     <div th:unless="${isExist}">
-        <h2 class="text-center">Add Project</h2>
+        <h2 class="text-center" th:text="#{add_project_header}">Add Project</h2>
     </div>
     <form th:action="@{/add-project}"
           th:object="${addProjectDTO}"
           th:method="POST"
           id="addProjectForm">
         <div class="form-group">
-            <label th:for="name">Name</label>
+            <label th:for="name" th:text="#{name}">Name</label>
             <input type="text" class="form-control"
                    id="name"
                    name="name"
@@ -32,7 +32,7 @@
             </p>
         </div>
         <div class="form-group">
-            <label th:for="description">Description</label>
+            <label th:for="description" th:text="#{description}">Description</label>
             <input type="text" class="form-control"
                    id="description"
                    name="description"
@@ -43,7 +43,7 @@
             </p>
         </div>
         <div class="form-group">
-            <label th:for="startDate">Start Date</label>
+            <label th:for="startDate" th:text="#{start_date}">Start Date</label>
             <input type="date" class="form-control"
                    id="startDate"
                    name="startDate"
@@ -51,7 +51,7 @@
                    th:errorclass="is-invalid">
         </div>
         <div class="form-group">
-            <label th:for="endtDate">End Date</label>
+            <label th:for="endtDate" th:text="#{end_date}">End Date</label>
             <input type="date" class="form-control"
                    id="endDate"
                    name="endDate"
@@ -59,7 +59,7 @@
                    th:errorclass="is-invalid">
         </div>
         <div class="form-group">
-            <label th:for="department">Department</label>
+            <label th:for="department" th:text="#{add_project_department}">Department</label>
             <select class="form-control"
                     id="department"
                     name="department"
@@ -75,7 +75,7 @@
                 Department is required.
             </p>
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Add</button>
+        <button type="submit" class="btn btn-primary btn-block" th:text="#{add}">Add</button>
     </form>
 </div>
 <footer th:replace="~{fragments/footer}"></footer>
