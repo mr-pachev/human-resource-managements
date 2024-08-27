@@ -14,7 +14,7 @@
         <p class="d-block">The task already exists</p>
     </div>
     <div th:unless="${isExist}">
-        <h2 class="text-center">Add Task</h2>
+        <h2 class="text-center" th:text="#{add_task_header}">Add Task</h2>
     </div>
     <form th:action="@{/add-task}"
           th:object="${addTaskDTO}"
@@ -22,7 +22,7 @@
           id="addTaskForm">
 
         <div class="form-group">
-            <label th:for="name">Name</label>
+            <label th:for="name" th:text="#{name}">Name</label>
             <input type="text" class="form-control"
                    id="name"
                    name="name"
@@ -33,7 +33,7 @@
             </p>
         </div>
         <div class="form-group">
-            <label th:for="description">Description</label>
+            <label th:for="description" th:text="#{description}">Description</label>
             <input type="text" class="form-control"
                    id="description"
                    name="description"
@@ -44,7 +44,7 @@
             </p>
         </div>
         <div class="form-group">
-            <label th:for="startDate">Start Date</label>
+            <label th:for="startDate" th:text="#{start_date}">Start Date</label>
             <input type="date" class="form-control"
                    id="startDate"
                    name="startDate"
@@ -52,7 +52,7 @@
                    th:errorclass="is-invalid">
         </div>
         <div class="form-group">
-            <label th:for="endDate">End Date</label>
+            <label th:for="endDate" th:text="#{end_date}">End Date</label>
             <input type="date" class="form-control"
                    id="endDate"
                    name="endDate"
@@ -60,7 +60,7 @@
                    th:errorclass="is-invalid">
         </div>
         <div class="form-group">
-            <label th:for="employee">Employee</label>
+            <label th:for="employee" th:text="#{tasks_employee_name}">Employee</label>
             <select class="form-control"
                     id="employee"
                     name="employee"
@@ -75,7 +75,7 @@
                 You must select employee.
             </p>
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Add</button>
+        <button type="submit" class="btn btn-primary btn-block" th:text="#{add}">Add</button>
     </form>
 </div>
 <footer th:replace="~{fragments/footer}"></footer>
