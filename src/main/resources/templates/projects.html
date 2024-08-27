@@ -16,7 +16,9 @@
         <span th:text="#{projects_header}"> Projects:</span>
         <span class="count" th:text="${projects.size()}"></span>
     </h2>
-    <a href="/add-project" class="btn btn-success add-employee-btn" sec:authorize="hasRole('ADMIN')">Add</a>
+    <a href="/add-project" class="btn btn-success add-employee-btn"
+       sec:authorize="hasRole('ADMIN')"
+       th:text="#{add}">Add</a>
     <table class="projects-form justify-content-center table table-striped">
         <thead>
         <tr>
