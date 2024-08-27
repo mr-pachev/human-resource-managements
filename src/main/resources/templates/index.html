@@ -17,8 +17,8 @@
         <table class="table table-striped birthday-table">
             <thead>
             <tr>
-                <th>Name</th>
-                <th>Position</th>
+                <th th:text="#{name}">Name</th>
+                <th th:text="#{position}">Position</th>
             </tr>
             </thead>
             <tbody>
@@ -38,7 +38,7 @@
         <hr class="my-3 bg-white w-75"/>
 
         <h5 sec:authorize="!isAuthenticated()">
-            <a class="text-primary" th:href="@{/login}" id="login" th:text="#{index_login}">Login</a>
+            <a class="text-primary" th:href="@{/login}" id="login" th:text="#{login}">Login</a>
             <span id="login_desc" th:text="#{index_login_desc}">if you have an account or</span>
             <a class="text-primary" th:href="@{/registration}" id="registration" th:text="#{index_registration}">Register</a>
             <span id="registration_desc" th:text="#{index_registration_desc}">now and check employees.</span>

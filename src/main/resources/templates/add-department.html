@@ -14,14 +14,14 @@
         <p class="d-block">The department already exists</p>
     </div>
     <div th:unless="${isExist}">
-        <h2 class="text-center">Add Department</h2>
+        <h2 class="text-center" th:text="#{add_department_header}">Add Department</h2>
     </div>
     <form th:action="@{/add-department}"
           th:object="${addDepartmentDTO}"
           th:method="POST"
           id="addDepartmentForm">
         <div class="form-group">
-            <label th:for="name">Name</label>
+            <label th:for="name" th:text="#{name}">Name</label>
             <input type="text" class="form-control"
                    id="name"
                    name="name"
@@ -32,7 +32,7 @@
             </p>
         </div>
         <div class="form-group">
-            <label th:for="employee">Manager</label>
+            <label th:for="employee" th:text="#{add_department_manager}">Manager</label>
             <select class="form-control"
                     id="employee"
                     name="employee"
@@ -50,7 +50,7 @@
 
 
         <div class="form-group">
-            <label th:for="description">Description</label>
+            <label th:for="description" th:text="#{description}">Description</label>
             <input type="text" class="form-control"
                    id="description"
                    name="description"
@@ -60,7 +60,7 @@
                 Description must contain 10 to 255 letters.
             </p>
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Add</button>
+        <button type="submit" class="btn btn-primary btn-block" th:text="#{add}">Add</button>
     </form>
 </div>
 <footer th:replace="~{fragments/footer}"></footer>

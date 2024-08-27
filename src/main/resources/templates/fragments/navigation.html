@@ -14,7 +14,7 @@
         <div class="nav-left">
             <a th:href="@{/}" th:text="#{nav_bar_home}">Home</a>
             <th:block sec:authorize="!isAuthenticated()">
-                <a th:href="@{/login}" th:text="#{nav_bar_login}" th:classappend="${activeLink == 'login'}? 'active'">Login</a>
+                <a th:href="@{/login}" th:text="#{login}" th:classappend="${activeLink == 'login'}? 'active'">Login</a>
                 <a th:href="@{/registration}" th:text="#{nav_bar_registration}"
                    th:classappend="${activeLink == 'registration'}? 'active'">Registration</a>
             </th:block>
