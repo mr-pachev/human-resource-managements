@@ -10,7 +10,7 @@
 <body>
 <div th:replace="~{fragments/navigation::navigation(activeLink=${'departments'})}"></div>
 <div class="container-form">
-        <h2 class="text-center" th:text="#{edit_department_header}">Edit Department</h2>
+        <h2 class="text-center" th:text="#{department_details_header}">Edit Department</h2>
     <form
             th:action="@{/department-details}"
             th:object="${departmentDTO}"
